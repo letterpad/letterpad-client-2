@@ -3,15 +3,15 @@
   "version": "1.5.1",
   "private": true,
   "scripts": {
+    "dev": "yarn codegen && next",
+    "build": "yarn codegen && next build",
     "start": "next start",
-    "dev": "next dev",
     "codegen": "graphql-codegen",
-    "build": "next build",
     "serve": "next start",
     "analyze": "cross-env ANALYZE=true next build",
     "lint": "next lint --fix --dir pages --dir components --dir lib --dir layouts --dir scripts",
     "prepare": "husky install",
-    "prettier:write": "prettier --ignore-path .gitignore --write ."
+    "prettier": "prettier --ignore-path .gitignore --write ."
   },
   "dependencies": {
     "@fontsource/inter": "4.5.2",

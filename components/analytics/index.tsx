@@ -1,9 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import GA from './GoogleAnalytics';
 import Plausible from './Plausible';
-import SimpleAnalytics from './SimpleAnalytics';
 import Umami from './Umami';
-import siteMetadata from '@/data/siteMetadata';
 
 declare global {
   interface Window {

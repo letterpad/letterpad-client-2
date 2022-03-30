@@ -102,8 +102,9 @@ module.exports = withBundleAnalyzer({
     return config;
   },
   env: {
-    // API_URL: 'http://localhost:3000/admin/api/graphql',
-    API_URL: 'https://letterpad.app/admin/api/graphql',
-    CLIENT_ID: 'YWJoaXNoZWtzYWhhMTFAZ21haWwuY29tNmdFeFhIYkgzTU1UYUZueWRkNGt2c2NEN1pDNlRDN1c',
+    API_URL: 'http://localhost:3000/admin/api/graphql',
+    // API_URL: 'https://letterpad.app/admin/api/graphql',
+    // CLIENT_ID: 'YWJoaXNoZWtzYWhhMTFAZ21haWwuY29tNmdFeFhIYkgzTU1UYUZueWRkNGt2c2NEN1pDNlRDN1c',
+    CLIENT_ID: 'dGVzdDNAYWpheHRvd24uY29tNmdFeFhIYkgzTU1UYUZueWRkNGt2c2NEN1pDNlRDN1c=',
   },
 });

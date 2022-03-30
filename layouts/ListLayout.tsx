@@ -1,18 +1,13 @@
 import Link from '@/components/Link';
 import Tag from '@/components/Tag';
-import { ComponentProps } from 'react';
-import Pagination from '@/components/Pagination';
 import formatDate from '@/lib/utils/formatDate';
-import { PostFrontMatter } from 'types/PostFrontMatter';
 import { PostsFragmentFragment } from '@/lib/graphql';
 interface Props {
   posts: PostsFragmentFragment;
   title: string;
-  initialDisplayPosts?: PostFrontMatter[];
-  pagination?: ComponentProps<typeof Pagination>;
 }
 
-export default function ListLayout({ posts, title, initialDisplayPosts = [], pagination }: Props) {
+export default function ListLayout({ posts, title }: Props) {
   return (
     <>
       <div className="divide-y divide-gray-200 dark:divide-gray-700">
@@ -57,9 +52,6 @@ export default function ListLayout({ posts, title, initialDisplayPosts = [], pag
           })}
         </ul>
       </div>
-      {/* {pagination && pagination.totalPages > 1 && !searchValue && (
-        <Pagination currentPage={pagination.currentPage} totalPages={pagination.totalPages} />
-      )} */}
     </>
   );
 }

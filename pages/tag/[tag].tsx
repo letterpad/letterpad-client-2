@@ -2,13 +2,13 @@ import { TagSEO } from '@/components/SEO';
 import siteMetadata from '@/data/siteMetadata';
 import ListLayout from '@/layouts/ListLayout';
 import { fetchProps } from '@/lib/client';
-import { TagsQueryQuery, TagsQueryQueryVariables } from '@/lib/graphql';
+import { TagPostsQueryQuery, TagPostsQueryQueryVariables } from '@/lib/graphql';
 import gql from 'graphql-tag';
 import { InferGetServerSidePropsType } from 'next';
 import { meFragment, postsFragment, settingsFragment, tagsFragment } from 'queries/queries';
 
 export const tagsQuery = gql`
-  query TagsQuery($tagSlug: String!) {
+  query TagPostsQuery($tagSlug: String!) {
     posts(filters: { tagSlug: $tagSlug }) {
       ...postsFragment
     }
@@ -45,7 +45,7 @@ export default function Tag({
 }
 
 export async function getServerSideProps(context) {
-  const response = await fetchProps<TagsQueryQuery, TagsQueryQueryVariables>(
+  const response = await fetchProps<TagPostsQueryQuery, TagPostsQueryQueryVariables>(
     tagsQuery,
     { tagSlug: context.params.tag },
     context.req.headers.host

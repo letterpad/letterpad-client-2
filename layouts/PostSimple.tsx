@@ -4,12 +4,10 @@ import SectionContainer from '@/components/SectionContainer';
 import { BlogSEO } from '@/components/SEO';
 import siteMetadata from '@/data/siteMetadata';
 import formatDate from '@/lib/utils/formatDate';
-import Comments from '@/components/comments';
-import ScrollTopAndComment from '@/components/ScrollTopAndComment';
+// import Comments from '@/components/comments';
+// import ScrollTopAndComment from '@/components/ScrollTopAndComment';
 import { ReactNode } from 'react';
-import { PostFrontMatter } from 'types/PostFrontMatter';
-import { PageProps } from '@/lib/client';
-import { PageFragmentFragment, PageQueryQuery } from '@/lib/graphql';
+import { PageFragmentFragment } from '@/lib/graphql';
 
 interface Props {
   data: PageFragmentFragment;
@@ -34,7 +32,7 @@ export default function PostSimple({ data, next, prev, children }: Props) {
         tags={tags.map((t) => t.name)}
         fileName={title}
       />
-      <ScrollTopAndComment />
+      {/* <ScrollTopAndComment /> */}
       <article>
         <div>
           <header>

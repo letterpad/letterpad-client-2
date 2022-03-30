@@ -16,6 +16,7 @@ import { meFragment, pageQuery, postsQuery, settingsFragment } from 'queries/que
 import PostGrid from '@/components/PostGrid';
 import PostList from '@/components/PostList';
 import Head from 'next/head';
+import PostLayout from '@/layouts/PostLayout';
 
 // const MAX_DISPLAY = 5;
 
@@ -37,6 +38,7 @@ export default function Home({
   posts,
 }: InferGetServerSidePropsType<typeof getServerSideProps>) {
   const { theme = 'minimal' } = settings;
+  const Component = theme === 'minimal' ? PostList : PostGrid;
   return (
     <>
       <Head>
@@ -58,25 +60,19 @@ export default function Home({
         {posts.__typename === 'PostError' ? 'No posts found.' : ''}
         {posts.__typename === 'PostsNode' && posts.rows.length === 0 && 'No posts found.'}
 
-        {posts.__typename === 'PostsNode' && theme === 'minimal' && <PostList posts={posts} />}
-        {posts.__typename === 'PostsNode' && theme === 'magazine' && <PostGrid posts={posts} />}
+        {!isPage && posts.__typename === 'PostsNode' && <Component posts={posts} />}
+        {isPage && page.__typename === 'Post' && (
+          <PostLayout data={{ post: page, settings, me }}>
+            <div dangerouslySetInnerHTML={{ __html: page.html }}></div>
+          </PostLayout>
+        )}
       </div>
-      {/* {posts.length > MAX_DISPLAY && (
-        <div className="flex justify-end text-base font-medium leading-6">
-          <Link
-            href="/blog"
-            className="text-primary-500 hover:text-primary-600 dark:hover:text-primary-400"
-            aria-label="all posts"
-          >
-            All Posts &rarr;
-          </Link>
-        </div>
-      )}
-      {siteMetadata.newsletter.provider !== '' && (
+
+      {/* {siteMetadata.newsletter.provider !== '' && (
         <div className="flex items-center justify-center pt-4">
           <NewsletterForm />
         </div>
-      )} */}
+      )}  */}
     </>
   );
 }
