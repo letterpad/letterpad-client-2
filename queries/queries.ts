@@ -15,6 +15,8 @@ export const settingsFragment = gql`
         site_email
         site_description
         site_tagline
+        show_about_page
+        show_tags_page
         theme
         banner {
           src

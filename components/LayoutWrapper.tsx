@@ -19,10 +19,17 @@ const LayoutWrapper = ({ children, props }: Props) => {
   if (props.settings.__typename === 'SettingError' || props.me.__typename === 'AuthorNotFoundError')
     return <div>Setting not found</div>;
 
-  const menu = getMenu([
-    ...props.settings.menu,
-    { slug: '/about', label: 'About', type: NavigationType.Page },
-  ]);
+  const { show_about_page, show_tags_page } = props.settings;
+
+  const routes = [...props.settings.menu];
+  if (show_tags_page) {
+    routes.push({ slug: '/tags', label: 'Tags', type: NavigationType.Page });
+  }
+  if (show_about_page) {
+    routes.push({ slug: '/about', label: 'About', type: NavigationType.Page });
+  }
+
+  const menu = getMenu(routes);
   return (
     <SectionContainer>
       <div className="flex h-screen flex-col justify-between">
