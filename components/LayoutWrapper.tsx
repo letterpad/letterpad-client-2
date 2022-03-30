@@ -30,14 +30,16 @@ const LayoutWrapper = ({ children, props }: Props) => {
           <div>
             <Link href="/" aria-label={props.settings.site_title}>
               <div className="flex items-center justify-between">
-                <div className="mr-3">
-                  <Image
-                    src={props.settings.site_logo.src}
-                    width="46"
-                    height="46"
-                    alt={props.settings.site_title}
-                  />
-                </div>
+                <span className="mr-2 flex">
+                  {props.settings.site_logo.src && (
+                    <Image
+                      src={props.settings.site_logo.src}
+                      width="46"
+                      height="46"
+                      alt={props.settings.site_title}
+                    />
+                  )}
+                </span>
                 {typeof props.settings.site_title === 'string' ? (
                   <div className="hidden h-6 text-2xl font-semibold sm:block">
                     {props.settings.site_title}

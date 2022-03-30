@@ -15,6 +15,7 @@ import {
 import { meFragment, pageQuery, postsQuery, settingsFragment } from 'queries/queries';
 import PostGrid from '@/components/PostGrid';
 import PostList from '@/components/PostList';
+import Head from 'next/head';
 
 // const MAX_DISPLAY = 5;
 
@@ -38,6 +39,11 @@ export default function Home({
   const { theme = 'minimal' } = settings;
   return (
     <>
+      <Head>
+        {settings.site_favicon.src && (
+          <link rel="icon" type="image/png" sizes="32x32" href={settings.site_favicon.src} />
+        )}
+      </Head>
       <PageSEO title={settings.site_title} description={settings.site_description} />
       <div className="divide-y divide-gray-200 dark:divide-gray-700">
         <div className="space-y-2 pt-6 pb-8 md:space-y-5">

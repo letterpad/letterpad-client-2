@@ -7,7 +7,7 @@ import Tag from '@/components/Tag';
 import siteMetadata from '@/data/siteMetadata';
 import Comments from '@/components/comments';
 import ScrollTopAndComment from '@/components/ScrollTopAndComment';
-import { ReactNode } from 'react';
+import { ReactNode, useEffect } from 'react';
 import { PageQueryWithHtmlQuery } from '@/lib/graphql';
 
 const discussUrl = (slug) =>
@@ -31,6 +31,12 @@ interface Props {
 
 export default function PostLayout({ data, next, prev, children }: Props) {
   const { post, settings, me } = data;
+
+  useEffect(() => {
+    if (typeof window.Prism !== 'undefined') {
+      window.Prism.highlightAll();
+    }
+  }, [data]);
 
   if (
     post.__typename === 'PostError' ||
