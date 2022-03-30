@@ -26,10 +26,10 @@ interface Props {
 const Analytics: React.VFC<Props> = ({ data }) => {
   return (
     <>
-      {isProduction && data.plausible_data_domain && <Plausible id={data.plausible_data_domain} />}
+      {isProduction && data?.plausible_data_domain && <Plausible id={data.plausible_data_domain} />}
       {/* {isProduction && data.simpleAnalytics && <SimpleAnalytics />} */}
-      {isProduction && data.umami_id && <Umami id={data.umami_id} />}
-      {isProduction && data.google_analytics && <GA id={data.google_analytics} />}
+      {isProduction && data?.umami_id && <Umami id={data.umami_id} />}
+      {isProduction && data?.google_analytics && <GA id={data.google_analytics} />}
     </>
   );
 };

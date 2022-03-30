@@ -3,14 +3,15 @@
   "version": "1.5.1",
   "private": true,
   "scripts": {
-    "start": "cross-env SOCKET=true node ./scripts/next-remote-watch.js ./data",
+    "start": "next start",
     "dev": "next dev",
     "codegen": "graphql-codegen",
     "build": "next build",
     "serve": "next start",
     "analyze": "cross-env ANALYZE=true next build",
     "lint": "next lint --fix --dir pages --dir components --dir lib --dir layouts --dir scripts",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "prettier:write": "prettier --ignore-path .gitignore --write ."
   },
   "dependencies": {
     "@fontsource/inter": "4.5.2",
