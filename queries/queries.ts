@@ -26,6 +26,9 @@ export const settingsFragment = gql`
           slug
           label
         }
+        analytics {
+          google_analytics
+        }
       }
     }
   }
@@ -34,19 +37,24 @@ export const meFragment = gql`
   fragment me on Query {
     me {
       ... on Author {
+        __typename
         name
         bio
+        occupation
         avatar
+        company_name
         social {
           twitter
           facebook
           github
           instagram
+          linkedin
         }
       }
     }
   }
 `;
+
 export const pageFragment = gql`
   fragment pageFragment on Post {
     ... on Post {
@@ -65,6 +73,7 @@ export const pageFragment = gql`
       author {
         name
         avatar
+        occupation
       }
       cover_image {
         src
@@ -73,6 +82,7 @@ export const pageFragment = gql`
     __typename
   }
 `;
+
 export const postsFragment = gql`
   fragment postsFragment on PostsNode {
     __typename
@@ -118,6 +128,18 @@ export const postsQuery = gql`
     }
   }
   ${postsFragment}
+`;
+
+export const tagsFragment = gql`
+  fragment tagsFragment on TagResponse {
+    ... on Tags {
+      name
+      slug
+    }
+    ... on TagResultError {
+      message
+    }
+  }
 `;
 
 // export const baseQuery = gql`

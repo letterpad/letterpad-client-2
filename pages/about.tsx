@@ -21,7 +21,7 @@ export default function About({
   if (me.__typename === 'AuthorNotFoundError') return <div>Author not found</div>;
   if (settings.__typename === 'SettingError') return <div>Setting not found</div>;
 
-  const { name, social, avatar = '/static/images/avatar.png', bio } = me;
+  const { name, social, avatar = '/static/images/avatar.png', bio, occupation, company_name } = me;
   const { site_email } = settings;
   return (
     <AuthorLayout
@@ -31,12 +31,12 @@ export default function About({
         github: social.github,
         twitter: social.twitter,
         email: site_email,
-        company: '',
-        linkedin: '',
-        occupation: '',
+        company: company_name,
+        linkedin: social.linkedin,
+        occupation,
       }}
     >
-      {bio}
+      <div dangerouslySetInnerHTML={{ __html: bio }} />
     </AuthorLayout>
   );
 }

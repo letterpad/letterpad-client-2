@@ -2,17 +2,14 @@ import Link from '@/components/Link';
 import PageTitle from '@/components/PageTitle';
 import SectionContainer from '@/components/SectionContainer';
 import { BlogSEO } from '@/components/SEO';
-import Image from '@/components/Image';
+// import Image from '@/components/Image';
 import Tag from '@/components/Tag';
 import siteMetadata from '@/data/siteMetadata';
 import Comments from '@/components/comments';
 import ScrollTopAndComment from '@/components/ScrollTopAndComment';
 import { ReactNode } from 'react';
-import { PostFrontMatter } from 'types/PostFrontMatter';
-import { AuthorFrontMatter } from 'types/AuthorFrontMatter';
-import { PageFragmentFragment, PageQueryWithHtmlQuery } from '@/lib/graphql';
+import { PageQueryWithHtmlQuery } from '@/lib/graphql';
 
-const editUrl = (fileName) => `${siteMetadata.siteRepo}/blob/master/data/blog/${fileName}`;
 const discussUrl = (slug) =>
   `https://mobile.twitter.com/search?q=${encodeURIComponent(
     `${siteMetadata.siteUrl}/blog/${slug}`
@@ -26,26 +23,36 @@ const postDateTemplate: Intl.DateTimeFormatOptions = {
 };
 
 interface Props {
-  data: PageQueryWithHtmlQuery['post'];
-  // authorDetails: AuthorFrontMatter[];
+  data: PageQueryWithHtmlQuery;
   next?: { slug: string; title: string };
   prev?: { slug: string; title: string };
   children: ReactNode;
 }
 
 export default function PostLayout({ data, next, prev, children }: Props) {
-  if (data.__typename === 'PostError') return null;
-  const { slug, publishedAt, title, excerpt, updatedAt, cover_image, tags, author } = data;
+  const { post, settings, me } = data;
+
+  if (
+    post.__typename === 'PostError' ||
+    settings.__typename === 'SettingError' ||
+    me.__typename === 'AuthorNotFoundError'
+  )
+    return null;
+
+  const { slug, publishedAt, title, excerpt, updatedAt, cover_image, tags, author } = post;
+
   const authorDetails = [
     {
       name: author.name,
       avatar: author.avatar,
-      occupation: '',
-      company: '',
-      email: '',
-      twitter: author.social.twitter,
-      linkedin: '',
-      github: author.social.github,
+      occupation: me.occupation,
+      company: me.company_name,
+      email: settings.site_email,
+      twitter: me.social.twitter,
+      linkedin: me.social.linkedin,
+      github: me.social.github,
+      banner: settings.banner.src,
+      logo: settings.site_logo.src,
     },
   ];
   return (
@@ -109,12 +116,12 @@ export default function PostLayout({ data, next, prev, children }: Props) {
                       <dd className="text-gray-900 dark:text-gray-100">{author.name}</dd>
                       <dt className="sr-only">Twitter</dt>
                       <dd>
-                        {author.social.twitter && (
+                        {me.social.twitter && (
                           <Link
-                            href={author.social.twitter}
+                            href={me.social.twitter}
                             className="text-primary-500 hover:text-primary-600 dark:hover:text-primary-400"
                           >
-                            {author.social.twitter.replace('https://twitter.com/', '@')}
+                            {me.social.twitter.replace('https://twitter.com/', '@')}
                           </Link>
                         )}
                       </dd>
@@ -137,7 +144,7 @@ export default function PostLayout({ data, next, prev, children }: Props) {
             </div>
             <footer>
               <div className="divide-gray-200 text-sm font-medium leading-5 dark:divide-gray-700 xl:col-start-1 xl:row-start-2 xl:divide-y">
-                {tags && (
+                {tags.length > 0 && (
                   <div className="py-4 xl:py-8">
                     <h2 className="text-xs uppercase tracking-wide text-gray-500 dark:text-gray-400">
                       Tags

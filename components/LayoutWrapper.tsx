@@ -4,22 +4,24 @@ import Footer from './Footer';
 import MobileNav from './MobileNav';
 import ThemeSwitch from './ThemeSwitch';
 import { ReactNode } from 'react';
-import { Navigation, NavigationType, SettingsFragment } from '@/lib/graphql';
+import { MeFragment, Navigation, NavigationType, SettingsFragment } from '@/lib/graphql';
+import Image from '@/components/Image';
 
 interface Props {
   children: ReactNode;
   props: {
     settings: SettingsFragment['settings'];
+    me: MeFragment['me'];
   };
 }
 
 const LayoutWrapper = ({ children, props }: Props) => {
-  console.log(props);
-  if (props.settings.__typename === 'SettingError') return <div>Setting not found</div>;
+  if (props.settings.__typename === 'SettingError' || props.me.__typename === 'AuthorNotFoundError')
+    return <div>Setting not found</div>;
 
   const menu = getMenu([
     ...props.settings.menu,
-    { slug: 'about', label: 'About', type: NavigationType.Page },
+    { slug: '/about', label: 'About', type: NavigationType.Page },
   ]);
   return (
     <SectionContainer>
@@ -29,9 +31,10 @@ const LayoutWrapper = ({ children, props }: Props) => {
             <Link href="/" aria-label={props.settings.site_title}>
               <div className="flex items-center justify-between">
                 <div className="mr-3">
-                  <img
+                  <Image
                     src={props.settings.site_logo.src}
-                    style={{ height: 50 }}
+                    height={60}
+                    width="80px"
                     alt={props.settings.site_title}
                   />
                 </div>
@@ -52,7 +55,7 @@ const LayoutWrapper = ({ children, props }: Props) => {
           </div>
         </header>
         <main className="mb-auto">{children}</main>
-        <Footer />
+        <Footer author={props.me} settings={props.settings} />
       </div>
     </SectionContainer>
   );

@@ -57,11 +57,11 @@ const securityHeaders = [
  **/
 module.exports = withBundleAnalyzer({
   reactStrictMode: true,
-  pageExtensions: ['ts', 'tsx', 'js', 'jsx', 'md', 'mdx'],
+  pageExtensions: ['ts', 'tsx', 'js', 'jsx'],
   eslint: {
     dirs: ['pages', 'components', 'lib', 'layouts', 'scripts'],
   },
-  images: ['res.cloudinary.com'],
+  images: { domains: ['res.cloudinary.com', 'images.unsplash.com', 'localhost'] },
   async headers() {
     return [
       {
@@ -102,9 +102,8 @@ module.exports = withBundleAnalyzer({
     return config;
   },
   env: {
-    // API_URL: "http://localhost:3000/admin/api/graphql",
-    API_URL: 'https://letterpad.app/admin/api/graphql',
-    CLIENT_ID: 'YWJoaXNoZWtzYWhhMTFAZ21haWwuY29tNmdFeFhIYkgzTU1UYUZueWRkNGt2c2NEN1pDNlRDN1c=',
-    GRAPHCOMMENT_ID: 'letterpad', //process.env.GRAPHCOMMENT_ID,
+    API_URL: 'http://localhost:3000/admin/api/graphql',
+    // API_URL: 'https://letterpad.app/admin/api/graphql',
+    CLIENT_ID: 'ZGVtb0BkZW1vLmNvbTZnRXhYSGJIM01NVGFGbnlkZDRrdnNjRDdaQzZUQzdX',
   },
 });

@@ -4,8 +4,9 @@ import { ComponentProps, useState } from 'react';
 import Pagination from '@/components/Pagination';
 import formatDate from '@/lib/utils/formatDate';
 import { PostFrontMatter } from 'types/PostFrontMatter';
+import { PostsFragmentFragment } from '@/lib/graphql';
 interface Props {
-  posts: PostFrontMatter[];
+  posts: PostsFragmentFragment;
   title: string;
   initialDisplayPosts?: PostFrontMatter[];
   pagination?: ComponentProps<typeof Pagination>;
@@ -13,14 +14,14 @@ interface Props {
 
 export default function ListLayout({ posts, title, initialDisplayPosts = [], pagination }: Props) {
   const [searchValue, setSearchValue] = useState('');
-  const filteredBlogPosts = posts.filter((frontMatter) => {
-    const searchContent = frontMatter.title + frontMatter.summary + frontMatter.tags.join(' ');
-    return searchContent.toLowerCase().includes(searchValue.toLowerCase());
-  });
+  // const filteredBlogPosts = posts.rows.filter((frontMatter) => {
+  //   const searchContent = frontMatter.title + frontMatter.summary + frontMatter.tags.join(' ');
+  //   return searchContent.toLowerCase().includes(searchValue.toLowerCase());
+  // });
 
-  // If initialDisplayPosts exist, display it if no searchValue is specified
-  const displayPosts =
-    initialDisplayPosts.length > 0 && !searchValue ? initialDisplayPosts : filteredBlogPosts;
+  // // If initialDisplayPosts exist, display it if no searchValue is specified
+  // const displayPosts =
+  //   initialDisplayPosts.length > 0 && !searchValue ? initialDisplayPosts : filteredBlogPosts;
 
   return (
     <>
@@ -54,33 +55,33 @@ export default function ListLayout({ posts, title, initialDisplayPosts = [], pag
           </div>
         </div>
         <ul>
-          {!filteredBlogPosts.length && 'No posts found.'}
-          {displayPosts.map((frontMatter) => {
-            const { slug, date, title, summary, tags } = frontMatter;
+          {/* {!filteredBlogPosts.length && 'No posts found.'} */}
+          {posts.rows.map((frontMatter) => {
+            const { slug, publishedAt, title, tags, excerpt } = frontMatter;
             return (
               <li key={slug} className="py-4">
                 <article className="space-y-2 xl:grid xl:grid-cols-4 xl:items-baseline xl:space-y-0">
                   <dl>
                     <dt className="sr-only">Published on</dt>
                     <dd className="text-base font-medium leading-6 text-gray-500 dark:text-gray-400">
-                      <time dateTime={date}>{formatDate(date)}</time>
+                      <time dateTime={publishedAt}>{formatDate(publishedAt)}</time>
                     </dd>
                   </dl>
                   <div className="space-y-3 xl:col-span-3">
                     <div>
                       <h3 className="text-2xl font-bold leading-8 tracking-tight">
-                        <Link href={`/blog/${slug}`} className="text-gray-900 dark:text-gray-100">
+                        <Link href={`${slug}`} className="text-gray-900 dark:text-gray-100">
                           {title}
                         </Link>
                       </h3>
                       <div className="flex flex-wrap">
                         {tags.map((tag) => (
-                          <Tag key={tag} text={tag} />
+                          <Tag key={tag.name} text={tag.name} />
                         ))}
                       </div>
                     </div>
                     <div className="prose max-w-none text-gray-500 dark:text-gray-400">
-                      {summary}
+                      {excerpt}
                     </div>
                   </div>
                 </article>

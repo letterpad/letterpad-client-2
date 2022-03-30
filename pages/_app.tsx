@@ -23,7 +23,7 @@ export default function App({ Component, pageProps }: AppProps) {
         <meta content="width=device-width, initial-scale=1" name="viewport" />
       </Head>
       {isDevelopment && isSocket && <ClientReload />}
-      <Analytics />
+      <Analytics data={pageProps.settings.analytics} />
       <LayoutWrapper props={pageProps}>
         <Component {...pageProps} />
       </LayoutWrapper>

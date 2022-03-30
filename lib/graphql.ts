@@ -13,14 +13,24 @@ export type Scalars = {
   Date: any;
 };
 
+export type Analytics = {
+  __typename?: 'Analytics';
+  google_analytics?: Maybe<Scalars['String']>;
+  plausible_data_domain?: Maybe<Scalars['String']>;
+  simple_analytics?: Maybe<Scalars['String']>;
+  umami_id?: Maybe<Scalars['String']>;
+};
+
 export type Author = {
   __typename?: 'Author';
   accessToken?: Maybe<Scalars['String']>;
   avatar?: Maybe<Scalars['String']>;
   bio?: Maybe<Scalars['String']>;
+  company_name?: Maybe<Scalars['String']>;
   email: Scalars['String'];
   id: Scalars['Int'];
   name: Scalars['String'];
+  occupation?: Maybe<Scalars['String']>;
   permissions?: Maybe<Array<Permissions>>;
   role?: Maybe<Role>;
   social?: Maybe<Social>;
@@ -94,12 +104,21 @@ export type Image = {
   width?: Maybe<Scalars['Int']>;
 };
 
+export type InputAnalytics = {
+  google_analytics?: InputMaybe<Scalars['String']>;
+  plausible_data_domain?: InputMaybe<Scalars['String']>;
+  simple_analytics?: InputMaybe<Scalars['String']>;
+  umami_id?: InputMaybe<Scalars['String']>;
+};
+
 export type InputAuthor = {
   avatar?: InputMaybe<Scalars['String']>;
   bio?: InputMaybe<Scalars['String']>;
+  company_name?: InputMaybe<Scalars['String']>;
   email?: InputMaybe<Scalars['String']>;
   id: Scalars['Int'];
   name?: InputMaybe<Scalars['String']>;
+  occupation?: InputMaybe<Scalars['String']>;
   password?: InputMaybe<Scalars['String']>;
   roleId?: InputMaybe<Scalars['Int']>;
   social?: InputMaybe<InputSocial>;
@@ -117,7 +136,6 @@ export type InputCreateAuthor = {
 
 export type InputCreatePost = {
   cover_image?: InputMaybe<InputImage>;
-  /** authorId: Int */
   excerpt?: InputMaybe<Scalars['String']>;
   featured?: InputMaybe<Scalars['Boolean']>;
   html?: InputMaybe<Scalars['String']>;
@@ -145,6 +163,7 @@ export type InputSocial = {
   facebook?: InputMaybe<Scalars['String']>;
   github?: InputMaybe<Scalars['String']>;
   instagram?: InputMaybe<Scalars['String']>;
+  linkedin?: InputMaybe<Scalars['String']>;
   twitter?: InputMaybe<Scalars['String']>;
 };
 
@@ -250,7 +269,6 @@ export type Mutation = {
   addSubscriber?: Maybe<SubscribersAddResult>;
   createAuthor?: Maybe<CreateAuthorResponse>;
   createPost: CreatePostResponse;
-  /** insertMedia(url: String): Media */
   deleteMedia?: Maybe<MediaDeleteResponse>;
   deleteTags: DeleteTagsResponse;
   forgotPassword: ForgotPasswordResponse;
@@ -345,39 +363,22 @@ export enum Permissions {
 
 export type Post = {
   __typename?: 'Post';
-  /** Author information of the post */
   author?: Maybe<Author>;
-  /** Convert image of the post */
   cover_image: Image;
-  /** The creation date of the post */
   createdAt: Scalars['Date'];
-  /** A breif summary of the post */
   excerpt?: Maybe<Scalars['String']>;
-  /** Featured post */
   featured: Scalars['Boolean'];
-  /** Html content of the post */
   html?: Maybe<Scalars['String']>;
-  /** Draft for republishing content */
   html_draft?: Maybe<Scalars['String']>;
-  /** Primary key */
   id: Scalars['Int'];
-  /** The published date of the post */
   publishedAt?: Maybe<Scalars['Date']>;
-  /** Reading time of the post in minutes */
   reading_time?: Maybe<Scalars['String']>;
-  /** The date scheduled to published the post */
   scheduledAt?: Maybe<Scalars['Date']>;
-  /** The uri of the post */
   slug?: Maybe<Scalars['String']>;
-  /** Status of the post */
   status: PostStatusOptions;
-  /** Tags of the post */
   tags?: Maybe<Array<Tags>>;
-  /** Title of the post */
   title: Scalars['String'];
-  /** Type of the post. Can be "page" or "post" */
   type: PostTypes;
-  /** Last updated date of the post */
   updatedAt: Scalars['Date'];
 };
 
@@ -415,7 +416,6 @@ export enum PostTypes {
 }
 
 export type PostsFilters = {
-  /** name of author. entering  this field will ignore tagSlug and tag */
   author?: InputMaybe<Scalars['String']>;
   cursor?: InputMaybe<Scalars['Int']>;
   featured?: InputMaybe<Scalars['Boolean']>;
@@ -427,9 +427,7 @@ export type PostsFilters = {
   slug?: InputMaybe<Scalars['String']>;
   sortBy?: InputMaybe<SortBy>;
   status?: InputMaybe<PostStatusOptions>;
-  /** name of a tag. */
   tag?: InputMaybe<Scalars['String']>;
-  /** url of a tag. entering this field will ignore tag */
   tagSlug?: InputMaybe<Scalars['String']>;
   type?: InputMaybe<PostTypes>;
 };
@@ -501,6 +499,7 @@ export enum Role {
 
 export type Setting = {
   __typename?: 'Setting';
+  analytics?: Maybe<Analytics>;
   banner?: Maybe<Image>;
   client_token: Scalars['String'];
   cloudinary_key?: Maybe<Scalars['String']>;
@@ -520,9 +519,13 @@ export type Setting = {
   site_tagline?: Maybe<Scalars['String']>;
   site_title: Scalars['String'];
   site_url?: Maybe<Scalars['String']>;
+  /** @deprecated No longer supported */
   social_facebook?: Maybe<Scalars['String']>;
+  /** @deprecated No longer supported */
   social_github?: Maybe<Scalars['String']>;
+  /** @deprecated No longer supported */
   social_instagram?: Maybe<Scalars['String']>;
+  /** @deprecated No longer supported */
   social_twitter?: Maybe<Scalars['String']>;
   subscribe_embed?: Maybe<Scalars['String']>;
   theme?: Maybe<Scalars['String']>;
@@ -534,6 +537,7 @@ export type SettingError = LetterpadError & {
 };
 
 export type SettingInputType = {
+  analytics?: InputMaybe<InputAnalytics>;
   banner?: InputMaybe<InputImage>;
   cloudinary_key?: InputMaybe<Scalars['String']>;
   cloudinary_name?: InputMaybe<Scalars['String']>;
@@ -566,6 +570,7 @@ export type Social = {
   facebook?: Maybe<Scalars['String']>;
   github?: Maybe<Scalars['String']>;
   instagram?: Maybe<Scalars['String']>;
+  linkedin?: Maybe<Scalars['String']>;
   twitter?: Maybe<Scalars['String']>;
 };
 
@@ -663,16 +668,19 @@ export type AboutQueryQuery = {
   __typename?: 'Query';
   me?:
     | {
-        __typename?: 'Author';
+        __typename: 'Author';
         name: string;
         bio?: string | null;
+        occupation?: string | null;
         avatar?: string | null;
+        company_name?: string | null;
         social?: {
           __typename?: 'Social';
           twitter?: string | null;
           facebook?: string | null;
           github?: string | null;
           instagram?: string | null;
+          linkedin?: string | null;
         } | null;
       }
     | { __typename?: 'AuthorNotFoundError' }
@@ -696,43 +704,9 @@ export type AboutQueryQuery = {
           slug: string;
           label: string;
         }>;
+        analytics?: { __typename?: 'Analytics'; google_analytics?: string | null } | null;
       }
     | { __typename?: 'SettingError' };
-};
-
-export type PageQueryWithHtmlQueryVariables = Exact<{
-  slug?: InputMaybe<Scalars['String']>;
-}>;
-
-export type PageQueryWithHtmlQuery = {
-  __typename?: 'Query';
-  post:
-    | {
-        __typename: 'Post';
-        html?: string | null;
-        id: number;
-        slug?: string | null;
-        title: string;
-        reading_time?: string | null;
-        publishedAt?: any | null;
-        updatedAt: any;
-        excerpt?: string | null;
-        author?: {
-          __typename?: 'Author';
-          name: string;
-          avatar?: string | null;
-          social?: {
-            __typename?: 'Social';
-            github?: string | null;
-            twitter?: string | null;
-            instagram?: string | null;
-            facebook?: string | null;
-          } | null;
-        } | null;
-        tags?: Array<{ __typename?: 'Tags'; name: string; slug: string }> | null;
-        cover_image: { __typename?: 'Image'; src?: string | null };
-      }
-    | { __typename: 'PostError' };
 };
 
 export type HomeQueryQueryVariables = Exact<{ [key: string]: never }>;
@@ -758,20 +732,142 @@ export type HomeQueryQuery = {
           slug: string;
           label: string;
         }>;
+        analytics?: { __typename?: 'Analytics'; google_analytics?: string | null } | null;
       }
     | { __typename?: 'SettingError' };
   me?:
     | {
-        __typename?: 'Author';
+        __typename: 'Author';
         name: string;
         bio?: string | null;
+        occupation?: string | null;
         avatar?: string | null;
+        company_name?: string | null;
         social?: {
           __typename?: 'Social';
           twitter?: string | null;
           facebook?: string | null;
           github?: string | null;
           instagram?: string | null;
+          linkedin?: string | null;
+        } | null;
+      }
+    | { __typename?: 'AuthorNotFoundError' }
+    | null;
+};
+
+export type PageQueryWithHtmlQueryVariables = Exact<{
+  slug?: InputMaybe<Scalars['String']>;
+}>;
+
+export type PageQueryWithHtmlQuery = {
+  __typename?: 'Query';
+  post:
+    | {
+        __typename: 'Post';
+        html?: string | null;
+        id: number;
+        slug?: string | null;
+        title: string;
+        reading_time?: string | null;
+        publishedAt?: any | null;
+        updatedAt: any;
+        excerpt?: string | null;
+        author?: {
+          __typename?: 'Author';
+          name: string;
+          avatar?: string | null;
+          occupation?: string | null;
+        } | null;
+        tags?: Array<{ __typename?: 'Tags'; name: string; slug: string }> | null;
+        cover_image: { __typename?: 'Image'; src?: string | null };
+      }
+    | { __typename: 'PostError' };
+  me?:
+    | {
+        __typename: 'Author';
+        name: string;
+        bio?: string | null;
+        occupation?: string | null;
+        avatar?: string | null;
+        company_name?: string | null;
+        social?: {
+          __typename?: 'Social';
+          twitter?: string | null;
+          facebook?: string | null;
+          github?: string | null;
+          instagram?: string | null;
+          linkedin?: string | null;
+        } | null;
+      }
+    | { __typename?: 'AuthorNotFoundError' }
+    | null;
+  settings:
+    | {
+        __typename: 'Setting';
+        site_footer?: string | null;
+        subscribe_embed?: string | null;
+        css?: string | null;
+        site_title: string;
+        site_email: string;
+        site_description?: string | null;
+        site_tagline?: string | null;
+        site_favicon?: { __typename?: 'Image'; src?: string | null } | null;
+        banner?: { __typename?: 'Image'; src?: string | null } | null;
+        site_logo?: { __typename?: 'Image'; src?: string | null } | null;
+        menu: Array<{
+          __typename?: 'Navigation';
+          type: NavigationType;
+          slug: string;
+          label: string;
+        }>;
+        analytics?: { __typename?: 'Analytics'; google_analytics?: string | null } | null;
+      }
+    | { __typename?: 'SettingError' };
+};
+
+export type TagsQueryQueryVariables = Exact<{
+  tagSlug: Scalars['String'];
+}>;
+
+export type TagsQueryQuery = {
+  __typename?: 'Query';
+  posts:
+    | { __typename?: 'PostError' }
+    | {
+        __typename: 'PostsNode';
+        count: number;
+        rows: Array<{
+          __typename?: 'Post';
+          id: number;
+          title: string;
+          slug?: string | null;
+          publishedAt?: any | null;
+          reading_time?: string | null;
+          excerpt?: string | null;
+          cover_image: { __typename?: 'Image'; src?: string | null };
+          author?: { __typename?: 'Author'; avatar?: string | null; name: string } | null;
+          tags?: Array<{ __typename?: 'Tags'; slug: string; name: string }> | null;
+        }>;
+      };
+  tag:
+    | { __typename?: 'TagResultError'; message: string }
+    | { __typename?: 'Tags'; name: string; slug: string };
+  me?:
+    | {
+        __typename: 'Author';
+        name: string;
+        bio?: string | null;
+        occupation?: string | null;
+        avatar?: string | null;
+        company_name?: string | null;
+        social?: {
+          __typename?: 'Social';
+          twitter?: string | null;
+          facebook?: string | null;
+          github?: string | null;
+          instagram?: string | null;
+          linkedin?: string | null;
         } | null;
       }
     | { __typename?: 'AuthorNotFoundError' }
@@ -799,6 +895,7 @@ export type SettingsFragment = {
           slug: string;
           label: string;
         }>;
+        analytics?: { __typename?: 'Analytics'; google_analytics?: string | null } | null;
       }
     | { __typename?: 'SettingError' };
 };
@@ -807,16 +904,19 @@ export type MeFragment = {
   __typename?: 'Query';
   me?:
     | {
-        __typename?: 'Author';
+        __typename: 'Author';
         name: string;
         bio?: string | null;
+        occupation?: string | null;
         avatar?: string | null;
+        company_name?: string | null;
         social?: {
           __typename?: 'Social';
           twitter?: string | null;
           facebook?: string | null;
           github?: string | null;
           instagram?: string | null;
+          linkedin?: string | null;
         } | null;
       }
     | { __typename?: 'AuthorNotFoundError' }
@@ -834,7 +934,12 @@ export type PageFragmentFragment = {
   updatedAt: any;
   excerpt?: string | null;
   tags?: Array<{ __typename?: 'Tags'; name: string; slug: string }> | null;
-  author?: { __typename?: 'Author'; name: string; avatar?: string | null } | null;
+  author?: {
+    __typename?: 'Author';
+    name: string;
+    avatar?: string | null;
+    occupation?: string | null;
+  } | null;
   cover_image: { __typename?: 'Image'; src?: string | null };
 };
 
@@ -873,7 +978,12 @@ export type PageQueryQuery = {
         updatedAt: any;
         excerpt?: string | null;
         tags?: Array<{ __typename?: 'Tags'; name: string; slug: string }> | null;
-        author?: { __typename?: 'Author'; name: string; avatar?: string | null } | null;
+        author?: {
+          __typename?: 'Author';
+          name: string;
+          avatar?: string | null;
+          occupation?: string | null;
+        } | null;
         cover_image: { __typename?: 'Image'; src?: string | null };
       }
     | { __typename: 'PostError' };
@@ -904,3 +1014,14 @@ export type PostsQueryQuery = {
         }>;
       };
 };
+
+export type TagsFragment_TagResultError_Fragment = {
+  __typename?: 'TagResultError';
+  message: string;
+};
+
+export type TagsFragment_Tags_Fragment = { __typename?: 'Tags'; name: string; slug: string };
+
+export type TagsFragmentFragment =
+  | TagsFragment_TagResultError_Fragment
+  | TagsFragment_Tags_Fragment;
