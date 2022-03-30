@@ -695,6 +695,7 @@ export type AboutQueryQuery = {
         site_email: string;
         site_description?: string | null;
         site_tagline?: string | null;
+        theme?: string | null;
         site_favicon?: { __typename?: 'Image'; src?: string | null } | null;
         banner?: { __typename?: 'Image'; src?: string | null } | null;
         site_logo?: { __typename?: 'Image'; src?: string | null } | null;
@@ -723,6 +724,7 @@ export type HomeQueryQuery = {
         site_email: string;
         site_description?: string | null;
         site_tagline?: string | null;
+        theme?: string | null;
         site_favicon?: { __typename?: 'Image'; src?: string | null } | null;
         banner?: { __typename?: 'Image'; src?: string | null } | null;
         site_logo?: { __typename?: 'Image'; src?: string | null } | null;
@@ -812,6 +814,7 @@ export type PageQueryWithHtmlQuery = {
         site_email: string;
         site_description?: string | null;
         site_tagline?: string | null;
+        theme?: string | null;
         site_favicon?: { __typename?: 'Image'; src?: string | null } | null;
         banner?: { __typename?: 'Image'; src?: string | null } | null;
         site_logo?: { __typename?: 'Image'; src?: string | null } | null;
@@ -872,6 +875,29 @@ export type TagsQueryQuery = {
       }
     | { __typename?: 'AuthorNotFoundError' }
     | null;
+  settings:
+    | {
+        __typename: 'Setting';
+        site_footer?: string | null;
+        subscribe_embed?: string | null;
+        css?: string | null;
+        site_title: string;
+        site_email: string;
+        site_description?: string | null;
+        site_tagline?: string | null;
+        theme?: string | null;
+        site_favicon?: { __typename?: 'Image'; src?: string | null } | null;
+        banner?: { __typename?: 'Image'; src?: string | null } | null;
+        site_logo?: { __typename?: 'Image'; src?: string | null } | null;
+        menu: Array<{
+          __typename?: 'Navigation';
+          type: NavigationType;
+          slug: string;
+          label: string;
+        }>;
+        analytics?: { __typename?: 'Analytics'; google_analytics?: string | null } | null;
+      }
+    | { __typename?: 'SettingError' };
 };
 
 export type SettingsFragment = {
@@ -886,6 +912,7 @@ export type SettingsFragment = {
         site_email: string;
         site_description?: string | null;
         site_tagline?: string | null;
+        theme?: string | null;
         site_favicon?: { __typename?: 'Image'; src?: string | null } | null;
         banner?: { __typename?: 'Image'; src?: string | null } | null;
         site_logo?: { __typename?: 'Image'; src?: string | null } | null;

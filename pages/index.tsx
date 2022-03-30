@@ -1,11 +1,5 @@
-import Link from '@/components/Link';
 import { PageSEO } from '@/components/SEO';
-import Tag from '@/components/Tag';
-import siteMetadata from '@/data/siteMetadata';
-// import { getAllFilesFrontMatter } from '@/lib/mdx';
-import formatDate from '@/lib/utils/formatDate';
 import { InferGetServerSidePropsType } from 'next';
-// import { PostFrontMatter } from 'types/PostFrontMatter';
 // import NewsletterForm from '@/components/NewsletterForm';
 import gql from 'graphql-tag';
 import { fetchProps, PageProps } from '@/lib/client';
@@ -18,16 +12,11 @@ import {
   PostsQueryQuery,
   PostsQueryQueryVariables,
 } from '@/lib/graphql';
-import {
-  meFragment,
-  pageFragment,
-  pageQuery,
-  postsFragment,
-  postsQuery,
-  settingsFragment,
-} from 'queries/queries';
+import { meFragment, pageQuery, postsQuery, settingsFragment } from 'queries/queries';
+import PostGrid from '@/components/PostGrid';
+import PostList from '@/components/PostList';
 
-const MAX_DISPLAY = 5;
+// const MAX_DISPLAY = 5;
 
 const homeQuery = gql`
   query HomeQuery {
@@ -46,6 +35,7 @@ export default function Home({
   page,
   posts,
 }: InferGetServerSidePropsType<typeof getServerSideProps>) {
+  const { theme = 'minimal' } = settings;
   return (
     <>
       <PageSEO title={settings.site_title} description={settings.site_description} />
@@ -58,57 +48,12 @@ export default function Home({
             {settings.site_description}
           </p>
         </div>
-        <ul className="divide-y divide-gray-200 dark:divide-gray-700">
-          {posts.__typename === 'PostError' ? 'No posts found.' : ''}
-          {posts.__typename === 'PostsNode' && posts.rows.length === 0 && 'No posts found.'}
 
-          {posts.__typename === 'PostsNode' &&
-            posts.rows.map((post) => {
-              const { slug, publishedAt, title, tags, excerpt } = post;
-              return (
-                <li key={slug} className="py-12">
-                  <article>
-                    <div className="space-y-2 xl:grid xl:grid-cols-4 xl:items-baseline xl:space-y-0">
-                      <dl>
-                        <dt className="sr-only">Published on</dt>
-                        <dd className="text-base font-medium leading-6 text-gray-500 dark:text-gray-400">
-                          <time dateTime={publishedAt}>{formatDate(publishedAt)}</time>
-                        </dd>
-                      </dl>
-                      <div className="space-y-5 xl:col-span-3">
-                        <div className="space-y-6">
-                          <div>
-                            <h2 className="text-2xl font-bold leading-8 tracking-tight">
-                              <Link href={`${slug}`} className="text-gray-900 dark:text-gray-100">
-                                {title}
-                              </Link>
-                            </h2>
-                            <div className="flex flex-wrap">
-                              {tags.map((tag) => (
-                                <Tag key={tag.name} text={tag.name} />
-                              ))}
-                            </div>
-                          </div>
-                          <div className="prose max-w-none text-gray-500 dark:text-gray-400">
-                            {excerpt}
-                          </div>
-                        </div>
-                        <div className="text-base font-medium leading-6">
-                          <Link
-                            href={`${slug}`}
-                            className="text-primary-500 hover:text-primary-600 dark:hover:text-primary-400"
-                            aria-label={`Read "${title}"`}
-                          >
-                            Read more &rarr;
-                          </Link>
-                        </div>
-                      </div>
-                    </div>
-                  </article>
-                </li>
-              );
-            })}
-        </ul>
+        {posts.__typename === 'PostError' ? 'No posts found.' : ''}
+        {posts.__typename === 'PostsNode' && posts.rows.length === 0 && 'No posts found.'}
+
+        {posts.__typename === 'PostsNode' && theme === 'minimal' && <PostList posts={posts} />}
+        {posts.__typename === 'PostsNode' && theme === 'magazine' && <PostGrid posts={posts} />}
       </div>
       {/* {posts.length > MAX_DISPLAY && (
         <div className="flex justify-end text-base font-medium leading-6">

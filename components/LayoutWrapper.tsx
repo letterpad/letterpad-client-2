@@ -33,8 +33,8 @@ const LayoutWrapper = ({ children, props }: Props) => {
                 <div className="mr-3">
                   <Image
                     src={props.settings.site_logo.src}
-                    height={60}
-                    width="80px"
+                    width="46"
+                    height="46"
                     alt={props.settings.site_title}
                   />
                 </div>
