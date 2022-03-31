@@ -10,3 +10,6 @@ generates:
       - typescript-operations
     config:
       exportFragmentSpreadSubTypes: true
+hooks:
+  afterAllFileWrite:
+    - prettier --write
