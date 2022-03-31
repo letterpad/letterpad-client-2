@@ -21,7 +21,11 @@ export default function Footer({ author, settings }) {
           <div>{` • `}</div>
           <Link href="/">{settings.site_title}</Link>
         </div>
-        <div className="mb-8 text-sm text-gray-500 dark:text-gray-400">
+        <div
+          dangerouslySetInnerHTML={{ __html: settings.site_footer }}
+          className="mb-2 text-sm text-gray-500 dark:text-gray-400"
+        ></div>
+        <div className="mb-8 text-sm text-gray-500 dark:text-gray-200">
           <Link href="https://letterpad.app">Letterpad</Link>
         </div>
       </div>

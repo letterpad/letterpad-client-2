@@ -282,58 +282,72 @@ export type Mutation = {
   updateTags: UpdateTagsResponse;
 };
 
+
 export type MutationAddSubscriberArgs = {
   email: Scalars['String'];
 };
+
 
 export type MutationCreateAuthorArgs = {
   data: InputCreateAuthor;
 };
 
+
 export type MutationCreatePostArgs = {
   data?: InputMaybe<InputCreatePost>;
 };
+
 
 export type MutationDeleteMediaArgs = {
   ids: Array<Scalars['Int']>;
 };
 
+
 export type MutationDeleteTagsArgs = {
   name: Scalars['String'];
 };
+
 
 export type MutationForgotPasswordArgs = {
   email: Scalars['String'];
 };
 
+
 export type MutationLoginArgs = {
   data?: InputMaybe<LoginData>;
 };
+
 
 export type MutationResetPasswordArgs = {
   password: Scalars['String'];
   token: Scalars['String'];
 };
 
+
 export type MutationUpdateAuthorArgs = {
   author: InputAuthor;
 };
+
 
 export type MutationUpdateMediaArgs = {
   data: InputUpdateMedia;
 };
 
+
 export type MutationUpdateOptionsArgs = {
   options: Array<SettingInputType>;
 };
+
 
 export type MutationUpdatePostArgs = {
   data?: InputMaybe<InputUpdatePost>;
 };
 
+
 export type MutationUpdateSubscriberArgs = {
   data: InputUpdateSubscriber;
 };
+
 
 export type MutationUpdateTagsArgs = {
   data?: InputMaybe<InputTags>;
@@ -350,7 +364,7 @@ export type Navigation = {
 export enum NavigationType {
   Custom = 'custom',
   Page = 'page',
-  Tag = 'tag',
+  Tag = 'tag'
 }
 
 export enum Permissions {
@@ -358,7 +372,7 @@ export enum Permissions {
   ManageOwnPosts = 'MANAGE_OWN_POSTS',
   ManageSettings = 'MANAGE_SETTINGS',
   ManageUsers = 'MANAGE_USERS',
-  ReadOnlyPosts = 'READ_ONLY_POSTS',
+  ReadOnlyPosts = 'READ_ONLY_POSTS'
 }
 
 export type Post = {
@@ -407,12 +421,12 @@ export type PostResponse = Post | PostError;
 export enum PostStatusOptions {
   Draft = 'draft',
   Published = 'published',
-  Trashed = 'trashed',
+  Trashed = 'trashed'
 }
 
 export enum PostTypes {
   Page = 'page',
-  Post = 'post',
+  Post = 'post'
 }
 
 export type PostsFilters = {
@@ -455,29 +469,36 @@ export type Query = {
   tags: TagsResponse;
 };
 
+
 export type QueryEmailArgs = {
   template_id?: InputMaybe<Scalars['String']>;
 };
+
 
 export type QueryMediaArgs = {
   filters?: InputMaybe<MediaFilters>;
 };
 
+
 export type QueryPostArgs = {
   filters?: InputMaybe<PostFilters>;
 };
+
 
 export type QueryPostsArgs = {
   filters?: InputMaybe<PostsFilters>;
 };
 
+
 export type QuerySubscribersArgs = {
   author_id?: InputMaybe<Scalars['Int']>;
 };
 
+
 export type QueryTagArgs = {
   slug: Scalars['String'];
 };
+
 
 export type QueryTagsArgs = {
   filters?: InputMaybe<TagsFilters>;
@@ -494,7 +515,7 @@ export enum Role {
   Admin = 'ADMIN',
   Author = 'AUTHOR',
   Reader = 'READER',
-  Reviewer = 'REVIEWER',
+  Reviewer = 'REVIEWER'
 }
 
 export type Setting = {
@@ -580,7 +601,7 @@ export type Social = {
 
 export enum SortBy {
   Asc = 'asc',
-  Desc = 'desc',
+  Desc = 'desc'
 }
 
 export type Stats = {
@@ -666,463 +687,66 @@ export type UpdatePostResponse = Post | PostError;
 
 export type UpdateTagsResponse = EditTaxResponse | TagsError;
 
-export type AboutQueryQueryVariables = Exact<{ [key: string]: never }>;
+export type AboutQueryQueryVariables = Exact<{ [key: string]: never; }>;
 
-export type AboutQueryQuery = {
-  __typename?: 'Query';
-  me?:
-    | {
-        __typename: 'Author';
-        name: string;
-        bio?: string | null;
-        occupation?: string | null;
-        avatar?: string | null;
-        company_name?: string | null;
-        social?: {
-          __typename?: 'Social';
-          twitter?: string | null;
-          facebook?: string | null;
-          github?: string | null;
-          instagram?: string | null;
-          linkedin?: string | null;
-        } | null;
-      }
-    | { __typename?: 'AuthorNotFoundError' }
-    | null;
-  settings:
-    | {
-        __typename: 'Setting';
-        site_footer?: string | null;
-        subscribe_embed?: string | null;
-        css?: string | null;
-        site_title: string;
-        site_email: string;
-        site_description?: string | null;
-        site_tagline?: string | null;
-        show_about_page?: boolean | null;
-        show_tags_page?: boolean | null;
-        theme?: string | null;
-        site_favicon?: { __typename?: 'Image'; src?: string | null } | null;
-        banner?: { __typename?: 'Image'; src?: string | null } | null;
-        site_logo?: { __typename?: 'Image'; src?: string | null } | null;
-        menu: Array<{
-          __typename?: 'Navigation';
-          type: NavigationType;
-          slug: string;
-          label: string;
-        }>;
-        analytics?: { __typename?: 'Analytics'; google_analytics?: string | null } | null;
-      }
-    | { __typename?: 'SettingError' };
-};
 
-export type HomeQueryQueryVariables = Exact<{ [key: string]: never }>;
+export type AboutQueryQuery = { __typename?: 'Query', me?: { __typename: 'Author', name: string, bio?: string | null, occupation?: string | null, avatar?: string | null, company_name?: string | null, social?: { __typename?: 'Social', twitter?: string | null, facebook?: string | null, github?: string | null, instagram?: string | null, linkedin?: string | null } | null } | { __typename?: 'AuthorNotFoundError' } | null, settings: { __typename: 'Setting', site_footer?: string | null, subscribe_embed?: string | null, css?: string | null, site_title: string, site_email: string, site_description?: string | null, site_tagline?: string | null, show_about_page?: boolean | null, show_tags_page?: boolean | null, theme?: string | null, site_favicon?: { __typename?: 'Image', src?: string | null } | null, banner?: { __typename?: 'Image', src?: string | null } | null, site_logo?: { __typename?: 'Image', src?: string | null } | null, menu: Array<{ __typename?: 'Navigation', type: NavigationType, slug: string, label: string }>, analytics?: { __typename?: 'Analytics', google_analytics?: string | null } | null } | { __typename?: 'SettingError' } };
 
-export type HomeQueryQuery = {
-  __typename?: 'Query';
-  settings:
-    | {
-        __typename: 'Setting';
-        site_footer?: string | null;
-        subscribe_embed?: string | null;
-        css?: string | null;
-        site_title: string;
-        site_email: string;
-        site_description?: string | null;
-        site_tagline?: string | null;
-        show_about_page?: boolean | null;
-        show_tags_page?: boolean | null;
-        theme?: string | null;
-        site_favicon?: { __typename?: 'Image'; src?: string | null } | null;
-        banner?: { __typename?: 'Image'; src?: string | null } | null;
-        site_logo?: { __typename?: 'Image'; src?: string | null } | null;
-        menu: Array<{
-          __typename?: 'Navigation';
-          type: NavigationType;
-          slug: string;
-          label: string;
-        }>;
-        analytics?: { __typename?: 'Analytics'; google_analytics?: string | null } | null;
-      }
-    | { __typename?: 'SettingError' };
-  me?:
-    | {
-        __typename: 'Author';
-        name: string;
-        bio?: string | null;
-        occupation?: string | null;
-        avatar?: string | null;
-        company_name?: string | null;
-        social?: {
-          __typename?: 'Social';
-          twitter?: string | null;
-          facebook?: string | null;
-          github?: string | null;
-          instagram?: string | null;
-          linkedin?: string | null;
-        } | null;
-      }
-    | { __typename?: 'AuthorNotFoundError' }
-    | null;
-};
+export type HomeQueryQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type HomeQueryQuery = { __typename?: 'Query', settings: { __typename: 'Setting', site_footer?: string | null, subscribe_embed?: string | null, css?: string | null, site_title: string, site_email: string, site_description?: string | null, site_tagline?: string | null, show_about_page?: boolean | null, show_tags_page?: boolean | null, theme?: string | null, site_favicon?: { __typename?: 'Image', src?: string | null } | null, banner?: { __typename?: 'Image', src?: string | null } | null, site_logo?: { __typename?: 'Image', src?: string | null } | null, menu: Array<{ __typename?: 'Navigation', type: NavigationType, slug: string, label: string }>, analytics?: { __typename?: 'Analytics', google_analytics?: string | null } | null } | { __typename?: 'SettingError' }, me?: { __typename: 'Author', name: string, bio?: string | null, occupation?: string | null, avatar?: string | null, company_name?: string | null, social?: { __typename?: 'Social', twitter?: string | null, facebook?: string | null, github?: string | null, instagram?: string | null, linkedin?: string | null } | null } | { __typename?: 'AuthorNotFoundError' } | null };
 
 export type PageQueryWithHtmlQueryVariables = Exact<{
   slug?: InputMaybe<Scalars['String']>;
 }>;
 
-export type PageQueryWithHtmlQuery = {
-  __typename?: 'Query';
-  post:
-    | {
-        __typename: 'Post';
-        html?: string | null;
-        id: number;
-        slug?: string | null;
-        title: string;
-        reading_time?: string | null;
-        publishedAt?: any | null;
-        updatedAt: any;
-        excerpt?: string | null;
-        author?: {
-          __typename?: 'Author';
-          name: string;
-          avatar?: string | null;
-          occupation?: string | null;
-        } | null;
-        tags?: Array<{ __typename?: 'Tags'; name: string; slug: string }> | null;
-        cover_image: { __typename?: 'Image'; src?: string | null };
-      }
-    | { __typename: 'PostError' };
-  me?:
-    | {
-        __typename: 'Author';
-        name: string;
-        bio?: string | null;
-        occupation?: string | null;
-        avatar?: string | null;
-        company_name?: string | null;
-        social?: {
-          __typename?: 'Social';
-          twitter?: string | null;
-          facebook?: string | null;
-          github?: string | null;
-          instagram?: string | null;
-          linkedin?: string | null;
-        } | null;
-      }
-    | { __typename?: 'AuthorNotFoundError' }
-    | null;
-  settings:
-    | {
-        __typename: 'Setting';
-        site_footer?: string | null;
-        subscribe_embed?: string | null;
-        css?: string | null;
-        site_title: string;
-        site_email: string;
-        site_description?: string | null;
-        site_tagline?: string | null;
-        show_about_page?: boolean | null;
-        show_tags_page?: boolean | null;
-        theme?: string | null;
-        site_favicon?: { __typename?: 'Image'; src?: string | null } | null;
-        banner?: { __typename?: 'Image'; src?: string | null } | null;
-        site_logo?: { __typename?: 'Image'; src?: string | null } | null;
-        menu: Array<{
-          __typename?: 'Navigation';
-          type: NavigationType;
-          slug: string;
-          label: string;
-        }>;
-        analytics?: { __typename?: 'Analytics'; google_analytics?: string | null } | null;
-      }
-    | { __typename?: 'SettingError' };
-};
+
+export type PageQueryWithHtmlQuery = { __typename?: 'Query', post: { __typename: 'Post', html?: string | null, id: number, slug?: string | null, title: string, reading_time?: string | null, publishedAt?: any | null, updatedAt: any, excerpt?: string | null, author?: { __typename?: 'Author', name: string, avatar?: string | null, occupation?: string | null } | null, tags?: Array<{ __typename?: 'Tags', name: string, slug: string }> | null, cover_image: { __typename?: 'Image', src?: string | null } } | { __typename: 'PostError' }, me?: { __typename: 'Author', name: string, bio?: string | null, occupation?: string | null, avatar?: string | null, company_name?: string | null, social?: { __typename?: 'Social', twitter?: string | null, facebook?: string | null, github?: string | null, instagram?: string | null, linkedin?: string | null } | null } | { __typename?: 'AuthorNotFoundError' } | null, settings: { __typename: 'Setting', site_footer?: string | null, subscribe_embed?: string | null, css?: string | null, site_title: string, site_email: string, site_description?: string | null, site_tagline?: string | null, show_about_page?: boolean | null, show_tags_page?: boolean | null, theme?: string | null, site_favicon?: { __typename?: 'Image', src?: string | null } | null, banner?: { __typename?: 'Image', src?: string | null } | null, site_logo?: { __typename?: 'Image', src?: string | null } | null, menu: Array<{ __typename?: 'Navigation', type: NavigationType, slug: string, label: string }>, analytics?: { __typename?: 'Analytics', google_analytics?: string | null } | null } | { __typename?: 'SettingError' } };
+
+export type PreviewQueryQueryVariables = Exact<{
+  previewHash?: InputMaybe<Scalars['String']>;
+}>;
+
+
+export type PreviewQueryQuery = { __typename?: 'Query', post: { __typename: 'Post', html?: string | null, id: number, slug?: string | null, title: string, reading_time?: string | null, publishedAt?: any | null, updatedAt: any, excerpt?: string | null, author?: { __typename?: 'Author', name: string, avatar?: string | null, occupation?: string | null } | null, tags?: Array<{ __typename?: 'Tags', name: string, slug: string }> | null, cover_image: { __typename?: 'Image', src?: string | null } } | { __typename: 'PostError' }, me?: { __typename: 'Author', name: string, bio?: string | null, occupation?: string | null, avatar?: string | null, company_name?: string | null, social?: { __typename?: 'Social', twitter?: string | null, facebook?: string | null, github?: string | null, instagram?: string | null, linkedin?: string | null } | null } | { __typename?: 'AuthorNotFoundError' } | null, settings: { __typename: 'Setting', site_footer?: string | null, subscribe_embed?: string | null, css?: string | null, site_title: string, site_email: string, site_description?: string | null, site_tagline?: string | null, show_about_page?: boolean | null, show_tags_page?: boolean | null, theme?: string | null, site_favicon?: { __typename?: 'Image', src?: string | null } | null, banner?: { __typename?: 'Image', src?: string | null } | null, site_logo?: { __typename?: 'Image', src?: string | null } | null, menu: Array<{ __typename?: 'Navigation', type: NavigationType, slug: string, label: string }>, analytics?: { __typename?: 'Analytics', google_analytics?: string | null } | null } | { __typename?: 'SettingError' } };
 
 export type TagPostsQueryQueryVariables = Exact<{
   tagSlug: Scalars['String'];
 }>;
 
-export type TagPostsQueryQuery = {
-  __typename?: 'Query';
-  posts:
-    | { __typename?: 'PostError' }
-    | {
-        __typename: 'PostsNode';
-        count: number;
-        rows: Array<{
-          __typename?: 'Post';
-          id: number;
-          title: string;
-          slug?: string | null;
-          publishedAt?: any | null;
-          reading_time?: string | null;
-          excerpt?: string | null;
-          cover_image: { __typename?: 'Image'; src?: string | null };
-          author?: { __typename?: 'Author'; avatar?: string | null; name: string } | null;
-          tags?: Array<{ __typename?: 'Tags'; slug: string; name: string }> | null;
-        }>;
-      };
-  tag:
-    | { __typename?: 'TagResultError'; message: string }
-    | { __typename?: 'Tags'; name: string; slug: string };
-  me?:
-    | {
-        __typename: 'Author';
-        name: string;
-        bio?: string | null;
-        occupation?: string | null;
-        avatar?: string | null;
-        company_name?: string | null;
-        social?: {
-          __typename?: 'Social';
-          twitter?: string | null;
-          facebook?: string | null;
-          github?: string | null;
-          instagram?: string | null;
-          linkedin?: string | null;
-        } | null;
-      }
-    | { __typename?: 'AuthorNotFoundError' }
-    | null;
-  settings:
-    | {
-        __typename: 'Setting';
-        site_footer?: string | null;
-        subscribe_embed?: string | null;
-        css?: string | null;
-        site_title: string;
-        site_email: string;
-        site_description?: string | null;
-        site_tagline?: string | null;
-        show_about_page?: boolean | null;
-        show_tags_page?: boolean | null;
-        theme?: string | null;
-        site_favicon?: { __typename?: 'Image'; src?: string | null } | null;
-        banner?: { __typename?: 'Image'; src?: string | null } | null;
-        site_logo?: { __typename?: 'Image'; src?: string | null } | null;
-        menu: Array<{
-          __typename?: 'Navigation';
-          type: NavigationType;
-          slug: string;
-          label: string;
-        }>;
-        analytics?: { __typename?: 'Analytics'; google_analytics?: string | null } | null;
-      }
-    | { __typename?: 'SettingError' };
-};
 
-export type TagsQueryQueryVariables = Exact<{ [key: string]: never }>;
+export type TagPostsQueryQuery = { __typename?: 'Query', posts: { __typename?: 'PostError' } | { __typename: 'PostsNode', count: number, rows: Array<{ __typename?: 'Post', id: number, title: string, slug?: string | null, publishedAt?: any | null, reading_time?: string | null, excerpt?: string | null, cover_image: { __typename?: 'Image', src?: string | null }, author?: { __typename?: 'Author', avatar?: string | null, name: string } | null, tags?: Array<{ __typename?: 'Tags', slug: string, name: string }> | null }> }, tag: { __typename?: 'TagResultError', message: string } | { __typename?: 'Tags', name: string, slug: string }, me?: { __typename: 'Author', name: string, bio?: string | null, occupation?: string | null, avatar?: string | null, company_name?: string | null, social?: { __typename?: 'Social', twitter?: string | null, facebook?: string | null, github?: string | null, instagram?: string | null, linkedin?: string | null } | null } | { __typename?: 'AuthorNotFoundError' } | null, settings: { __typename: 'Setting', site_footer?: string | null, subscribe_embed?: string | null, css?: string | null, site_title: string, site_email: string, site_description?: string | null, site_tagline?: string | null, show_about_page?: boolean | null, show_tags_page?: boolean | null, theme?: string | null, site_favicon?: { __typename?: 'Image', src?: string | null } | null, banner?: { __typename?: 'Image', src?: string | null } | null, site_logo?: { __typename?: 'Image', src?: string | null } | null, menu: Array<{ __typename?: 'Navigation', type: NavigationType, slug: string, label: string }>, analytics?: { __typename?: 'Analytics', google_analytics?: string | null } | null } | { __typename?: 'SettingError' } };
 
-export type TagsQueryQuery = {
-  __typename?: 'Query';
-  tags:
-    | { __typename: 'TagsError'; message: string }
-    | {
-        __typename: 'TagsNode';
-        rows: Array<{
-          __typename?: 'Tags';
-          name: string;
-          posts?: { __typename: 'PostError' } | { __typename: 'PostsNode'; count: number } | null;
-        }>;
-      };
-  settings:
-    | {
-        __typename: 'Setting';
-        site_footer?: string | null;
-        subscribe_embed?: string | null;
-        css?: string | null;
-        site_title: string;
-        site_email: string;
-        site_description?: string | null;
-        site_tagline?: string | null;
-        show_about_page?: boolean | null;
-        show_tags_page?: boolean | null;
-        theme?: string | null;
-        site_favicon?: { __typename?: 'Image'; src?: string | null } | null;
-        banner?: { __typename?: 'Image'; src?: string | null } | null;
-        site_logo?: { __typename?: 'Image'; src?: string | null } | null;
-        menu: Array<{
-          __typename?: 'Navigation';
-          type: NavigationType;
-          slug: string;
-          label: string;
-        }>;
-        analytics?: { __typename?: 'Analytics'; google_analytics?: string | null } | null;
-      }
-    | { __typename?: 'SettingError' };
-  me?:
-    | {
-        __typename: 'Author';
-        name: string;
-        bio?: string | null;
-        occupation?: string | null;
-        avatar?: string | null;
-        company_name?: string | null;
-        social?: {
-          __typename?: 'Social';
-          twitter?: string | null;
-          facebook?: string | null;
-          github?: string | null;
-          instagram?: string | null;
-          linkedin?: string | null;
-        } | null;
-      }
-    | { __typename?: 'AuthorNotFoundError' }
-    | null;
-};
+export type TagsQueryQueryVariables = Exact<{ [key: string]: never; }>;
 
-export type SettingsFragment = {
-  __typename?: 'Query';
-  settings:
-    | {
-        __typename: 'Setting';
-        site_footer?: string | null;
-        subscribe_embed?: string | null;
-        css?: string | null;
-        site_title: string;
-        site_email: string;
-        site_description?: string | null;
-        site_tagline?: string | null;
-        show_about_page?: boolean | null;
-        show_tags_page?: boolean | null;
-        theme?: string | null;
-        site_favicon?: { __typename?: 'Image'; src?: string | null } | null;
-        banner?: { __typename?: 'Image'; src?: string | null } | null;
-        site_logo?: { __typename?: 'Image'; src?: string | null } | null;
-        menu: Array<{
-          __typename?: 'Navigation';
-          type: NavigationType;
-          slug: string;
-          label: string;
-        }>;
-        analytics?: { __typename?: 'Analytics'; google_analytics?: string | null } | null;
-      }
-    | { __typename?: 'SettingError' };
-};
 
-export type MeFragment = {
-  __typename?: 'Query';
-  me?:
-    | {
-        __typename: 'Author';
-        name: string;
-        bio?: string | null;
-        occupation?: string | null;
-        avatar?: string | null;
-        company_name?: string | null;
-        social?: {
-          __typename?: 'Social';
-          twitter?: string | null;
-          facebook?: string | null;
-          github?: string | null;
-          instagram?: string | null;
-          linkedin?: string | null;
-        } | null;
-      }
-    | { __typename?: 'AuthorNotFoundError' }
-    | null;
-};
+export type TagsQueryQuery = { __typename?: 'Query', tags: { __typename: 'TagsError', message: string } | { __typename: 'TagsNode', rows: Array<{ __typename?: 'Tags', name: string, posts?: { __typename: 'PostError' } | { __typename: 'PostsNode', count: number } | null }> }, settings: { __typename: 'Setting', site_footer?: string | null, subscribe_embed?: string | null, css?: string | null, site_title: string, site_email: string, site_description?: string | null, site_tagline?: string | null, show_about_page?: boolean | null, show_tags_page?: boolean | null, theme?: string | null, site_favicon?: { __typename?: 'Image', src?: string | null } | null, banner?: { __typename?: 'Image', src?: string | null } | null, site_logo?: { __typename?: 'Image', src?: string | null } | null, menu: Array<{ __typename?: 'Navigation', type: NavigationType, slug: string, label: string }>, analytics?: { __typename?: 'Analytics', google_analytics?: string | null } | null } | { __typename?: 'SettingError' }, me?: { __typename: 'Author', name: string, bio?: string | null, occupation?: string | null, avatar?: string | null, company_name?: string | null, social?: { __typename?: 'Social', twitter?: string | null, facebook?: string | null, github?: string | null, instagram?: string | null, linkedin?: string | null } | null } | { __typename?: 'AuthorNotFoundError' } | null };
 
-export type PageFragmentFragment = {
-  __typename: 'Post';
-  id: number;
-  slug?: string | null;
-  title: string;
-  reading_time?: string | null;
-  html?: string | null;
-  publishedAt?: any | null;
-  updatedAt: any;
-  excerpt?: string | null;
-  tags?: Array<{ __typename?: 'Tags'; name: string; slug: string }> | null;
-  author?: {
-    __typename?: 'Author';
-    name: string;
-    avatar?: string | null;
-    occupation?: string | null;
-  } | null;
-  cover_image: { __typename?: 'Image'; src?: string | null };
-};
+export type SettingsFragment = { __typename?: 'Query', settings: { __typename: 'Setting', site_footer?: string | null, subscribe_embed?: string | null, css?: string | null, site_title: string, site_email: string, site_description?: string | null, site_tagline?: string | null, show_about_page?: boolean | null, show_tags_page?: boolean | null, theme?: string | null, site_favicon?: { __typename?: 'Image', src?: string | null } | null, banner?: { __typename?: 'Image', src?: string | null } | null, site_logo?: { __typename?: 'Image', src?: string | null } | null, menu: Array<{ __typename?: 'Navigation', type: NavigationType, slug: string, label: string }>, analytics?: { __typename?: 'Analytics', google_analytics?: string | null } | null } | { __typename?: 'SettingError' } };
 
-export type PostsFragmentFragment = {
-  __typename: 'PostsNode';
-  count: number;
-  rows: Array<{
-    __typename?: 'Post';
-    id: number;
-    title: string;
-    slug?: string | null;
-    publishedAt?: any | null;
-    reading_time?: string | null;
-    excerpt?: string | null;
-    cover_image: { __typename?: 'Image'; src?: string | null };
-    author?: { __typename?: 'Author'; avatar?: string | null; name: string } | null;
-    tags?: Array<{ __typename?: 'Tags'; slug: string; name: string }> | null;
-  }>;
-};
+export type MeFragment = { __typename?: 'Query', me?: { __typename: 'Author', name: string, bio?: string | null, occupation?: string | null, avatar?: string | null, company_name?: string | null, social?: { __typename?: 'Social', twitter?: string | null, facebook?: string | null, github?: string | null, instagram?: string | null, linkedin?: string | null } | null } | { __typename?: 'AuthorNotFoundError' } | null };
+
+export type PageFragmentFragment = { __typename: 'Post', id: number, slug?: string | null, title: string, reading_time?: string | null, html?: string | null, publishedAt?: any | null, updatedAt: any, excerpt?: string | null, tags?: Array<{ __typename?: 'Tags', name: string, slug: string }> | null, author?: { __typename?: 'Author', name: string, avatar?: string | null, occupation?: string | null } | null, cover_image: { __typename?: 'Image', src?: string | null } };
+
+export type PostsFragmentFragment = { __typename: 'PostsNode', count: number, rows: Array<{ __typename?: 'Post', id: number, title: string, slug?: string | null, publishedAt?: any | null, reading_time?: string | null, excerpt?: string | null, cover_image: { __typename?: 'Image', src?: string | null }, author?: { __typename?: 'Author', avatar?: string | null, name: string } | null, tags?: Array<{ __typename?: 'Tags', slug: string, name: string }> | null }> };
 
 export type PageQueryQueryVariables = Exact<{
   slug?: InputMaybe<Scalars['String']>;
 }>;
 
-export type PageQueryQuery = {
-  __typename?: 'Query';
-  post:
-    | {
-        __typename: 'Post';
-        id: number;
-        slug?: string | null;
-        title: string;
-        reading_time?: string | null;
-        html?: string | null;
-        publishedAt?: any | null;
-        updatedAt: any;
-        excerpt?: string | null;
-        tags?: Array<{ __typename?: 'Tags'; name: string; slug: string }> | null;
-        author?: {
-          __typename?: 'Author';
-          name: string;
-          avatar?: string | null;
-          occupation?: string | null;
-        } | null;
-        cover_image: { __typename?: 'Image'; src?: string | null };
-      }
-    | { __typename: 'PostError' };
-};
+
+export type PageQueryQuery = { __typename?: 'Query', post: { __typename: 'Post', id: number, slug?: string | null, title: string, reading_time?: string | null, html?: string | null, publishedAt?: any | null, updatedAt: any, excerpt?: string | null, tags?: Array<{ __typename?: 'Tags', name: string, slug: string }> | null, author?: { __typename?: 'Author', name: string, avatar?: string | null, occupation?: string | null } | null, cover_image: { __typename?: 'Image', src?: string | null } } | { __typename: 'PostError' } };
 
 export type PostsQueryQueryVariables = Exact<{
   tagSlug: Scalars['String'];
 }>;
 
-export type PostsQueryQuery = {
-  __typename?: 'Query';
-  posts:
-    | { __typename?: 'PostError' }
-    | {
-        __typename: 'PostsNode';
-        count: number;
-        rows: Array<{
-          __typename?: 'Post';
-          id: number;
-          title: string;
-          slug?: string | null;
-          publishedAt?: any | null;
-          reading_time?: string | null;
-          excerpt?: string | null;
-          cover_image: { __typename?: 'Image'; src?: string | null };
-          author?: { __typename?: 'Author'; avatar?: string | null; name: string } | null;
-          tags?: Array<{ __typename?: 'Tags'; slug: string; name: string }> | null;
-        }>;
-      };
-};
 
-export type TagsFragment_TagResultError_Fragment = {
-  __typename?: 'TagResultError';
-  message: string;
-};
+export type PostsQueryQuery = { __typename?: 'Query', posts: { __typename?: 'PostError' } | { __typename: 'PostsNode', count: number, rows: Array<{ __typename?: 'Post', id: number, title: string, slug?: string | null, publishedAt?: any | null, reading_time?: string | null, excerpt?: string | null, cover_image: { __typename?: 'Image', src?: string | null }, author?: { __typename?: 'Author', avatar?: string | null, name: string } | null, tags?: Array<{ __typename?: 'Tags', slug: string, name: string }> | null }> } };
 
-export type TagsFragment_Tags_Fragment = { __typename?: 'Tags'; name: string; slug: string };
+export type TagsFragment_TagResultError_Fragment = { __typename?: 'TagResultError', message: string };
 
-export type TagsFragmentFragment =
-  | TagsFragment_TagResultError_Fragment
-  | TagsFragment_Tags_Fragment;
+export type TagsFragment_Tags_Fragment = { __typename?: 'Tags', name: string, slug: string };
+
+export type TagsFragmentFragment = TagsFragment_TagResultError_Fragment | TagsFragment_Tags_Fragment;
