@@ -520,7 +520,7 @@ export type Setting = {
   site_logo?: Maybe<Image>;
   site_tagline?: Maybe<Scalars['String']>;
   site_title: Scalars['String'];
-  site_url?: Maybe<Scalars['String']>;
+  site_url: Scalars['String'];
   /** @deprecated No longer supported */
   social_facebook?: Maybe<Scalars['String']>;
   /** @deprecated No longer supported */

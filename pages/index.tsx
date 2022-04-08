@@ -39,6 +39,7 @@ export default function Home({
 }: InferGetServerSidePropsType<typeof getServerSideProps>) {
   const { theme = 'minimal' } = settings;
   const Component = theme === 'minimal' ? PostList : PostGrid;
+
   return (
     <>
       <Head>
@@ -57,8 +58,8 @@ export default function Home({
           </p>
         </div>
 
-        {posts.__typename === 'PostError' ? 'No posts found.' : ''}
-        {posts.__typename === 'PostsNode' && posts.rows.length === 0 && 'No posts found.'}
+        {posts?.__typename === 'PostError' ? 'No posts found.' : ''}
+        {posts?.__typename === 'PostsNode' && posts.rows.length === 0 && 'No posts found.'}
 
         {!isPage && posts.__typename === 'PostsNode' && <Component posts={posts} />}
         {isPage && page.__typename === 'Post' && (
@@ -114,6 +115,7 @@ export async function getServerSideProps(context) {
       { tagSlug: firstItemOfMenu.slug },
       context.req.headers.host
     );
+    console.log(posts);
     result.props = {
       ...result.props,
       posts: posts.props.data.posts,
