@@ -16,7 +16,7 @@ import { meFragment, pageQuery, postsQuery, settingsFragment } from 'queries/que
 import PostGrid from '@/components/PostGrid';
 import PostList from '@/components/PostList';
 import Head from 'next/head';
-import PostLayout from '@/layouts/PostLayout';
+import PostSimple from '@/layouts/PostSimple';
 
 // const MAX_DISPLAY = 5;
 
@@ -63,9 +63,9 @@ export default function Home({
 
         {!isPage && posts.__typename === 'PostsNode' && <Component posts={posts} />}
         {isPage && page.__typename === 'Post' && (
-          <PostLayout data={{ post: page, settings, me }}>
+          <PostSimple data={page}>
             <div dangerouslySetInnerHTML={{ __html: page.html }}></div>
-          </PostLayout>
+          </PostSimple>
         )}
       </div>
 
