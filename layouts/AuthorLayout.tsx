@@ -24,7 +24,8 @@ export default function AuthorLayout({ children, data }: Props) {
         <div className="items-start space-y-2 xl:grid xl:grid-cols-3 xl:gap-x-8 xl:space-y-0">
           <div className="flex flex-col items-center space-x-2 pt-8">
             {avatar && (
-              <Image
+              // eslint-disable-next-line @next/next/no-img-element
+              <img
                 src={avatar}
                 alt="avatar"
                 width="192px"

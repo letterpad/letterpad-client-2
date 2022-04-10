@@ -39,7 +39,8 @@ const LayoutWrapper = ({ children, props }: Props) => {
               <div className="flex items-center justify-between">
                 <span className="mr-2 flex">
                   {props.settings.site_logo.src && (
-                    <Image
+                    // eslint-disable-next-line @next/next/no-img-element
+                    <img
                       src={props.settings.site_logo.src}
                       width="46"
                       height="46"
