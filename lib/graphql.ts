@@ -57,6 +57,8 @@ export type CreateAuthorError = LetterpadError & {
 
 export type CreateAuthorResponse = Author | CreateAuthorError;
 
+export type CreateDomainResponse = Domain | DomainError;
+
 export type CreatePostResponse = Post | PostError;
 
 export type DeleteTagsResponse = DeleteTagsResult | TagsError;
@@ -65,6 +67,26 @@ export type DeleteTagsResult = {
   __typename?: 'DeleteTagsResult';
   ok: Scalars['Boolean'];
 };
+
+export type Domain = {
+  __typename?: 'Domain';
+  id: Scalars['Int'];
+  mapped?: Maybe<Scalars['Boolean']>;
+  name: Scalars['String'];
+  ssl?: Maybe<Scalars['Boolean']>;
+};
+
+export type DomainError = LetterpadError & {
+  __typename?: 'DomainError';
+  message: Scalars['String'];
+};
+
+export type DomainNotFound = LetterpadError & {
+  __typename?: 'DomainNotFound';
+  message: Scalars['String'];
+};
+
+export type DomainResponse = Domain | DomainNotFound;
 
 export type EditTaxResponse = {
   __typename?: 'EditTaxResponse';
@@ -144,6 +166,12 @@ export type InputCreatePost = {
   tags?: InputMaybe<Array<InputMaybe<TagsInputType>>>;
   title?: InputMaybe<Scalars['String']>;
   type?: InputMaybe<PostTypes>;
+};
+
+export type InputDomain = {
+  mapped?: InputMaybe<Scalars['Boolean']>;
+  name?: InputMaybe<Scalars['String']>;
+  ssl?: InputMaybe<Scalars['Boolean']>;
 };
 
 export type InputImage = {
@@ -268,6 +296,7 @@ export type Mutation = {
   __typename?: 'Mutation';
   addSubscriber?: Maybe<SubscribersAddResult>;
   createAuthor?: Maybe<CreateAuthorResponse>;
+  createOrUpdateDomain: UpdateDomainResponse;
   createPost: CreatePostResponse;
   deleteMedia?: Maybe<MediaDeleteResponse>;
   deleteTags: DeleteTagsResponse;
@@ -288,6 +317,10 @@ export type MutationAddSubscriberArgs = {
 
 export type MutationCreateAuthorArgs = {
   data: InputCreateAuthor;
+};
+
+export type MutationCreateOrUpdateDomainArgs = {
+  data: InputDomain;
 };
 
 export type MutationCreatePostArgs = {
@@ -442,6 +475,7 @@ export type PostsResponse = PostError | PostsNode;
 
 export type Query = {
   __typename?: 'Query';
+  domain: DomainResponse;
   email: EmailResponse;
   emails: Array<Maybe<Email>>;
   me?: Maybe<MeResponse>;
@@ -661,6 +695,12 @@ export type TagsNode = {
 };
 
 export type TagsResponse = TagsError | TagsNode;
+
+export type UpdateDomainResponse = {
+  __typename?: 'UpdateDomainResponse';
+  message?: Maybe<Scalars['String']>;
+  ok: Scalars['Boolean'];
+};
 
 export type UpdatePostResponse = Post | PostError;
 

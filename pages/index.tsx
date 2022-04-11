@@ -84,7 +84,14 @@ export async function getServerSideProps(context) {
     {},
     context.req.headers.host
   );
-
+  if (!data.props.data.settings.__typename) {
+    return {
+      redirect: {
+        permanent: false,
+        destination: '/not-found',
+      },
+    };
+  }
   if (data.props.data.settings.__typename === 'SettingError') {
     throw new Error('Could not load settings');
   }
@@ -115,7 +122,6 @@ export async function getServerSideProps(context) {
       { tagSlug: firstItemOfMenu.slug },
       context.req.headers.host
     );
-    console.log(posts);
     result.props = {
       ...result.props,
       posts: posts.props.data.posts,
