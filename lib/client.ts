@@ -42,8 +42,8 @@ export async function fetchProps<Data, Variables extends Record<string, unknown>
 
   return {
     props: {
-      data: data ?? null,
-      errors: errors ?? null,
+      data: data || null,
+      errors: errors || null,
     },
   };
 }
