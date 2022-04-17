@@ -89,7 +89,7 @@ class MyDocument extends Document {
             src="https://cdnjs.cloudflare.com/ajax/libs/lazysizes/5.3.2/lazysizes.min.js"
             async
           />
-          <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.27.0/prism.min.js" async />
+          <script src="/static/prism.js" async />
         </Head>
         <body className="bg-white text-black antialiased dark:bg-gray-900 dark:text-white">
           <Main />

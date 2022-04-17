@@ -89,6 +89,7 @@ export async function getServerSideProps(context) {
       redirect: {
         permanent: false,
         destination: '/not-found',
+        status: 404,
       },
     };
   }
