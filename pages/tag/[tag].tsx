@@ -29,15 +29,25 @@ export default function Tag({
   tag,
   me,
   tagName,
+  settings,
 }: InferGetServerSidePropsType<typeof getServerSideProps>) {
   // Capitalize first letter and convert space to dash
   // const title = tagName[0].toUpperCase() + tagName.split(' ').join('-').slice(1);
-  if (posts.__typename === 'PostError') return null;
+  if (
+    posts.__typename === 'PostError' ||
+    settings.__typename === 'SettingError' ||
+    me.__typename === 'AuthorNotFoundError'
+  )
+    return null;
   return (
     <>
       <TagSEO
         title={`${tagName} - ${siteMetadata.title}`}
         description={`${tagName} tags - ${siteMetadata.author}`}
+        site_banner={settings.banner.src}
+        site_title={settings.site_title}
+        url={settings.site_url}
+        twSite={me.social.twitter}
       />
       <ListLayout posts={posts} title={tagName} />
     </>

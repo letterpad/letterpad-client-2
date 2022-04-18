@@ -302,6 +302,7 @@ export type Mutation = {
   deleteTags: DeleteTagsResponse;
   forgotPassword: ForgotPasswordResponse;
   login?: Maybe<LoginResponse>;
+  removeDomain: RemoveDomainResponse;
   resetPassword: ForgotPasswordResponse;
   updateAuthor?: Maybe<AuthorResponse>;
   updateMedia?: Maybe<MediaUpdateResponse>;
@@ -515,6 +516,12 @@ export type QueryTagArgs = {
 
 export type QueryTagsArgs = {
   filters?: InputMaybe<TagsFilters>;
+};
+
+export type RemoveDomainResponse = {
+  __typename?: 'RemoveDomainResponse';
+  message?: Maybe<Scalars['String']>;
+  ok: Scalars['Boolean'];
 };
 
 export type Response = {
@@ -742,6 +749,7 @@ export type AboutQueryQuery = {
         show_about_page?: boolean | null;
         show_tags_page?: boolean | null;
         theme?: string | null;
+        site_url: string;
         site_favicon?: { __typename?: 'Image'; src?: string | null } | null;
         banner?: { __typename?: 'Image'; src?: string | null } | null;
         site_logo?: { __typename?: 'Image'; src?: string | null } | null;
@@ -773,6 +781,7 @@ export type HomeQueryQuery = {
         show_about_page?: boolean | null;
         show_tags_page?: boolean | null;
         theme?: string | null;
+        site_url: string;
         site_favicon?: { __typename?: 'Image'; src?: string | null } | null;
         banner?: { __typename?: 'Image'; src?: string | null } | null;
         site_logo?: { __typename?: 'Image'; src?: string | null } | null;
@@ -865,6 +874,7 @@ export type PageQueryWithHtmlQuery = {
         show_about_page?: boolean | null;
         show_tags_page?: boolean | null;
         theme?: string | null;
+        site_url: string;
         site_favicon?: { __typename?: 'Image'; src?: string | null } | null;
         banner?: { __typename?: 'Image'; src?: string | null } | null;
         site_logo?: { __typename?: 'Image'; src?: string | null } | null;
@@ -938,6 +948,7 @@ export type PreviewQueryQuery = {
         show_about_page?: boolean | null;
         show_tags_page?: boolean | null;
         theme?: string | null;
+        site_url: string;
         site_favicon?: { __typename?: 'Image'; src?: string | null } | null;
         banner?: { __typename?: 'Image'; src?: string | null } | null;
         site_logo?: { __typename?: 'Image'; src?: string | null } | null;
@@ -1011,6 +1022,7 @@ export type TagPostsQueryQuery = {
         show_about_page?: boolean | null;
         show_tags_page?: boolean | null;
         theme?: string | null;
+        site_url: string;
         site_favicon?: { __typename?: 'Image'; src?: string | null } | null;
         banner?: { __typename?: 'Image'; src?: string | null } | null;
         site_logo?: { __typename?: 'Image'; src?: string | null } | null;
@@ -1052,6 +1064,7 @@ export type TagsQueryQuery = {
         show_about_page?: boolean | null;
         show_tags_page?: boolean | null;
         theme?: string | null;
+        site_url: string;
         site_favicon?: { __typename?: 'Image'; src?: string | null } | null;
         banner?: { __typename?: 'Image'; src?: string | null } | null;
         site_logo?: { __typename?: 'Image'; src?: string | null } | null;
@@ -1100,6 +1113,7 @@ export type SettingsFragment = {
         show_about_page?: boolean | null;
         show_tags_page?: boolean | null;
         theme?: string | null;
+        site_url: string;
         site_favicon?: { __typename?: 'Image'; src?: string | null } | null;
         banner?: { __typename?: 'Image'; src?: string | null } | null;
         site_logo?: { __typename?: 'Image'; src?: string | null } | null;

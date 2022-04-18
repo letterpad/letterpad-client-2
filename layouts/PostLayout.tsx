@@ -58,7 +58,7 @@ export default function PostLayout({ data, next, prev, children }: Props) {
   return (
     <SectionContainer>
       <BlogSEO
-        url={`${siteMetadata.siteUrl}/blog/${slug}`}
+        url={`${settings.site_url}${slug}`}
         authorDetails={authorDetails}
         date={publishedAt}
         title={title}
@@ -68,6 +68,8 @@ export default function PostLayout({ data, next, prev, children }: Props) {
         slug={slug}
         tags={tags.map((t) => t.name)}
         fileName={title}
+        canonicalUrl={`${settings.site_url}${slug}`}
+        site_name={settings.site_title}
       />
       {/* <ScrollTopAndComment /> */}
       <article>

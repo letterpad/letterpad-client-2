@@ -18,6 +18,7 @@ export const settingsFragment = gql`
         show_about_page
         show_tags_page
         theme
+        site_url
         banner {
           src
         }
