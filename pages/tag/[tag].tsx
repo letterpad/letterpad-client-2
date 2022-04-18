@@ -46,7 +46,7 @@ export default function Tag({
         description={`${tagName} tags - ${siteMetadata.author}`}
         site_banner={settings.banner.src}
         site_title={settings.site_title}
-        url={settings.site_url}
+        url={settings.site_url + 'tags'}
         twSite={me.social.twitter}
       />
       <ListLayout posts={posts} title={tagName} />

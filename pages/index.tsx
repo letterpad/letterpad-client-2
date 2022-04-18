@@ -69,7 +69,7 @@ export default function Home({
 
         {!isPage && posts.__typename === 'PostsNode' && <Component posts={posts} />}
         {isPage && page.__typename === 'Post' && (
-          <PostSimple data={page}>
+          <PostSimple data={page} site_name={settings.site_title}>
             <div dangerouslySetInnerHTML={{ __html: page.html }}></div>
           </PostSimple>
         )}

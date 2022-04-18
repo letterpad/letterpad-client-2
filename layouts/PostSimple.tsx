@@ -14,15 +14,16 @@ interface Props {
   children: ReactNode;
   next?: { slug: string; title: string };
   prev?: { slug: string; title: string };
+  site_name: string;
 }
 
-export default function PostSimple({ data, next, prev, children }: Props) {
+export default function PostSimple({ site_name, data, next, prev, children }: Props) {
   const { slug, publishedAt, title, excerpt, updatedAt, cover_image, tags } = data;
 
   return (
     <SectionContainer>
       <BlogSEO
-        url={`${siteMetadata.siteUrl}/blog/${slug}`}
+        url={`${siteMetadata.siteUrl}${slug}`}
         date={publishedAt}
         title={title}
         summary={excerpt}
@@ -31,6 +32,7 @@ export default function PostSimple({ data, next, prev, children }: Props) {
         slug={slug}
         tags={tags.map((t) => t.name)}
         fileName={title}
+        site_name={site_name}
       />
       {/* <ScrollTopAndComment /> */}
       <article>

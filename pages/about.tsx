@@ -25,6 +25,8 @@ export default function About({
   const { site_email } = settings;
   return (
     <AuthorLayout
+      site_title={settings.site_title}
+      site_url={settings.site_url + 'page/about'}
       data={{
         avatar: avatar || '/static/images/avatar.png',
         name,
@@ -34,6 +36,7 @@ export default function About({
         company: company_name,
         linkedin: social.linkedin,
         occupation,
+        banner: settings.banner.src,
       }}
     >
       <div dangerouslySetInnerHTML={{ __html: bio }} />

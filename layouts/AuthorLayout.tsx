@@ -1,5 +1,4 @@
 import SocialIcon from '@/components/social-icons';
-import Image from '@/components/Image';
 import { PageSEO } from '@/components/SEO';
 import { ReactNode } from 'react';
 import { AuthorFrontMatter } from 'types/AuthorFrontMatter';
@@ -7,14 +6,23 @@ import { AuthorFrontMatter } from 'types/AuthorFrontMatter';
 interface Props {
   children: ReactNode;
   data: AuthorFrontMatter;
+  site_title: string;
+  site_url: string;
 }
 
-export default function AuthorLayout({ children, data }: Props) {
-  const { name, avatar, occupation, company, email, twitter, linkedin, github } = data;
+export default function AuthorLayout({ children, data, site_title, site_url }: Props) {
+  const { name, avatar, occupation, company, email, twitter, linkedin, github, banner } = data;
 
   return (
     <>
-      <PageSEO title={`About - ${name}`} description={`About me - ${name}`} />
+      <PageSEO
+        title={`About - ${name}`}
+        description={`About me - ${name}`}
+        site_banner={banner}
+        site_title={site_title}
+        url={site_url}
+        twSite={twitter}
+      />
       <div className="divide-y divide-gray-200 dark:divide-gray-700">
         <div className="space-y-2 pt-6 pb-8 md:space-y-5">
           <h1 className="text-3xl font-extrabold leading-9 tracking-tight text-gray-900 dark:text-gray-100 sm:text-4xl sm:leading-10 md:text-6xl md:leading-14">
