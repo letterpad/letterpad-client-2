@@ -12,7 +12,7 @@ export async function executeQuery<
   identifier = string
 >(query: DocumentNode, variables: Variables, identifier: string): Promise<PageProps<Data>> {
   const queryText = print(query);
-  const resp = await fetch(process.env.API_URL, {
+  const resp = await fetch(process.env.GRAPHQL_URL, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -22,7 +22,7 @@ export async function executeQuery<
     body: JSON.stringify({ query: queryText, variables }),
   });
   if (resp.status != 200) {
-    console.log('URL Failed - ' + process.env.API_URL);
+    console.log('URL Failed - ' + process.env.GRAPHQL_URL);
     const txt = await resp.text();
     return Promise.reject(new Error(txt));
   }

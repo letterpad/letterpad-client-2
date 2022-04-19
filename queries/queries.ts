@@ -47,6 +47,7 @@ export const meFragment = gql`
         occupation
         avatar
         company_name
+        analytics_uuid
         social {
           twitter
           facebook
