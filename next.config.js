@@ -105,7 +105,7 @@ module.exports = withBundleAnalyzer({
   },
   env: {
     API_URL: process.env.API_URL,
-    GRAPHQL_URL: process.env.API_URL + '/admin/api/graphql',
+    GRAPHQL_URL: process.env.API_URL + '/api/graphql',
     CLIENT_ID: process.env.CLIENT_ID,
   },
 });
