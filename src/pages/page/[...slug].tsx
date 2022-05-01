@@ -1,5 +1,4 @@
-// import generateRss from '@/lib/generate-rss';
-import { meFragment, pageFragment, settingsFragment } from 'queries/queries';
+import { meFragment, pageFragment, settingsFragment } from '@/queries/queries';
 import gql from 'graphql-tag';
 import { InferGetServerSidePropsType } from 'next';
 import { fetchProps } from '@/lib/client';

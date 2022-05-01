@@ -5,7 +5,7 @@ import { fetchProps } from '@/lib/client';
 import { TagPostsQueryQuery, TagPostsQueryQueryVariables } from '@/lib/graphql';
 import gql from 'graphql-tag';
 import { InferGetServerSidePropsType } from 'next';
-import { meFragment, postsFragment, settingsFragment, tagsFragment } from 'queries/queries';
+import { meFragment, postsFragment, settingsFragment, tagsFragment } from '@/queries/queries';
 
 export const tagsQuery = gql`
   query TagPostsQuery($tagSlug: String!) {

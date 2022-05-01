@@ -1,7 +1,7 @@
 import { fetchProps } from '@/lib/client';
 import { AboutQueryQuery, AboutQueryQueryVariables } from '@/lib/graphql';
 import { InferGetServerSidePropsType } from 'next';
-import { meFragment, settingsFragment } from 'queries/queries';
+import { meFragment, settingsFragment } from '@/queries/queries';
 import AuthorLayout from '@/layouts/AuthorLayout';
 import gql from 'graphql-tag';
 
