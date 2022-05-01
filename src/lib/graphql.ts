@@ -24,8 +24,6 @@ export type Analytics = {
 export type Author = {
   __typename?: 'Author';
   accessToken?: Maybe<Scalars['String']>;
-  analytics_id?: Maybe<Scalars['Int']>;
-  analytics_uuid?: Maybe<Scalars['String']>;
   avatar?: Maybe<Scalars['String']>;
   bio?: Maybe<Scalars['String']>;
   company_name?: Maybe<Scalars['String']>;

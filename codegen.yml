@@ -1,8 +1,8 @@
-schema: http://localhost:3000/admin/api/graphql
+schema: https://letterpad.app/admin/api/graphql
 documents:
-  - components/**/*.tsx
-  - pages/**/*.tsx
-  - queries/**/*.ts
+  - src/components/**/*.tsx
+  - src/pages/**/*.tsx
+  - src/queries/**/*.ts
 generates:
   lib/graphql.ts:
     plugins:

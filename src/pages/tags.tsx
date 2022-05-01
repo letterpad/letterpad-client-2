@@ -6,7 +6,7 @@ import { TagsQueryQuery, TagsQueryQueryVariables } from '@/lib/graphql';
 import kebabCase from '@/lib/utils/kebabCase';
 import gql from 'graphql-tag';
 import { InferGetServerSidePropsType } from 'next';
-import { meFragment, settingsFragment } from 'queries/queries';
+import { meFragment, settingsFragment } from '@/queries/queries';
 
 const tagsQuery = gql`
   query TagsQuery {

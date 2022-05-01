@@ -12,7 +12,7 @@ import {
   PostsQueryQuery,
   PostsQueryQueryVariables,
 } from '@/lib/graphql';
-import { meFragment, pageQuery, postsQuery, settingsFragment } from 'queries/queries';
+import { meFragment, pageQuery, postsQuery, settingsFragment } from '@/queries/queries';
 import PostGrid from '@/components/PostGrid';
 import PostList from '@/components/PostList';
 import Head from 'next/head';
