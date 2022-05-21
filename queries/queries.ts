@@ -30,9 +30,6 @@ export const settingsFragment = gql`
           slug
           label
         }
-        analytics {
-          google_analytics
-        }
       }
     }
   }
