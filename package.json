@@ -3,7 +3,7 @@
   "version": "1.5.1",
   "private": true,
   "scripts": {
-    "dev": "yarn codegen && next",
+    "dev": "yarn codegen && next -p 3001",
     "build": "yarn codegen && next build",
     "start": "next start -p 3001",
     "codegen": "graphql-codegen",

@@ -5,7 +5,7 @@ const withBundleAnalyzer = require('@next/bundle-analyzer')({
 // You might need to insert additional domains in script-src if you are using external services
 const ContentSecurityPolicy = `
   default-src 'self';
-  script-src 'self' 'unsafe-eval' 'unsafe-inline' giscus.app cdnjs.cloudflare.com;
+  script-src 'self' 'unsafe-eval' 'unsafe-inline' giscus.app cdnjs.cloudflare.com localhost:3002 collect.letterpad.app;
   style-src 'self' 'unsafe-inline';
   img-src * blob: data:;
   media-src 'none';
@@ -61,7 +61,9 @@ module.exports = withBundleAnalyzer({
   eslint: {
     dirs: ['pages', 'components', 'lib', 'layouts', 'scripts'],
   },
-  images: { domains: ['res.cloudinary.com', 'images.unsplash.com', 'localhost'] },
+  images: {
+    domains: ['res.cloudinary.com', 'images.unsplash.com', 'localhost'],
+  },
   async headers() {
     return [
       {
@@ -102,8 +104,8 @@ module.exports = withBundleAnalyzer({
     return config;
   },
   env: {
-    // API_URL: 'http://localhost:3000/admin/api/graphql',
-    API_URL: 'https://letterpad.app/admin/api/graphql',
+    API_URL: process.env.API_URL,
+    GRAPHQL_URL: process.env.API_URL + '/api/graphql',
     CLIENT_ID: process.env.CLIENT_ID,
   },
 });
