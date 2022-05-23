@@ -23,6 +23,11 @@ interface Props {
   children: ReactNode;
 }
 
+declare global {
+  interface Window {
+    Prism: Record<string, () => void>;
+  }
+}
 export default function PostLayout({ data, next, prev, children }: Props) {
   const { post, settings, me } = data;
 
