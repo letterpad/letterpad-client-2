@@ -1,6 +1,11 @@
-import { useState } from 'react';
+import { Navigation } from '@/lib/graphql';
+import Link from './Link';
+import React, { useState } from 'react';
 
-const MobileNav = ({ children }) => {
+interface Props {
+  routes: Omit<Navigation, 'original_name'>[];
+}
+const MobileNav: React.VFC<Props> = ({ routes }) => {
   const [navShow, setNavShow] = useState(false);
 
   const onToggleNav = () => {
@@ -55,23 +60,37 @@ const MobileNav = ({ children }) => {
           className="fixed h-full w-full cursor-auto focus:outline-none"
           onClick={onToggleNav}
         ></button>
-        <nav className="fixed mt-8 h-full">
-          <div className="flex flex-col px-12 py-4">{children}</div>
-          {/* {headerNavLinks.map((link) => (
-            <div key={link.title} className="px-12 py-4">
-              <Link
-                href={link.href}
-                className="text-2xl font-bold tracking-widest text-gray-900 dark:text-gray-100"
-                onClick={onToggleNav}
-              >
-                {link.title}
-              </Link>
-            </div>
-          ))} */}
-        </nav>
+        <nav className="fixed mt-8 h-full">{getMenu(routes)}</nav>
       </div>
     </div>
   );
 };
 
 export default MobileNav;
+
+function getMenu(menu: Omit<Navigation, 'original_name'>[]) {
+  return menu.map((item, i) => {
+    return (
+      <div key={item.label} className="px-12 py-4">
+        {item.type === 'custom' ? (
+          <a
+            key={item.slug}
+            href={item.slug}
+            className="p-1 font-medium capitalize text-gray-900 dark:text-gray-100 sm:p-4"
+          >
+            {item.label}
+          </a>
+        ) : (
+          <Link
+            key={item.slug}
+            href={i === 0 ? '/' : item.slug}
+            target="_self"
+            className="text-2xl font-bold capitalize tracking-widest text-gray-900 dark:text-gray-100"
+          >
+            {item.label}
+          </Link>
+        )}
+      </div>
+    );
+  });
+}

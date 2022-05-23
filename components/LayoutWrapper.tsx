@@ -6,6 +6,7 @@ import ThemeSwitch from './ThemeSwitch';
 import { ReactNode } from 'react';
 import { MeFragment, Navigation, NavigationType, SettingsFragment } from '@/lib/graphql';
 import Image from '@/components/Image';
+import Subscribe from './subscribe';
 
 interface Props {
   children: ReactNode;
@@ -61,10 +62,11 @@ const LayoutWrapper = ({ children, props }: Props) => {
           <div className="flex items-center text-base leading-5">
             <div className="hidden sm:block">{menu}</div>
             <ThemeSwitch />
-            <MobileNav>{menu}</MobileNav>
+            <MobileNav routes={routes} />
           </div>
         </header>
         <main className="mb-auto">{children}</main>
+        <Subscribe />
         <Footer author={props.me} settings={props.settings} />
       </div>
     </SectionContainer>
@@ -79,7 +81,7 @@ function getMenu(menu: Omit<Navigation, 'original_name'>[]) {
       <a
         key={item.slug}
         href={item.slug}
-        className="p-1 font-medium text-gray-900 dark:text-gray-100 sm:p-4"
+        className="p-1 font-medium capitalize text-gray-900 dark:text-gray-100 sm:p-4"
       >
         {item.label}
       </a>
