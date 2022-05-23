@@ -5,8 +5,7 @@ import MobileNav from './MobileNav';
 import ThemeSwitch from './ThemeSwitch';
 import { ReactNode } from 'react';
 import { MeFragment, Navigation, NavigationType, SettingsFragment } from '@/lib/graphql';
-import Image from '@/components/Image';
-import Subscribe from './subscribe';
+import Subscribe from './Subscribe';
 
 interface Props {
   children: ReactNode;
