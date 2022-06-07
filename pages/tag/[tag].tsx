@@ -1,5 +1,4 @@
 import { TagSEO } from '@/components/SEO';
-import siteMetadata from '@/data/siteMetadata';
 import ListLayout from '@/layouts/ListLayout';
 import { fetchProps } from '@/lib/client';
 import { TagPostsQueryQuery, TagPostsQueryQueryVariables } from '@/lib/graphql';
@@ -26,7 +25,6 @@ export const tagsQuery = gql`
 
 export default function Tag({
   posts,
-  tag,
   me,
   tagName,
   settings,
@@ -42,8 +40,8 @@ export default function Tag({
   return (
     <>
       <TagSEO
-        title={`${tagName} - ${siteMetadata.title}`}
-        description={`${tagName} tags - ${siteMetadata.author}`}
+        title={`${tagName} - ${settings.site_title}`}
+        description={`${tagName} - Tag of ${settings.site_title}`}
         site_banner={settings.banner.src}
         site_title={settings.site_title}
         url={settings.site_url + 'tags'}

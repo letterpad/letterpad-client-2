@@ -4,10 +4,11 @@ import SectionContainer from '@/components/SectionContainer';
 import { BlogSEO } from '@/components/SEO';
 import Image from '@/components/Image';
 import Tag from '@/components/Tag';
-import siteMetadata from '@/data/siteMetadata';
 // import Comments from '@/components/comments';
 import { ReactNode, useEffect } from 'react';
 import { PageQueryWithHtmlQuery } from '@/lib/graphql';
+import { Share } from '@/components/share';
+import ScrollTop from '@/components/ScrollTop';
 
 const postDateTemplate: Intl.DateTimeFormatOptions = {
   weekday: 'long',
@@ -28,6 +29,7 @@ declare global {
     Prism: Record<string, () => void>;
   }
 }
+
 export default function PostLayout({ data, next, prev, children }: Props) {
   const { post, settings, me } = data;
 
@@ -60,10 +62,11 @@ export default function PostLayout({ data, next, prev, children }: Props) {
       logo: settings.site_logo.src,
     },
   ];
+  const postUrl = `${settings.site_url}${slug}`;
   return (
     <SectionContainer>
       <BlogSEO
-        url={`${settings.site_url}${slug}`}
+        url={postUrl}
         authorDetails={authorDetails}
         date={publishedAt}
         title={title}
@@ -73,10 +76,10 @@ export default function PostLayout({ data, next, prev, children }: Props) {
         slug={slug}
         tags={tags.map((t) => t.name)}
         fileName={title}
-        canonicalUrl={`${settings.site_url}${slug}`}
+        canonicalUrl={postUrl}
         site_name={settings.site_title}
       />
-      {/* <ScrollTopAndComment /> */}
+      <ScrollTop />
       <article>
         <div className="xl:divide-y xl:divide-gray-200 xl:dark:divide-gray-700">
           <header className="pt-6 xl:pb-6">
@@ -86,10 +89,7 @@ export default function PostLayout({ data, next, prev, children }: Props) {
                   <dt className="sr-only">Published on</dt>
                   <dd className="text-base font-medium leading-6 text-gray-500 dark:text-gray-400">
                     <time dateTime={publishedAt}>
-                      {new Date(publishedAt).toLocaleDateString(
-                        siteMetadata.locale,
-                        postDateTemplate
-                      )}
+                      {new Date(publishedAt).toLocaleDateString('en-US', postDateTemplate)}
                     </time>
                   </dd>
                 </div>
@@ -143,18 +143,28 @@ export default function PostLayout({ data, next, prev, children }: Props) {
             </div>
             <footer>
               <div className="divide-gray-200 text-sm font-medium leading-5 dark:divide-gray-700 xl:col-start-1 xl:row-start-2 xl:divide-y">
-                {tags.length > 0 && (
-                  <div className="py-4 xl:py-8">
+                <div className="flex flex-row justify-between xl:flex-col">
+                  {tags.length > 0 && (
+                    <div className="py-4 xl:py-4">
+                      <h2 className="text-xs uppercase tracking-wide text-gray-500 dark:text-gray-400">
+                        Tags
+                      </h2>
+                      <div className="flex flex-wrap">
+                        {tags.map((tag) => (
+                          <Tag key={tag.name} text={tag.name} />
+                        ))}
+                      </div>
+                    </div>
+                  )}
+                  <div className="py-4 xl:py-4">
                     <h2 className="text-xs uppercase tracking-wide text-gray-500 dark:text-gray-400">
-                      Tags
+                      Share
                     </h2>
-                    <div className="flex flex-wrap">
-                      {tags.map((tag) => (
-                        <Tag key={tag.name} text={tag.name} />
-                      ))}
+                    <div className="mt-2 flex flex-wrap">
+                      <Share title={title} summary={excerpt} url={postUrl} />
                     </div>
                   </div>
-                )}
+                </div>
                 {(next || prev) && (
                   <div className="flex justify-between py-4 xl:block xl:space-y-8 xl:py-8">
                     {prev && (

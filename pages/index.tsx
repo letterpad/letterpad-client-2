@@ -1,6 +1,5 @@
 import { PageSEO } from '@/components/SEO';
 import { InferGetServerSidePropsType } from 'next';
-// import NewsletterForm from '@/components/NewsletterForm';
 import gql from 'graphql-tag';
 import { fetchProps, PageProps } from '@/lib/client';
 import {
@@ -69,17 +68,11 @@ export default function Home({
 
         {!isPage && posts.__typename === 'PostsNode' && <Component posts={posts} />}
         {isPage && page.__typename === 'Post' && (
-          <PostSimple data={page} site_name={settings.site_title}>
+          <PostSimple data={page} site_name={settings.site_title} settings={settings}>
             <div dangerouslySetInnerHTML={{ __html: page.html }}></div>
           </PostSimple>
         )}
       </div>
-
-      {/* {siteMetadata.newsletter.provider !== '' && (
-        <div className="flex items-center justify-center pt-4">
-          <NewsletterForm />
-        </div>
-      )}  */}
     </>
   );
 }

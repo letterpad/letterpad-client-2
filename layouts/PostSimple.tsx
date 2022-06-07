@@ -2,12 +2,11 @@ import Link from '@/components/Link';
 import PageTitle from '@/components/PageTitle';
 import SectionContainer from '@/components/SectionContainer';
 import { BlogSEO } from '@/components/SEO';
-import siteMetadata from '@/data/siteMetadata';
 import formatDate from '@/lib/utils/formatDate';
 // import Comments from '@/components/comments';
-// import ScrollTopAndComment from '@/components/ScrollTopAndComment';
+import ScrollTop from '@/components/ScrollTop';
 import { ReactNode } from 'react';
-import { PageFragmentFragment } from '@/lib/graphql';
+import { PageFragmentFragment, SettingsFragment } from '@/lib/graphql';
 
 interface Props {
   data: PageFragmentFragment;
@@ -15,15 +14,15 @@ interface Props {
   next?: { slug: string; title: string };
   prev?: { slug: string; title: string };
   site_name: string;
+  settings: SettingsFragment['settings'];
 }
-
-export default function PostSimple({ site_name, data, next, prev, children }: Props) {
+export default function PostSimple({ site_name, data, next, prev, children, settings }: Props) {
   const { slug, publishedAt, title, excerpt, updatedAt, cover_image, tags } = data;
-
+  if (settings.__typename !== 'Setting') return null;
   return (
     <SectionContainer>
       <BlogSEO
-        url={`${siteMetadata.siteUrl}${slug}`}
+        url={`${settings.site_url}${slug}`}
         date={publishedAt}
         title={title}
         summary={excerpt}
@@ -34,7 +33,7 @@ export default function PostSimple({ site_name, data, next, prev, children }: Pr
         fileName={title}
         site_name={site_name}
       />
-      {/* <ScrollTopAndComment /> */}
+      <ScrollTop />
       <article>
         <div>
           <header>
