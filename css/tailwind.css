@@ -27,3 +27,7 @@ input:-webkit-autofill:focus {
 .prose :where(blockquote):not(:where([class~='not-prose'] *)) {
   font-style: normal;
 }
+
+.prose :where(pre):not(:where([class~='not-prose'] *)) {
+  font-size: 80%;
+}
