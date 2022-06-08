@@ -20,7 +20,7 @@ export default function Footer({ author, settings }) {
                 />
               )}
             </span>
-            <div className="hidden text-xl font-bold text-gray-500 dark:text-gray-200 sm:block">
+            <div className="hidden text-xl font-bold text-gray-700 dark:text-gray-200 sm:block">
               <Link href={settings.site_url}>{settings.site_title}</Link>
             </div>
           </div>
