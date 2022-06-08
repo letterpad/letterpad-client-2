@@ -5,7 +5,6 @@ import MobileNav from './MobileNav';
 import ThemeSwitch from './ThemeSwitch';
 import { ReactNode } from 'react';
 import { MeFragment, Navigation, NavigationType, SettingsFragment } from '@/lib/graphql';
-import Subscribe from './Subscribe';
 
 interface Props {
   children: ReactNode;
@@ -42,14 +41,14 @@ const LayoutWrapper = ({ children, props }: Props) => {
                     // eslint-disable-next-line @next/next/no-img-element
                     <img
                       src={props.settings.site_logo.src}
-                      width="46"
-                      height="46"
+                      width="36"
+                      height="36"
                       alt={props.settings.site_title}
                     />
                   )}
                 </span>
                 {typeof props.settings.site_title === 'string' ? (
-                  <div className="hidden h-6 text-2xl font-semibold sm:block">
+                  <div className="hidden text-xl font-semibold sm:block">
                     {props.settings.site_title}
                   </div>
                 ) : (
@@ -65,7 +64,10 @@ const LayoutWrapper = ({ children, props }: Props) => {
           </div>
         </header>
         <main className="mb-auto">{children}</main>
-        <Subscribe />
+        <br />
+        <br />
+        <br />
+
         <Footer author={props.me} settings={props.settings} />
       </div>
     </SectionContainer>

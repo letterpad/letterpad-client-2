@@ -33,7 +33,7 @@ const Subscribe = () => {
       <div className="mx-auto max-w-md flex-1 overflow-hidden rounded-lg md:max-w-xl">
         <div className="md:flex">
           <div className="w-full p-3">
-            <h2 className="mb-4 font-semibold">Subscribe to the newsletter</h2>
+            <h2 className="mb-4 text-center font-semibold">Subscribe to the newsletter</h2>
             <div className="relative">
               <input
                 type="text"
