@@ -24,10 +24,6 @@ export default function Footer({ author, settings }) {
               <Link href={settings.site_url}>{settings.site_title}</Link>
             </div>
           </div>
-          <div
-            dangerouslySetInnerHTML={{ __html: settings.site_footer }}
-            className="w-full text-center text-sm text-gray-500 dark:text-gray-400 sm:text-left md:w-2/3"
-          ></div>
         </div>
         <div className="flex flex-col items-center  sm:mt-0 sm:items-end">
           <div className="mb-3 flex space-x-4">
@@ -42,9 +38,13 @@ export default function Footer({ author, settings }) {
       </div>
       <div className="py-8 sm:py-0">
         <Subscribe />
+        <div
+          dangerouslySetInnerHTML={{ __html: settings.site_footer }}
+          className="w-full pt-8 text-center text-sm text-gray-500 dark:text-gray-500"
+        ></div>
       </div>
-      <div className="mt-4 flex w-full flex-col  items-center justify-center border-t border-gray-200 border-opacity-60 py-10  dark:border-gray-700 sm:mt-14">
-        <div className="mb-2 flex space-x-2 text-sm text-gray-500 dark:text-gray-400">
+      <div className="mt-4 flex w-full flex-col items-center justify-center border-t border-gray-200 border-opacity-60 py-6  dark:border-gray-700 sm:mt-14">
+        <div className="mb-2 flex space-x-2 text-sm text-gray-500 dark:text-gray-300">
           <div>{`© ${new Date().getFullYear()}`}</div>
           <div>{` • `}</div>
           <div>
