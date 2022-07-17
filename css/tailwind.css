@@ -31,3 +31,7 @@ input:-webkit-autofill:focus {
 .prose :where(pre):not(:where([class~='not-prose'] *)) {
   font-size: 80%;
 }
+
+body {
+  word-break: break-word;
+}
