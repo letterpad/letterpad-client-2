@@ -175,7 +175,7 @@ export const BlogSEO = ({
     author: authorList,
     publisher: {
       '@type': 'Organization',
-      name: authorList.pop(),
+      name: authorDetails.pop(),
       logo: {
         '@type': 'ImageObject',
         url: '/static/images/logo.png',

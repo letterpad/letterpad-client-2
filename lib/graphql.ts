@@ -471,7 +471,9 @@ export type Query = {
   post: PostResponse;
   posts: PostsResponse;
   settings: SettingResponse;
+  sitemap: SiteMapResponse;
   stats?: Maybe<StatsResponse>;
+  subscriber: SubscriberResponse;
   subscribers: SubscribersNode;
   tag: TagResponse;
   tags: TagsResponse;
@@ -491,6 +493,10 @@ export type QueryPostArgs = {
 
 export type QueryPostsArgs = {
   filters?: InputMaybe<PostsFilters>;
+};
+
+export type QuerySubscriberArgs = {
+  subscriber_id?: InputMaybe<Scalars['Int']>;
 };
 
 export type QuerySubscribersArgs = {
@@ -593,6 +599,26 @@ export type SettingInputType = {
 
 export type SettingResponse = Setting | SettingError;
 
+export type SiteMapError = {
+  __typename?: 'SiteMapError';
+  message?: Maybe<Scalars['String']>;
+};
+
+export type SiteMapList = {
+  __typename?: 'SiteMapList';
+  rows: Array<SiteMapNode>;
+};
+
+export type SiteMapNode = {
+  __typename?: 'SiteMapNode';
+  changefreq?: Maybe<Scalars['String']>;
+  lastmod?: Maybe<Scalars['String']>;
+  priority: Scalars['Int'];
+  route: Scalars['String'];
+};
+
+export type SiteMapResponse = SiteMapError | SiteMapList;
+
 export type Social = {
   __typename?: 'Social';
   facebook?: Maybe<Scalars['String']>;
@@ -622,14 +648,21 @@ export type StatsError = LetterpadError & {
 
 export type StatsResponse = Stats | StatsError;
 
-export type Subscribers = {
-  __typename?: 'Subscribers';
+export type Subscriber = {
+  __typename?: 'Subscriber';
   author_id: Scalars['Int'];
   createdAt: Scalars['Date'];
   email: Scalars['String'];
   id: Scalars['Int'];
   verified: Scalars['Boolean'];
 };
+
+export type SubscriberError = {
+  __typename?: 'SubscriberError';
+  message?: Maybe<Scalars['String']>;
+};
+
+export type SubscriberResponse = Subscriber | SubscriberError;
 
 export type SubscribersAddResult = {
   __typename?: 'SubscribersAddResult';
@@ -640,7 +673,7 @@ export type SubscribersAddResult = {
 export type SubscribersNode = {
   __typename?: 'SubscribersNode';
   count: Scalars['Int'];
-  rows: Array<Subscribers>;
+  rows: Array<Subscriber>;
 };
 
 export type SubscribersUpdateResult = {
@@ -946,6 +979,23 @@ export type PreviewQueryQuery = {
     | { __typename?: 'SettingError' };
 };
 
+export type SitemapQueryQueryVariables = Exact<{ [key: string]: never }>;
+
+export type SitemapQueryQuery = {
+  __typename?: 'Query';
+  sitemap:
+    | { __typename: 'SiteMapError'; message?: string | null }
+    | {
+        __typename: 'SiteMapList';
+        rows: Array<{
+          __typename?: 'SiteMapNode';
+          route: string;
+          priority: number;
+          lastmod?: string | null;
+        }>;
+      };
+};
+
 export type TagPostsQueryQueryVariables = Exact<{
   tagSlug: Scalars['String'];
 }>;
@@ -1236,3 +1286,22 @@ export type TagsFragment_Tags_Fragment = { __typename?: 'Tags'; name: string; sl
 export type TagsFragmentFragment =
   | TagsFragment_TagResultError_Fragment
   | TagsFragment_Tags_Fragment;
+
+export type SitemapFragment_SiteMapError_Fragment = {
+  __typename: 'SiteMapError';
+  message?: string | null;
+};
+
+export type SitemapFragment_SiteMapList_Fragment = {
+  __typename: 'SiteMapList';
+  rows: Array<{
+    __typename?: 'SiteMapNode';
+    route: string;
+    priority: number;
+    lastmod?: string | null;
+  }>;
+};
+
+export type SitemapFragmentFragment =
+  | SitemapFragment_SiteMapError_Fragment
+  | SitemapFragment_SiteMapList_Fragment;

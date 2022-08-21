@@ -6,7 +6,7 @@ import formatDate from '@/lib/utils/formatDate';
 // import Comments from '@/components/comments';
 import ScrollTop from '@/components/ScrollTop';
 import { ReactNode } from 'react';
-import { PageFragmentFragment, SettingsFragment } from '@/lib/graphql';
+import { MeFragment, PageFragmentFragment, SettingsFragment } from '@/lib/graphql';
 
 interface Props {
   data: PageFragmentFragment;
@@ -15,10 +15,27 @@ interface Props {
   prev?: { slug: string; title: string };
   site_name: string;
   settings: SettingsFragment['settings'];
+  me: MeFragment['me'];
 }
-export default function PostSimple({ site_name, data, next, prev, children, settings }: Props) {
+export default function PostSimple({ site_name, data, next, prev, children, settings, me }: Props) {
   const { slug, publishedAt, title, excerpt, updatedAt, cover_image, tags } = data;
   if (settings.__typename !== 'Setting') return null;
+  if (me.__typename !== 'Author') return;
+  const authorDetails = [
+    {
+      name: data.author.name,
+      avatar: data.author.avatar,
+      occupation: me.occupation,
+      company: me.company_name,
+      email: settings.site_email,
+      twitter: me.social.twitter,
+      linkedin: me.social.linkedin,
+      github: me.social.github,
+      banner: settings.banner.src,
+      logo: settings.site_logo.src,
+    },
+  ];
+
   return (
     <SectionContainer>
       <BlogSEO
@@ -32,6 +49,7 @@ export default function PostSimple({ site_name, data, next, prev, children, sett
         tags={tags.map((t) => t.name)}
         fileName={title}
         site_name={site_name}
+        authorDetails={authorDetails}
       />
       <ScrollTop />
       <article>

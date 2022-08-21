@@ -144,110 +144,18 @@ export const tagsFragment = gql`
   }
 `;
 
-// export const baseQuery = gql`
-//   query BaseQuery {
-//     settings {
-//       ... on Setting {
-//         __typename
-//         site_footer
-//         site_favicon {
-//           src
-//         }
-//         subscribe_embed
-//         css
-//         site_title
-//         site_description
-//         site_tagline
-//         banner {
-//           src
-//         }
-//         site_logo {
-//           src
-//         }
-//         menu {
-//           type
-//           slug
-//           label
-//         }
-//       }
-//     }
-//     me {
-//       ... on Author {
-//         name
-//         social {
-//           twitter
-//           facebook
-//           github
-//           instagram
-//         }
-//       }
-//     }
-//   }
-// `;
-
-// export const postsQuery = gql`
-//   query PostsQuery($tagSlug: String!) {
-//     posts(filters: { tagSlug: $tagSlug }) {
-//       ... on PostsNode {
-//         count
-//         rows {
-//           id
-//           title
-//           slug
-//           cover_image {
-//             src
-//           }
-//           author {
-//             avatar
-//             name
-//           }
-//           publishedAt
-//           reading_time
-//           excerpt
-//           tags {
-//             slug
-//             name
-//           }
-//         }
-//       }
-//     }
-//     tag(slug: $tagSlug) {
-//       ... on Tags {
-//         name
-//         slug
-//       }
-//       ... on TagResultError {
-//         message
-//       }
-//     }
-//   }
-// `;
-
-// export const pageQuery = gql`
-//   query PageQuery($slug: String) {
-//     post(filters: { slug: $slug }) {
-//       ... on Post {
-//         id
-//         slug
-//         title
-//         reading_time
-//         html
-//         publishedAt
-//         updatedAt
-//         excerpt
-//         tags {
-//           name
-//           slug
-//         }
-//         author {
-//           name
-//           avatar
-//         }
-//         cover_image {
-//           src
-//         }
-//       }
-//       __typename
-//     }
-//   }
-// `;
+export const sitemapFragment = gql`
+  fragment sitemapFragment on SiteMapResponse {
+    ... on SiteMapList {
+      rows {
+        route
+        priority
+        lastmod
+      }
+    }
+    ... on SiteMapError {
+      message
+    }
+    __typename
+  }
+`;
