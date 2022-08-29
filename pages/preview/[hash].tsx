@@ -13,8 +13,10 @@ export const previewQuery = gql`
       ... on Post {
         html
         author {
-          name
-          avatar
+          ... on Author {
+            name
+            avatar
+          }
         }
       }
       __typename

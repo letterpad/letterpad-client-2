@@ -69,13 +69,20 @@ export const pageFragment = gql`
       updatedAt
       excerpt
       tags {
-        name
-        slug
+        ... on TagsNode {
+          rows {
+            name
+            slug
+          }
+        }
       }
       author {
-        name
-        avatar
-        occupation
+        ... on Author {
+          id
+          name
+          avatar
+          occupation
+        }
       }
       cover_image {
         src
@@ -98,15 +105,21 @@ export const postsFragment = gql`
           src
         }
         author {
-          avatar
-          name
+          ... on Author {
+            name
+            avatar
+          }
         }
         publishedAt
         reading_time
         excerpt
         tags {
-          slug
-          name
+          ... on TagsNode {
+            rows {
+              name
+              slug
+            }
+          }
         }
       }
     }
@@ -134,11 +147,11 @@ export const postsQuery = gql`
 
 export const tagsFragment = gql`
   fragment tagsFragment on TagResponse {
-    ... on Tags {
+    ... on Tag {
       name
       slug
     }
-    ... on TagResultError {
+    ... on Exception {
       message
     }
   }

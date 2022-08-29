@@ -12,8 +12,11 @@ const pageQueryWithHtml = gql`
       ... on Post {
         html
         author {
-          name
-          avatar
+          ... on Author {
+            name
+            avatar
+          }
+          __typename
         }
       }
       __typename

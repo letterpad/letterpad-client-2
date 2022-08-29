@@ -32,24 +32,7 @@ export type Author = {
   verified?: Maybe<Scalars['Boolean']>;
 };
 
-export type AuthorNotFoundError = LetterpadError & {
-  __typename?: 'AuthorNotFoundError';
-  message: Scalars['String'];
-};
-
-export type AuthorResponse = {
-  __typename?: 'AuthorResponse';
-  data?: Maybe<Author>;
-  errors?: Maybe<Array<Maybe<Error>>>;
-  ok: Scalars['Boolean'];
-};
-
-export type CreateAuthorError = LetterpadError & {
-  __typename?: 'CreateAuthorError';
-  message: Scalars['String'];
-};
-
-export type CreateAuthorResponse = Author | CreateAuthorError;
+export type AuthorResponse = Author | Exception | Failed | NotFound | UnAuthorizedError;
 
 export type CreateDomainResponse = Domain | DomainError;
 
@@ -105,6 +88,16 @@ export type Error = {
   __typename?: 'Error';
   message?: Maybe<Scalars['String']>;
   path: Scalars['String'];
+};
+
+export type Exception = LetterpadError & {
+  __typename?: 'Exception';
+  message: Scalars['String'];
+};
+
+export type Failed = LetterpadError & {
+  __typename?: 'Failed';
+  message: Scalars['String'];
 };
 
 export type ForgotPasswordResponse = {
@@ -216,6 +209,11 @@ export type InputUpdateSubscriber = {
   verified?: InputMaybe<Scalars['Boolean']>;
 };
 
+export type InvalidArguments = LetterpadError & {
+  __typename?: 'InvalidArguments';
+  message: Scalars['String'];
+};
+
 export type LetterpadError = {
   message: Scalars['String'];
 };
@@ -231,8 +229,6 @@ export type LoginError = LetterpadError & {
 };
 
 export type LoginResponse = Author | LoginError;
-
-export type MeResponse = Author | AuthorNotFoundError;
 
 export type Media = {
   __typename?: 'Media';
@@ -282,7 +278,7 @@ export type MediaUpdateResult = {
 export type Mutation = {
   __typename?: 'Mutation';
   addSubscriber?: Maybe<SubscribersAddResult>;
-  createAuthor?: Maybe<CreateAuthorResponse>;
+  createAuthor?: Maybe<AuthorResponse>;
   createOrUpdateDomain: UpdateDomainResponse;
   createPost: CreatePostResponse;
   deleteMedia?: Maybe<MediaDeleteResponse>;
@@ -374,6 +370,11 @@ export enum NavigationType {
   Tag = 'tag',
 }
 
+export type NotFound = LetterpadError & {
+  __typename?: 'NotFound';
+  message: Scalars['String'];
+};
+
 export enum Permissions {
   ManageAllPosts = 'MANAGE_ALL_POSTS',
   ManageOwnPosts = 'MANAGE_OWN_POSTS',
@@ -384,7 +385,7 @@ export enum Permissions {
 
 export type Post = {
   __typename?: 'Post';
-  author?: Maybe<Author>;
+  author?: Maybe<AuthorResponse>;
   cover_image: Image;
   createdAt: Scalars['Date'];
   excerpt?: Maybe<Scalars['String']>;
@@ -397,7 +398,7 @@ export type Post = {
   scheduledAt?: Maybe<Scalars['Date']>;
   slug?: Maybe<Scalars['String']>;
   status: PostStatusOptions;
-  tags?: Maybe<Array<Tags>>;
+  tags?: Maybe<TagsResponse>;
   title: Scalars['String'];
   type: PostTypes;
   updatedAt: Scalars['Date'];
@@ -423,7 +424,7 @@ export type PostFilters = {
   type?: InputMaybe<PostTypes>;
 };
 
-export type PostResponse = Post | PostError;
+export type PostResponse = Exception | InvalidArguments | NotFound | Post | UnAuthorizedError;
 
 export enum PostStatusOptions {
   Draft = 'draft',
@@ -459,14 +460,14 @@ export type PostsNode = {
   rows: Array<Post>;
 };
 
-export type PostsResponse = PostError | PostsNode;
+export type PostsResponse = Exception | PostsNode | UnAuthorizedError;
 
 export type Query = {
   __typename?: 'Query';
   domain: DomainResponse;
   email: EmailResponse;
   emails: Array<Maybe<Email>>;
-  me?: Maybe<MeResponse>;
+  me?: Maybe<AuthorResponse>;
   media: MediaNode;
   post: PostResponse;
   posts: PostsResponse;
@@ -597,7 +598,7 @@ export type SettingInputType = {
   theme?: InputMaybe<Scalars['String']>;
 };
 
-export type SettingResponse = Setting | SettingError;
+export type SettingResponse = NotFound | Setting | UnAuthorizedError;
 
 export type SiteMapError = {
   __typename?: 'SiteMapError';
@@ -682,18 +683,18 @@ export type SubscribersUpdateResult = {
   ok: Scalars['Boolean'];
 };
 
-export type TagResponse = TagResultError | Tags;
+export type Tag = {
+  __typename?: 'Tag';
+  name: Scalars['String'];
+  posts?: Maybe<PostsResponse>;
+  slug: Scalars['String'];
+};
+
+export type TagResponse = Exception | Tag;
 
 export type TagResultError = LetterpadError & {
   __typename?: 'TagResultError';
   message: Scalars['String'];
-};
-
-export type Tags = {
-  __typename?: 'Tags';
-  name: Scalars['String'];
-  posts?: Maybe<PostsResponse>;
-  slug: Scalars['String'];
 };
 
 export type TagsError = LetterpadError & {
@@ -714,10 +715,15 @@ export type TagsInputType = {
 
 export type TagsNode = {
   __typename?: 'TagsNode';
-  rows: Array<Tags>;
+  rows: Array<Tag>;
 };
 
-export type TagsResponse = TagsError | TagsNode;
+export type TagsResponse = Exception | TagsError | TagsNode;
+
+export type UnAuthorizedError = LetterpadError & {
+  __typename?: 'UnAuthorizedError';
+  message: Scalars['String'];
+};
 
 export type UpdateDomainResponse = {
   __typename?: 'UpdateDomainResponse';
@@ -751,9 +757,13 @@ export type AboutQueryQuery = {
           linkedin?: string | null;
         } | null;
       }
-    | { __typename?: 'AuthorNotFoundError' }
+    | { __typename?: 'Exception' }
+    | { __typename?: 'Failed' }
+    | { __typename?: 'NotFound' }
+    | { __typename?: 'UnAuthorizedError' }
     | null;
   settings:
+    | { __typename?: 'NotFound' }
     | {
         __typename: 'Setting';
         site_footer?: string | null;
@@ -777,7 +787,7 @@ export type AboutQueryQuery = {
           label: string;
         }>;
       }
-    | { __typename?: 'SettingError' };
+    | { __typename?: 'UnAuthorizedError' };
 };
 
 export type HomeQueryQueryVariables = Exact<{ [key: string]: never }>;
@@ -785,6 +795,7 @@ export type HomeQueryQueryVariables = Exact<{ [key: string]: never }>;
 export type HomeQueryQuery = {
   __typename?: 'Query';
   settings:
+    | { __typename?: 'NotFound' }
     | {
         __typename: 'Setting';
         site_footer?: string | null;
@@ -808,7 +819,7 @@ export type HomeQueryQuery = {
           label: string;
         }>;
       }
-    | { __typename?: 'SettingError' };
+    | { __typename?: 'UnAuthorizedError' };
   me?:
     | {
         __typename: 'Author';
@@ -827,7 +838,10 @@ export type HomeQueryQuery = {
           linkedin?: string | null;
         } | null;
       }
-    | { __typename?: 'AuthorNotFoundError' }
+    | { __typename?: 'Exception' }
+    | { __typename?: 'Failed' }
+    | { __typename?: 'NotFound' }
+    | { __typename?: 'UnAuthorizedError' }
     | null;
 };
 
@@ -838,6 +852,9 @@ export type PageQueryWithHtmlQueryVariables = Exact<{
 export type PageQueryWithHtmlQuery = {
   __typename?: 'Query';
   post:
+    | { __typename: 'Exception' }
+    | { __typename: 'InvalidArguments' }
+    | { __typename: 'NotFound' }
     | {
         __typename: 'Post';
         html?: string | null;
@@ -848,16 +865,30 @@ export type PageQueryWithHtmlQuery = {
         publishedAt?: any | null;
         updatedAt: any;
         excerpt?: string | null;
-        author?: {
-          __typename?: 'Author';
-          name: string;
-          avatar?: string | null;
-          occupation?: string | null;
-        } | null;
-        tags?: Array<{ __typename?: 'Tags'; name: string; slug: string }> | null;
+        author?:
+          | {
+              __typename: 'Author';
+              name: string;
+              avatar?: string | null;
+              id: number;
+              occupation?: string | null;
+            }
+          | { __typename: 'Exception' }
+          | { __typename: 'Failed' }
+          | { __typename: 'NotFound' }
+          | { __typename: 'UnAuthorizedError' }
+          | null;
+        tags?:
+          | { __typename?: 'Exception' }
+          | { __typename?: 'TagsError' }
+          | {
+              __typename?: 'TagsNode';
+              rows: Array<{ __typename?: 'Tag'; name: string; slug: string }>;
+            }
+          | null;
         cover_image: { __typename?: 'Image'; src?: string | null };
       }
-    | { __typename: 'PostError' };
+    | { __typename: 'UnAuthorizedError' };
   me?:
     | {
         __typename: 'Author';
@@ -876,9 +907,13 @@ export type PageQueryWithHtmlQuery = {
           linkedin?: string | null;
         } | null;
       }
-    | { __typename?: 'AuthorNotFoundError' }
+    | { __typename?: 'Exception' }
+    | { __typename?: 'Failed' }
+    | { __typename?: 'NotFound' }
+    | { __typename?: 'UnAuthorizedError' }
     | null;
   settings:
+    | { __typename?: 'NotFound' }
     | {
         __typename: 'Setting';
         site_footer?: string | null;
@@ -902,7 +937,7 @@ export type PageQueryWithHtmlQuery = {
           label: string;
         }>;
       }
-    | { __typename?: 'SettingError' };
+    | { __typename?: 'UnAuthorizedError' };
 };
 
 export type PreviewQueryQueryVariables = Exact<{
@@ -912,6 +947,9 @@ export type PreviewQueryQueryVariables = Exact<{
 export type PreviewQueryQuery = {
   __typename?: 'Query';
   post:
+    | { __typename: 'Exception' }
+    | { __typename: 'InvalidArguments' }
+    | { __typename: 'NotFound' }
     | {
         __typename: 'Post';
         html?: string | null;
@@ -922,16 +960,30 @@ export type PreviewQueryQuery = {
         publishedAt?: any | null;
         updatedAt: any;
         excerpt?: string | null;
-        author?: {
-          __typename?: 'Author';
-          name: string;
-          avatar?: string | null;
-          occupation?: string | null;
-        } | null;
-        tags?: Array<{ __typename?: 'Tags'; name: string; slug: string }> | null;
+        author?:
+          | {
+              __typename?: 'Author';
+              name: string;
+              avatar?: string | null;
+              id: number;
+              occupation?: string | null;
+            }
+          | { __typename?: 'Exception' }
+          | { __typename?: 'Failed' }
+          | { __typename?: 'NotFound' }
+          | { __typename?: 'UnAuthorizedError' }
+          | null;
+        tags?:
+          | { __typename?: 'Exception' }
+          | { __typename?: 'TagsError' }
+          | {
+              __typename?: 'TagsNode';
+              rows: Array<{ __typename?: 'Tag'; name: string; slug: string }>;
+            }
+          | null;
         cover_image: { __typename?: 'Image'; src?: string | null };
       }
-    | { __typename: 'PostError' };
+    | { __typename: 'UnAuthorizedError' };
   me?:
     | {
         __typename: 'Author';
@@ -950,9 +1002,13 @@ export type PreviewQueryQuery = {
           linkedin?: string | null;
         } | null;
       }
-    | { __typename?: 'AuthorNotFoundError' }
+    | { __typename?: 'Exception' }
+    | { __typename?: 'Failed' }
+    | { __typename?: 'NotFound' }
+    | { __typename?: 'UnAuthorizedError' }
     | null;
   settings:
+    | { __typename?: 'NotFound' }
     | {
         __typename: 'Setting';
         site_footer?: string | null;
@@ -976,7 +1032,7 @@ export type PreviewQueryQuery = {
           label: string;
         }>;
       }
-    | { __typename?: 'SettingError' };
+    | { __typename?: 'UnAuthorizedError' };
 };
 
 export type SitemapQueryQueryVariables = Exact<{ [key: string]: never }>;
@@ -1003,7 +1059,7 @@ export type TagPostsQueryQueryVariables = Exact<{
 export type TagPostsQueryQuery = {
   __typename?: 'Query';
   posts:
-    | { __typename?: 'PostError' }
+    | { __typename?: 'Exception' }
     | {
         __typename: 'PostsNode';
         count: number;
@@ -1016,13 +1072,27 @@ export type TagPostsQueryQuery = {
           reading_time?: string | null;
           excerpt?: string | null;
           cover_image: { __typename?: 'Image'; src?: string | null };
-          author?: { __typename?: 'Author'; avatar?: string | null; name: string } | null;
-          tags?: Array<{ __typename?: 'Tags'; slug: string; name: string }> | null;
+          author?:
+            | { __typename?: 'Author'; name: string; avatar?: string | null }
+            | { __typename?: 'Exception' }
+            | { __typename?: 'Failed' }
+            | { __typename?: 'NotFound' }
+            | { __typename?: 'UnAuthorizedError' }
+            | null;
+          tags?:
+            | { __typename?: 'Exception' }
+            | { __typename?: 'TagsError' }
+            | {
+                __typename?: 'TagsNode';
+                rows: Array<{ __typename?: 'Tag'; name: string; slug: string }>;
+              }
+            | null;
         }>;
-      };
+      }
+    | { __typename?: 'UnAuthorizedError' };
   tag:
-    | { __typename?: 'TagResultError'; message: string }
-    | { __typename?: 'Tags'; name: string; slug: string };
+    | { __typename?: 'Exception'; message: string }
+    | { __typename?: 'Tag'; name: string; slug: string };
   me?:
     | {
         __typename: 'Author';
@@ -1041,9 +1111,13 @@ export type TagPostsQueryQuery = {
           linkedin?: string | null;
         } | null;
       }
-    | { __typename?: 'AuthorNotFoundError' }
+    | { __typename?: 'Exception' }
+    | { __typename?: 'Failed' }
+    | { __typename?: 'NotFound' }
+    | { __typename?: 'UnAuthorizedError' }
     | null;
   settings:
+    | { __typename?: 'NotFound' }
     | {
         __typename: 'Setting';
         site_footer?: string | null;
@@ -1067,7 +1141,7 @@ export type TagPostsQueryQuery = {
           label: string;
         }>;
       }
-    | { __typename?: 'SettingError' };
+    | { __typename?: 'UnAuthorizedError' };
 };
 
 export type TagsQueryQueryVariables = Exact<{ [key: string]: never }>;
@@ -1075,16 +1149,22 @@ export type TagsQueryQueryVariables = Exact<{ [key: string]: never }>;
 export type TagsQueryQuery = {
   __typename?: 'Query';
   tags:
+    | { __typename: 'Exception' }
     | { __typename: 'TagsError'; message: string }
     | {
         __typename: 'TagsNode';
         rows: Array<{
-          __typename?: 'Tags';
+          __typename?: 'Tag';
           name: string;
-          posts?: { __typename: 'PostError' } | { __typename: 'PostsNode'; count: number } | null;
+          posts?:
+            | { __typename: 'Exception' }
+            | { __typename: 'PostsNode'; count: number }
+            | { __typename: 'UnAuthorizedError' }
+            | null;
         }>;
       };
   settings:
+    | { __typename?: 'NotFound' }
     | {
         __typename: 'Setting';
         site_footer?: string | null;
@@ -1108,7 +1188,7 @@ export type TagsQueryQuery = {
           label: string;
         }>;
       }
-    | { __typename?: 'SettingError' };
+    | { __typename?: 'UnAuthorizedError' };
   me?:
     | {
         __typename: 'Author';
@@ -1127,13 +1207,17 @@ export type TagsQueryQuery = {
           linkedin?: string | null;
         } | null;
       }
-    | { __typename?: 'AuthorNotFoundError' }
+    | { __typename?: 'Exception' }
+    | { __typename?: 'Failed' }
+    | { __typename?: 'NotFound' }
+    | { __typename?: 'UnAuthorizedError' }
     | null;
 };
 
 export type SettingsFragment = {
   __typename?: 'Query';
   settings:
+    | { __typename?: 'NotFound' }
     | {
         __typename: 'Setting';
         site_footer?: string | null;
@@ -1157,7 +1241,7 @@ export type SettingsFragment = {
           label: string;
         }>;
       }
-    | { __typename?: 'SettingError' };
+    | { __typename?: 'UnAuthorizedError' };
 };
 
 export type MeFragment = {
@@ -1180,7 +1264,10 @@ export type MeFragment = {
           linkedin?: string | null;
         } | null;
       }
-    | { __typename?: 'AuthorNotFoundError' }
+    | { __typename?: 'Exception' }
+    | { __typename?: 'Failed' }
+    | { __typename?: 'NotFound' }
+    | { __typename?: 'UnAuthorizedError' }
     | null;
 };
 
@@ -1194,13 +1281,24 @@ export type PageFragmentFragment = {
   publishedAt?: any | null;
   updatedAt: any;
   excerpt?: string | null;
-  tags?: Array<{ __typename?: 'Tags'; name: string; slug: string }> | null;
-  author?: {
-    __typename?: 'Author';
-    name: string;
-    avatar?: string | null;
-    occupation?: string | null;
-  } | null;
+  tags?:
+    | { __typename?: 'Exception' }
+    | { __typename?: 'TagsError' }
+    | { __typename?: 'TagsNode'; rows: Array<{ __typename?: 'Tag'; name: string; slug: string }> }
+    | null;
+  author?:
+    | {
+        __typename?: 'Author';
+        id: number;
+        name: string;
+        avatar?: string | null;
+        occupation?: string | null;
+      }
+    | { __typename?: 'Exception' }
+    | { __typename?: 'Failed' }
+    | { __typename?: 'NotFound' }
+    | { __typename?: 'UnAuthorizedError' }
+    | null;
   cover_image: { __typename?: 'Image'; src?: string | null };
 };
 
@@ -1216,8 +1314,18 @@ export type PostsFragmentFragment = {
     reading_time?: string | null;
     excerpt?: string | null;
     cover_image: { __typename?: 'Image'; src?: string | null };
-    author?: { __typename?: 'Author'; avatar?: string | null; name: string } | null;
-    tags?: Array<{ __typename?: 'Tags'; slug: string; name: string }> | null;
+    author?:
+      | { __typename?: 'Author'; name: string; avatar?: string | null }
+      | { __typename?: 'Exception' }
+      | { __typename?: 'Failed' }
+      | { __typename?: 'NotFound' }
+      | { __typename?: 'UnAuthorizedError' }
+      | null;
+    tags?:
+      | { __typename?: 'Exception' }
+      | { __typename?: 'TagsError' }
+      | { __typename?: 'TagsNode'; rows: Array<{ __typename?: 'Tag'; name: string; slug: string }> }
+      | null;
   }>;
 };
 
@@ -1228,6 +1336,9 @@ export type PageQueryQueryVariables = Exact<{
 export type PageQueryQuery = {
   __typename?: 'Query';
   post:
+    | { __typename: 'Exception' }
+    | { __typename: 'InvalidArguments' }
+    | { __typename: 'NotFound' }
     | {
         __typename: 'Post';
         id: number;
@@ -1238,16 +1349,30 @@ export type PageQueryQuery = {
         publishedAt?: any | null;
         updatedAt: any;
         excerpt?: string | null;
-        tags?: Array<{ __typename?: 'Tags'; name: string; slug: string }> | null;
-        author?: {
-          __typename?: 'Author';
-          name: string;
-          avatar?: string | null;
-          occupation?: string | null;
-        } | null;
+        tags?:
+          | { __typename?: 'Exception' }
+          | { __typename?: 'TagsError' }
+          | {
+              __typename?: 'TagsNode';
+              rows: Array<{ __typename?: 'Tag'; name: string; slug: string }>;
+            }
+          | null;
+        author?:
+          | {
+              __typename?: 'Author';
+              id: number;
+              name: string;
+              avatar?: string | null;
+              occupation?: string | null;
+            }
+          | { __typename?: 'Exception' }
+          | { __typename?: 'Failed' }
+          | { __typename?: 'NotFound' }
+          | { __typename?: 'UnAuthorizedError' }
+          | null;
         cover_image: { __typename?: 'Image'; src?: string | null };
       }
-    | { __typename: 'PostError' };
+    | { __typename: 'UnAuthorizedError' };
 };
 
 export type PostsQueryQueryVariables = Exact<{
@@ -1257,7 +1382,7 @@ export type PostsQueryQueryVariables = Exact<{
 export type PostsQueryQuery = {
   __typename?: 'Query';
   posts:
-    | { __typename?: 'PostError' }
+    | { __typename?: 'Exception' }
     | {
         __typename: 'PostsNode';
         count: number;
@@ -1270,22 +1395,31 @@ export type PostsQueryQuery = {
           reading_time?: string | null;
           excerpt?: string | null;
           cover_image: { __typename?: 'Image'; src?: string | null };
-          author?: { __typename?: 'Author'; avatar?: string | null; name: string } | null;
-          tags?: Array<{ __typename?: 'Tags'; slug: string; name: string }> | null;
+          author?:
+            | { __typename?: 'Author'; name: string; avatar?: string | null }
+            | { __typename?: 'Exception' }
+            | { __typename?: 'Failed' }
+            | { __typename?: 'NotFound' }
+            | { __typename?: 'UnAuthorizedError' }
+            | null;
+          tags?:
+            | { __typename?: 'Exception' }
+            | { __typename?: 'TagsError' }
+            | {
+                __typename?: 'TagsNode';
+                rows: Array<{ __typename?: 'Tag'; name: string; slug: string }>;
+              }
+            | null;
         }>;
-      };
+      }
+    | { __typename?: 'UnAuthorizedError' };
 };
 
-export type TagsFragment_TagResultError_Fragment = {
-  __typename?: 'TagResultError';
-  message: string;
-};
+export type TagsFragment_Exception_Fragment = { __typename?: 'Exception'; message: string };
 
-export type TagsFragment_Tags_Fragment = { __typename?: 'Tags'; name: string; slug: string };
+export type TagsFragment_Tag_Fragment = { __typename?: 'Tag'; name: string; slug: string };
 
-export type TagsFragmentFragment =
-  | TagsFragment_TagResultError_Fragment
-  | TagsFragment_Tags_Fragment;
+export type TagsFragmentFragment = TagsFragment_Exception_Fragment | TagsFragment_Tag_Fragment;
 
 export type SitemapFragment_SiteMapError_Fragment = {
   __typename: 'SiteMapError';
