@@ -38,6 +38,7 @@ export default function Home({
 }: InferGetServerSidePropsType<typeof getServerSideProps>) {
   const { theme = 'minimal' } = settings;
   const Component = theme === 'minimal' ? PostList : PostGrid;
+
   return (
     <>
       <Head>
@@ -103,7 +104,7 @@ export async function getServerSideProps(context) {
     };
   }
 
-  if (data.props.data.me.__typename === 'AuthorNotFound') {
+  if (data.props.data.me.__typename !== 'Author') {
     throw new Error('Could not load author');
   }
 

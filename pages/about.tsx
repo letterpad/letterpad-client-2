@@ -18,8 +18,8 @@ export default function About({
   settings,
   me,
 }: InferGetServerSidePropsType<typeof getServerSideProps>) {
-  if (me.__typename === 'AuthorNotFoundError') return <div>Author not found</div>;
-  if (settings.__typename === 'SettingError') return <div>Setting not found</div>;
+  if (me.__typename !== 'Author') return <div>Author not found</div>;
+  if (settings.__typename !== 'Setting') return <div>Setting not found</div>;
 
   const { name, social, avatar = '/static/images/avatar.png', bio, occupation, company_name } = me;
   const { site_email } = settings;

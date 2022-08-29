@@ -962,16 +962,16 @@ export type PreviewQueryQuery = {
         excerpt?: string | null;
         author?:
           | {
-              __typename?: 'Author';
+              __typename: 'Author';
               name: string;
               avatar?: string | null;
               id: number;
               occupation?: string | null;
             }
-          | { __typename?: 'Exception' }
-          | { __typename?: 'Failed' }
-          | { __typename?: 'NotFound' }
-          | { __typename?: 'UnAuthorizedError' }
+          | { __typename: 'Exception' }
+          | { __typename: 'Failed' }
+          | { __typename: 'NotFound' }
+          | { __typename: 'UnAuthorizedError' }
           | null;
         tags?:
           | { __typename?: 'Exception' }

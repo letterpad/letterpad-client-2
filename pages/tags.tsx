@@ -41,9 +41,9 @@ export default function Tags({
   settings,
 }: InferGetServerSidePropsType<typeof getServerSideProps>) {
   if (
-    me.__typename === 'AuthorNotFoundError' ||
-    tags.__typename === 'TagsError' ||
-    settings.__typename === 'SettingError'
+    me.__typename !== 'Author' ||
+    tags.__typename !== 'TagsNode' ||
+    settings.__typename !== 'Setting'
   )
     return null;
 

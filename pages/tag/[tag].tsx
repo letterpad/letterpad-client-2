@@ -32,11 +32,13 @@ export default function Tag({
   // Capitalize first letter and convert space to dash
   // const title = tagName[0].toUpperCase() + tagName.split(' ').join('-').slice(1);
   if (
-    posts.__typename === 'PostError' ||
-    settings.__typename === 'SettingError' ||
-    me.__typename === 'AuthorNotFoundError'
-  )
+    posts.__typename !== 'PostsNode' ||
+    settings.__typename !== 'Setting' ||
+    me.__typename !== 'Author'
+  ) {
     return null;
+  }
+
   return (
     <>
       <TagSEO

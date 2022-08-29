@@ -17,6 +17,7 @@ export const previewQuery = gql`
             name
             avatar
           }
+          __typename
         }
       }
       __typename
@@ -34,14 +35,15 @@ export default function Blog({
   settings,
   me,
 }: InferGetServerSidePropsType<typeof getServerSideProps>) {
-  if (post.__typename === 'Post' && settings.__typename === 'Setting') {
-    return (
-      <PostLayout data={{ post, settings, me }}>
-        <div dangerouslySetInnerHTML={{ __html: post.html }}></div>
-      </PostLayout>
-    );
+  if (post.__typename !== 'Post' || settings.__typename !== 'Setting') {
+    return null;
   }
-  return null;
+  if (post.author.__typename !== 'Author') return null;
+  return (
+    <PostLayout data={{ post, settings, me }}>
+      <div dangerouslySetInnerHTML={{ __html: post.html }}></div>
+    </PostLayout>
+  );
 }
 
 export async function getServerSideProps(context) {
