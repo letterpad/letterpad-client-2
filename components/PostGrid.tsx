@@ -42,13 +42,14 @@ const PostGrid: React.VFC<Props> = ({ posts }) => {
                     <p className="text-sm tracking-wider text-gray-600 dark:text-gray-300">
                       {excerpt}
                     </p>
-                    {tags.map(({ name }) => (
-                      <Link href={`/tag/${kebabCase(name)}`} key={name}>
-                        <a className="mt-4 mr-1 inline-block rounded border border-gray-700 py-1 px-2 text-xs font-medium">
-                          {name.split(' ').join('-')}
-                        </a>
-                      </Link>
-                    ))}
+                    {tags.__typename === 'TagsNode' &&
+                      tags.rows.map(({ name }) => (
+                        <Link href={`/tag/${kebabCase(name)}`} key={name}>
+                          <a className="mt-4 mr-1 inline-block rounded border border-gray-700 py-1 px-2 text-xs font-medium">
+                            {name.split(' ').join('-')}
+                          </a>
+                        </Link>
+                      ))}
                   </div>
                 </Link>
               </div>
