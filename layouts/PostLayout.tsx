@@ -40,14 +40,16 @@ export default function PostLayout({ data, next, prev, children }: Props) {
   }, [data]);
 
   if (
-    post.__typename === 'PostError' ||
-    settings.__typename === 'SettingError' ||
-    me.__typename === 'AuthorNotFoundError'
-  )
+    post.__typename !== 'Post' ||
+    settings.__typename !== 'Setting' ||
+    me.__typename !== 'Author'
+  ) {
     return null;
+  }
 
   const { slug, publishedAt, title, excerpt, updatedAt, cover_image, tags, author } = post;
-
+  console.log('pass11', author);
+  if (author.__typename !== 'Author') return null;
   const authorDetails = [
     {
       name: author.name,
@@ -74,7 +76,7 @@ export default function PostLayout({ data, next, prev, children }: Props) {
         lastmod={updatedAt}
         images={[cover_image.src]}
         slug={slug}
-        tags={tags.map((t) => t.name)}
+        tags={tags.__typename === 'TagsNode' ? tags.rows.map((t) => t.name) : []}
         fileName={title}
         canonicalUrl={postUrl}
         site_name={settings.site_title}
@@ -144,13 +146,13 @@ export default function PostLayout({ data, next, prev, children }: Props) {
             <footer>
               <div className="divide-gray-200 text-sm font-medium leading-5 dark:divide-gray-700 xl:col-start-1 xl:row-start-2 xl:divide-y">
                 <div className="flex flex-row justify-between xl:flex-col">
-                  {tags.length > 0 && (
+                  {tags.__typename === 'TagsNode' && tags.rows.length > 0 && (
                     <div className="py-4 xl:py-4">
                       <h2 className="text-xs uppercase tracking-wide text-gray-500 dark:text-gray-400">
                         Tags
                       </h2>
                       <div className="flex flex-wrap">
-                        {tags.map((tag) => (
+                        {tags.rows.map((tag) => (
                           <Tag key={tag.name} text={tag.name} />
                         ))}
                       </div>

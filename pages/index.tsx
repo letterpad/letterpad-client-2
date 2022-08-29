@@ -63,7 +63,7 @@ export default function Home({
           </p>
         </div>
 
-        {posts?.__typename === 'PostError' ? 'No posts found.' : ''}
+        {posts?.__typename === 'Exception' ? 'No posts found.' : ''}
         {posts?.__typename === 'PostsNode' && posts.rows.length === 0 && 'No posts found.'}
 
         {!isPage && posts.__typename === 'PostsNode' && <Component posts={posts} />}
@@ -83,7 +83,7 @@ export async function getServerSideProps(context) {
     {},
     context.req.headers.host
   );
-  if (!data.props.data.settings.__typename) {
+  if (data.props.data.settings.__typename === 'NotFound') {
     return {
       redirect: {
         permanent: false,
@@ -92,13 +92,24 @@ export async function getServerSideProps(context) {
       },
     };
   }
-  if (data.props.data.settings.__typename === 'SettingError') {
-    throw new Error('Could not load settings');
+
+  if (data.props.data.settings.__typename === 'UnAuthorizedError') {
+    return {
+      redirect: {
+        permanent: false,
+        destination: '/not-found',
+        status: 404,
+      },
+    };
   }
 
-  if (data.props.data.me.__typename === 'AuthorNotFoundError') {
+  if (data.props.data.me.__typename === 'AuthorNotFound') {
     throw new Error('Could not load author');
   }
+
+  // if(data.props.data.posts.__typename === '') {
+
+  // }
 
   const { menu } = data.props.data.settings;
   const firstItemOfMenu = menu[0];
@@ -122,6 +133,7 @@ export async function getServerSideProps(context) {
       { tagSlug: firstItemOfMenu.slug },
       context.req.headers.host
     );
+
     result.props = {
       ...result.props,
       posts: posts.props.data.posts,

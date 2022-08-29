@@ -14,6 +14,7 @@ const PostList: React.VFC<Props> = ({ posts }) => {
       {posts.__typename === 'PostsNode' &&
         posts.rows.map((post) => {
           const { slug, publishedAt, title, tags, excerpt } = post;
+          const tagsData = tags.__typename === 'TagsNode' ? tags.rows : [];
           return (
             <li key={slug} className="py-12">
               <article>
@@ -33,7 +34,7 @@ const PostList: React.VFC<Props> = ({ posts }) => {
                           </Link>
                         </h2>
                         <div className="mt-1 flex flex-wrap">
-                          {tags.map((tag) => (
+                          {tagsData.map((tag) => (
                             <Tag key={tag.name} text={tag.name} />
                           ))}
                         </div>

@@ -37,9 +37,8 @@ export default function ListLayout({ posts, title }: Props) {
                         </Link>
                       </h3>
                       <div className="flex flex-wrap">
-                        {tags.map((tag) => (
-                          <Tag key={tag.name} text={tag.name} />
-                        ))}
+                        {tags.__typename === 'TagsNode' &&
+                          tags.rows.map((tag) => <Tag key={tag.name} text={tag.name} />)}
                       </div>
                     </div>
                     <div className="prose max-w-none text-gray-500 dark:text-gray-400">

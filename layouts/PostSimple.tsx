@@ -20,7 +20,7 @@ interface Props {
 export default function PostSimple({ site_name, data, next, prev, children, settings, me }: Props) {
   const { slug, publishedAt, title, excerpt, updatedAt, cover_image, tags } = data;
   if (settings.__typename !== 'Setting') return null;
-  if (me.__typename !== 'Author') return;
+  if (me.__typename !== 'Author' || data.author.__typename !== 'Author') return;
   const authorDetails = [
     {
       name: data.author.name,
@@ -46,7 +46,7 @@ export default function PostSimple({ site_name, data, next, prev, children, sett
         lastmod={updatedAt}
         images={[cover_image.src]}
         slug={slug}
-        tags={tags.map((t) => t.name)}
+        tags={tags.__typename === 'TagsNode' ? tags.rows.map((t) => t.name) : []}
         fileName={title}
         site_name={site_name}
         authorDetails={authorDetails}
