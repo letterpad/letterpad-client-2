@@ -1,13 +1,8 @@
 import React, { useState } from 'react';
 
 import siteMetadata from '@/data/siteMetadata';
-import { PostFrontMatter } from 'types/PostFrontMatter';
 
-interface Props {
-  frontMatter: PostFrontMatter;
-}
-
-const Disqus = ({ frontMatter }: Props) => {
+const Disqus = () => {
   const [enableLoadComments, setEnabledLoadComments] = useState(true);
 
   const COMMENTS_ID = 'disqus_thread';
@@ -18,7 +13,7 @@ const Disqus = ({ frontMatter }: Props) => {
     // @ts-ignore
     window.disqus_config = function () {
       this.page.url = window.location.href;
-      this.page.identifier = frontMatter.slug;
+      this.page.identifier = location.pathname;
     };
     // @ts-ignore
     if (window.DISQUS === undefined) {

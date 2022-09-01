@@ -94,7 +94,7 @@ export async function getServerSideProps(context) {
     };
   }
 
-  if (data.props.data.settings.__typename === 'UnAuthorizedError') {
+  if (data.props.data.settings.__typename === 'UnAuthorized') {
     return {
       redirect: {
         permanent: false,
@@ -107,10 +107,6 @@ export async function getServerSideProps(context) {
   if (data.props.data.me.__typename !== 'Author') {
     throw new Error('Could not load author');
   }
-
-  // if(data.props.data.posts.__typename === '') {
-
-  // }
 
   const { menu } = data.props.data.settings;
   const firstItemOfMenu = menu[0];

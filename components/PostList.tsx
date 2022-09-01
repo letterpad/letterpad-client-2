@@ -44,11 +44,7 @@ const PostList: React.VFC<Props> = ({ posts }) => {
                       </div>
                     </div>
                     <div className="text-base font-medium leading-6">
-                      <Link
-                        href={`${slug}`}
-                        className="text-primary-500 hover:text-primary-600 dark:hover:text-primary-400"
-                        aria-label={`Read "${title}"`}
-                      >
+                      <Link href={`${slug}`} className="link" aria-label={`Read "${title}"`}>
                         Read more &rarr;
                       </Link>
                     </div>

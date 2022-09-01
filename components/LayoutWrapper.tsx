@@ -91,7 +91,7 @@ function getMenu(menu: Omit<Navigation, 'original_name'>[]) {
         key={item.slug}
         href={i === 0 ? '/' : item.slug}
         target="_self"
-        className="p-1 font-medium capitalize text-gray-900 dark:text-gray-100 sm:p-4"
+        className="link -1 font-medium capitalize sm:p-4"
       >
         {item.label}
       </Link>

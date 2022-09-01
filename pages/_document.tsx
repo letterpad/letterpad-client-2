@@ -91,7 +91,7 @@ class MyDocument extends Document {
           />
           <script src="/static/prism.js" async />
         </Head>
-        <body className="line-numbers bg-white text-black antialiased dark:bg-gray-900 dark:text-white">
+        <body className="line-numbers bg-white text-black antialiased dark:bg-black dark:bg-opacity-20 dark:text-white">
           <Main />
           <NextScript />
         </body>

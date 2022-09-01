@@ -1,9 +1,8 @@
-import siteMetadata from '@/data/siteMetadata';
 import dynamic from 'next/dynamic';
-import { PostFrontMatter } from 'types/PostFrontMatter';
+import { CommentProviders } from './types';
 
 interface Props {
-  frontMatter: PostFrontMatter;
+  provider: CommentProviders;
 }
 
 const UtterancesComponent = dynamic(
@@ -25,33 +24,14 @@ const DisqusComponent = dynamic(
   { ssr: false }
 );
 
-const Comments = ({ frontMatter }: Props) => {
-  let term;
-  switch (
-    siteMetadata.comment.giscusConfig.mapping ||
-    siteMetadata.comment.utterancesConfig.issueTerm
-  ) {
-    case 'pathname':
-      term = frontMatter.slug;
-      break;
-    case 'url':
-      term = window.location.href;
-      break;
-    case 'title':
-      term = frontMatter.title;
-      break;
-  }
+const Comments = ({ provider }: Props) => {
+  const term = typeof window !== 'undefined' ? window.location?.href : '';
+
   return (
     <div id="comment">
-      {siteMetadata.comment && siteMetadata.comment.provider === 'giscus' && (
-        <GiscusComponent mapping={term} />
-      )}
-      {siteMetadata.comment && siteMetadata.comment.provider === 'utterances' && (
-        <UtterancesComponent issueTerm={term} />
-      )}
-      {siteMetadata.comment && siteMetadata.comment.provider === 'disqus' && (
-        <DisqusComponent frontMatter={frontMatter} />
-      )}
+      {provider === 'giscus' && <GiscusComponent mapping={term} />}
+      {provider === 'utterances' && <UtterancesComponent issueTerm={term} />}
+      {provider === 'disqus' && <DisqusComponent />}
     </div>
   );
 };

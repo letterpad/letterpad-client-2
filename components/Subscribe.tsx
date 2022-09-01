@@ -10,7 +10,9 @@ const Subscribe = () => {
   const doSubscribe = async () => {
     setSuccess('');
     setError('');
-
+    if (email.length === 0) {
+      return setError('Please enter your email');
+    }
     const resp = await fetch('/api/subscribe', {
       method: 'POST',
       headers: {
@@ -30,10 +32,28 @@ const Subscribe = () => {
 
   return (
     <div id="subscribe" className="flex ">
-      <div className="mx-auto max-w-md flex-1 overflow-hidden rounded-lg md:max-w-xl">
+      <div className="w-full text-center">
+        <div className="md:items-left flex max-w-xl  flex-col items-center  p-1 pr-0 text-left ">
+          <span className="mb-2 hidden text-gray-500 md:block">Subscribe to my newsletter</span>
+          <div>
+            <input
+              type="email"
+              placeholder="yourmail@example.com"
+              className="flex-1 border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-900 dark:bg-gray-200 dark:text-black  dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500 md:w-64"
+              onChange={(e) => setEmail(e.target.value.trim())}
+              value={email}
+            />
+            <button className="button-primary" onClick={doSubscribe}>
+              Subscribe
+            </button>
+          </div>
+        </div>
+        <small>{error || success}</small>
+      </div>
+      {/* <div className="">
         <div className="md:flex">
-          <div className="w-full p-3">
-            <h2 className="mb-4 text-center font-semibold">Subscribe to the newsletter</h2>
+          <div className="flex w-full flex-row items-center p-3">
+            <h2 className="mb-4 text-center font-semibold">Subscribe!</h2>
             <div className="relative">
               <input
                 type="text"
@@ -53,7 +73,7 @@ const Subscribe = () => {
             <small>{error || success}</small>
           </div>
         </div>
-      </div>
+      </div> */}
     </div>
   );
 };

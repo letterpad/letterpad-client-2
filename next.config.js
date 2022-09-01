@@ -5,13 +5,13 @@ const withBundleAnalyzer = require('@next/bundle-analyzer')({
 // You might need to insert additional domains in script-src if you are using external services
 const ContentSecurityPolicy = `
   default-src 'self';
-  script-src 'self' 'unsafe-eval' 'unsafe-inline' giscus.app cdnjs.cloudflare.com localhost:3002 collect.letterpad.app;
+  script-src 'self' 'unsafe-eval' 'unsafe-inline' giscus.app cdnjs.cloudflare.com localhost:3002 collect.letterpad.app utteranc.es;
   style-src 'self' 'unsafe-inline';
   img-src * blob: data:;
   media-src 'none';
   connect-src *;
   font-src 'self';
-  frame-src giscus.app
+  frame-src giscus.app utteranc.es
 `;
 
 const securityHeaders = [
@@ -107,5 +107,6 @@ module.exports = withBundleAnalyzer({
     API_URL: process.env.API_URL,
     GRAPHQL_URL: process.env.API_URL + '/api/graphql',
     CLIENT_ID: process.env.CLIENT_ID,
+    NEXT_PUBLIC_UTTERANCES_REPO: process.env.NEXT_PUBLIC_UTTERANCES_REPO,
   },
 });

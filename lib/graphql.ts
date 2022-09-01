@@ -32,7 +32,7 @@ export type Author = {
   verified?: Maybe<Scalars['Boolean']>;
 };
 
-export type AuthorResponse = Author | Exception | Failed | NotFound | UnAuthorizedError;
+export type AuthorResponse = Author | Exception | Failed | NotFound | UnAuthorized;
 
 export type CreateDomainResponse = Domain | DomainError;
 
@@ -98,6 +98,12 @@ export type Exception = LetterpadError & {
 export type Failed = LetterpadError & {
   __typename?: 'Failed';
   message: Scalars['String'];
+};
+
+export type Forbidden = LetterpadError & {
+  __typename?: 'Forbidden';
+  message: Scalars['String'];
+  type?: Maybe<Failed>;
 };
 
 export type ForgotPasswordResponse = {
@@ -424,7 +430,7 @@ export type PostFilters = {
   type?: InputMaybe<PostTypes>;
 };
 
-export type PostResponse = Exception | InvalidArguments | NotFound | Post | UnAuthorizedError;
+export type PostResponse = Exception | InvalidArguments | NotFound | Post | UnAuthorized;
 
 export enum PostStatusOptions {
   Draft = 'draft',
@@ -460,7 +466,7 @@ export type PostsNode = {
   rows: Array<Post>;
 };
 
-export type PostsResponse = Exception | PostsNode | UnAuthorizedError;
+export type PostsResponse = Exception | PostsNode | UnAuthorized;
 
 export type Query = {
   __typename?: 'Query';
@@ -554,14 +560,6 @@ export type Setting = {
   site_tagline?: Maybe<Scalars['String']>;
   site_title: Scalars['String'];
   site_url: Scalars['String'];
-  /** @deprecated No longer supported */
-  social_facebook?: Maybe<Scalars['String']>;
-  /** @deprecated No longer supported */
-  social_github?: Maybe<Scalars['String']>;
-  /** @deprecated No longer supported */
-  social_instagram?: Maybe<Scalars['String']>;
-  /** @deprecated No longer supported */
-  social_twitter?: Maybe<Scalars['String']>;
   subscribe_embed?: Maybe<Scalars['String']>;
   theme?: Maybe<Scalars['String']>;
 };
@@ -590,15 +588,11 @@ export type SettingInputType = {
   site_tagline?: InputMaybe<Scalars['String']>;
   site_title?: InputMaybe<Scalars['String']>;
   site_url?: InputMaybe<Scalars['String']>;
-  social_facebook?: InputMaybe<Scalars['String']>;
-  social_github?: InputMaybe<Scalars['String']>;
-  social_instagram?: InputMaybe<Scalars['String']>;
-  social_twitter?: InputMaybe<Scalars['String']>;
   subscribe_embed?: InputMaybe<Scalars['String']>;
   theme?: InputMaybe<Scalars['String']>;
 };
 
-export type SettingResponse = NotFound | Setting | UnAuthorizedError;
+export type SettingResponse = NotFound | Setting | UnAuthorized;
 
 export type SiteMapError = {
   __typename?: 'SiteMapError';
@@ -720,8 +714,13 @@ export type TagsNode = {
 
 export type TagsResponse = Exception | TagsError | TagsNode;
 
-export type UnAuthorizedError = LetterpadError & {
-  __typename?: 'UnAuthorizedError';
+export type UnAuthorized = LetterpadError & {
+  __typename?: 'UnAuthorized';
+  message: Scalars['String'];
+};
+
+export type Unexpected = LetterpadError & {
+  __typename?: 'Unexpected';
   message: Scalars['String'];
 };
 
@@ -760,7 +759,7 @@ export type AboutQueryQuery = {
     | { __typename?: 'Exception' }
     | { __typename?: 'Failed' }
     | { __typename?: 'NotFound' }
-    | { __typename?: 'UnAuthorizedError' }
+    | { __typename?: 'UnAuthorized' }
     | null;
   settings:
     | { __typename?: 'NotFound' }
@@ -787,7 +786,7 @@ export type AboutQueryQuery = {
           label: string;
         }>;
       }
-    | { __typename?: 'UnAuthorizedError' };
+    | { __typename?: 'UnAuthorized' };
 };
 
 export type HomeQueryQueryVariables = Exact<{ [key: string]: never }>;
@@ -819,7 +818,7 @@ export type HomeQueryQuery = {
           label: string;
         }>;
       }
-    | { __typename?: 'UnAuthorizedError' };
+    | { __typename?: 'UnAuthorized' };
   me?:
     | {
         __typename: 'Author';
@@ -841,7 +840,7 @@ export type HomeQueryQuery = {
     | { __typename?: 'Exception' }
     | { __typename?: 'Failed' }
     | { __typename?: 'NotFound' }
-    | { __typename?: 'UnAuthorizedError' }
+    | { __typename?: 'UnAuthorized' }
     | null;
 };
 
@@ -876,7 +875,7 @@ export type PageQueryWithHtmlQuery = {
           | { __typename: 'Exception' }
           | { __typename: 'Failed' }
           | { __typename: 'NotFound' }
-          | { __typename: 'UnAuthorizedError' }
+          | { __typename: 'UnAuthorized' }
           | null;
         tags?:
           | { __typename?: 'Exception' }
@@ -888,7 +887,7 @@ export type PageQueryWithHtmlQuery = {
           | null;
         cover_image: { __typename?: 'Image'; src?: string | null };
       }
-    | { __typename: 'UnAuthorizedError' };
+    | { __typename: 'UnAuthorized' };
   me?:
     | {
         __typename: 'Author';
@@ -910,7 +909,7 @@ export type PageQueryWithHtmlQuery = {
     | { __typename?: 'Exception' }
     | { __typename?: 'Failed' }
     | { __typename?: 'NotFound' }
-    | { __typename?: 'UnAuthorizedError' }
+    | { __typename?: 'UnAuthorized' }
     | null;
   settings:
     | { __typename?: 'NotFound' }
@@ -937,7 +936,7 @@ export type PageQueryWithHtmlQuery = {
           label: string;
         }>;
       }
-    | { __typename?: 'UnAuthorizedError' };
+    | { __typename?: 'UnAuthorized' };
 };
 
 export type PreviewQueryQueryVariables = Exact<{
@@ -971,7 +970,7 @@ export type PreviewQueryQuery = {
           | { __typename: 'Exception' }
           | { __typename: 'Failed' }
           | { __typename: 'NotFound' }
-          | { __typename: 'UnAuthorizedError' }
+          | { __typename: 'UnAuthorized' }
           | null;
         tags?:
           | { __typename?: 'Exception' }
@@ -983,7 +982,7 @@ export type PreviewQueryQuery = {
           | null;
         cover_image: { __typename?: 'Image'; src?: string | null };
       }
-    | { __typename: 'UnAuthorizedError' };
+    | { __typename: 'UnAuthorized' };
   me?:
     | {
         __typename: 'Author';
@@ -1005,7 +1004,7 @@ export type PreviewQueryQuery = {
     | { __typename?: 'Exception' }
     | { __typename?: 'Failed' }
     | { __typename?: 'NotFound' }
-    | { __typename?: 'UnAuthorizedError' }
+    | { __typename?: 'UnAuthorized' }
     | null;
   settings:
     | { __typename?: 'NotFound' }
@@ -1032,7 +1031,7 @@ export type PreviewQueryQuery = {
           label: string;
         }>;
       }
-    | { __typename?: 'UnAuthorizedError' };
+    | { __typename?: 'UnAuthorized' };
 };
 
 export type SitemapQueryQueryVariables = Exact<{ [key: string]: never }>;
@@ -1077,7 +1076,7 @@ export type TagPostsQueryQuery = {
             | { __typename?: 'Exception' }
             | { __typename?: 'Failed' }
             | { __typename?: 'NotFound' }
-            | { __typename?: 'UnAuthorizedError' }
+            | { __typename?: 'UnAuthorized' }
             | null;
           tags?:
             | { __typename?: 'Exception' }
@@ -1089,7 +1088,7 @@ export type TagPostsQueryQuery = {
             | null;
         }>;
       }
-    | { __typename?: 'UnAuthorizedError' };
+    | { __typename?: 'UnAuthorized' };
   tag:
     | { __typename?: 'Exception'; message: string }
     | { __typename?: 'Tag'; name: string; slug: string };
@@ -1114,7 +1113,7 @@ export type TagPostsQueryQuery = {
     | { __typename?: 'Exception' }
     | { __typename?: 'Failed' }
     | { __typename?: 'NotFound' }
-    | { __typename?: 'UnAuthorizedError' }
+    | { __typename?: 'UnAuthorized' }
     | null;
   settings:
     | { __typename?: 'NotFound' }
@@ -1141,7 +1140,7 @@ export type TagPostsQueryQuery = {
           label: string;
         }>;
       }
-    | { __typename?: 'UnAuthorizedError' };
+    | { __typename?: 'UnAuthorized' };
 };
 
 export type TagsQueryQueryVariables = Exact<{ [key: string]: never }>;
@@ -1159,7 +1158,7 @@ export type TagsQueryQuery = {
           posts?:
             | { __typename: 'Exception' }
             | { __typename: 'PostsNode'; count: number }
-            | { __typename: 'UnAuthorizedError' }
+            | { __typename: 'UnAuthorized' }
             | null;
         }>;
       };
@@ -1188,7 +1187,7 @@ export type TagsQueryQuery = {
           label: string;
         }>;
       }
-    | { __typename?: 'UnAuthorizedError' };
+    | { __typename?: 'UnAuthorized' };
   me?:
     | {
         __typename: 'Author';
@@ -1210,7 +1209,7 @@ export type TagsQueryQuery = {
     | { __typename?: 'Exception' }
     | { __typename?: 'Failed' }
     | { __typename?: 'NotFound' }
-    | { __typename?: 'UnAuthorizedError' }
+    | { __typename?: 'UnAuthorized' }
     | null;
 };
 
@@ -1241,7 +1240,7 @@ export type SettingsFragment = {
           label: string;
         }>;
       }
-    | { __typename?: 'UnAuthorizedError' };
+    | { __typename?: 'UnAuthorized' };
 };
 
 export type MeFragment = {
@@ -1267,7 +1266,7 @@ export type MeFragment = {
     | { __typename?: 'Exception' }
     | { __typename?: 'Failed' }
     | { __typename?: 'NotFound' }
-    | { __typename?: 'UnAuthorizedError' }
+    | { __typename?: 'UnAuthorized' }
     | null;
 };
 
@@ -1297,7 +1296,7 @@ export type PageFragmentFragment = {
     | { __typename?: 'Exception' }
     | { __typename?: 'Failed' }
     | { __typename?: 'NotFound' }
-    | { __typename?: 'UnAuthorizedError' }
+    | { __typename?: 'UnAuthorized' }
     | null;
   cover_image: { __typename?: 'Image'; src?: string | null };
 };
@@ -1319,7 +1318,7 @@ export type PostsFragmentFragment = {
       | { __typename?: 'Exception' }
       | { __typename?: 'Failed' }
       | { __typename?: 'NotFound' }
-      | { __typename?: 'UnAuthorizedError' }
+      | { __typename?: 'UnAuthorized' }
       | null;
     tags?:
       | { __typename?: 'Exception' }
@@ -1368,11 +1367,11 @@ export type PageQueryQuery = {
           | { __typename?: 'Exception' }
           | { __typename?: 'Failed' }
           | { __typename?: 'NotFound' }
-          | { __typename?: 'UnAuthorizedError' }
+          | { __typename?: 'UnAuthorized' }
           | null;
         cover_image: { __typename?: 'Image'; src?: string | null };
       }
-    | { __typename: 'UnAuthorizedError' };
+    | { __typename: 'UnAuthorized' };
 };
 
 export type PostsQueryQueryVariables = Exact<{
@@ -1400,7 +1399,7 @@ export type PostsQueryQuery = {
             | { __typename?: 'Exception' }
             | { __typename?: 'Failed' }
             | { __typename?: 'NotFound' }
-            | { __typename?: 'UnAuthorizedError' }
+            | { __typename?: 'UnAuthorized' }
             | null;
           tags?:
             | { __typename?: 'Exception' }
@@ -1412,7 +1411,7 @@ export type PostsQueryQuery = {
             | null;
         }>;
       }
-    | { __typename?: 'UnAuthorizedError' };
+    | { __typename?: 'UnAuthorized' };
 };
 
 export type TagsFragment_Exception_Fragment = { __typename?: 'Exception'; message: string };

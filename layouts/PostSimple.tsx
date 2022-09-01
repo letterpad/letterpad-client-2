@@ -81,20 +81,14 @@ export default function PostSimple({ site_name, data, next, prev, children, sett
               <div className="flex flex-col text-sm font-medium sm:flex-row sm:justify-between sm:text-base">
                 {prev && (
                   <div className="pt-4 xl:pt-8">
-                    <Link
-                      href={`/blog/${prev.slug}`}
-                      className="text-primary-500 hover:text-primary-600 dark:hover:text-primary-400"
-                    >
+                    <Link href={`/blog/${prev.slug}`} className="link">
                       &larr; {prev.title}
                     </Link>
                   </div>
                 )}
                 {next && (
                   <div className="pt-4 xl:pt-8">
-                    <Link
-                      href={`/blog/${next.slug}`}
-                      className="text-primary-500 hover:text-primary-600 dark:hover:text-primary-400"
-                    >
+                    <Link href={`/blog/${next.slug}`} className="link">
                       {next.title} &rarr;
                     </Link>
                   </div>

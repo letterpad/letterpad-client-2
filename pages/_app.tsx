@@ -1,6 +1,6 @@
 import '@/css/tailwind.css';
 import '@/css/prism.css';
-
+// import '@fontsource/inter';
 import '@fontsource/inter/variable-full.css';
 
 import { ThemeProvider } from 'next-themes';

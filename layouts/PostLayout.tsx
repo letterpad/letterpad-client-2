@@ -4,11 +4,12 @@ import SectionContainer from '@/components/SectionContainer';
 import { BlogSEO } from '@/components/SEO';
 import Image from '@/components/Image';
 import Tag from '@/components/Tag';
-// import Comments from '@/components/comments';
+import Comments from '@/components/comments';
 import { ReactNode, useEffect } from 'react';
 import { PageQueryWithHtmlQuery } from '@/lib/graphql';
 import { Share } from '@/components/share';
 import ScrollTop from '@/components/ScrollTop';
+import siteMetadata from '@/data/siteMetadata';
 
 const postDateTemplate: Intl.DateTimeFormatOptions = {
   weekday: 'long',
@@ -48,7 +49,6 @@ export default function PostLayout({ data, next, prev, children }: Props) {
   }
 
   const { slug, publishedAt, title, excerpt, updatedAt, cover_image, tags, author } = post;
-  console.log('pass11', author);
   if (author.__typename !== 'Author') return null;
   const authorDetails = [
     {
@@ -125,10 +125,7 @@ export default function PostLayout({ data, next, prev, children }: Props) {
                       <dt className="sr-only">Twitter</dt>
                       <dd>
                         {me.social.twitter && (
-                          <Link
-                            href={me.social.twitter}
-                            className="text-primary-500 hover:text-primary-600 dark:hover:text-primary-400"
-                          >
+                          <Link href={me.social.twitter} className="link">
                             {me.social.twitter.replace('https://twitter.com/', '@')}
                           </Link>
                         )}
@@ -141,7 +138,7 @@ export default function PostLayout({ data, next, prev, children }: Props) {
             </dl>
             <div className="divide-y divide-gray-200 dark:divide-gray-700 xl:col-span-3 xl:row-span-2 xl:pb-0">
               <div className="prose max-w-none pt-10 pb-8 dark:prose-dark">{children}</div>
-              {/* <Comments frontMatter={frontMatter} /> */}
+              <Comments provider="utterances" />
             </div>
             <footer>
               <div className="divide-gray-200 text-sm font-medium leading-5 dark:divide-gray-700 xl:col-start-1 xl:row-start-2 xl:divide-y">
@@ -174,7 +171,7 @@ export default function PostLayout({ data, next, prev, children }: Props) {
                         <h2 className="text-xs uppercase tracking-wide text-gray-500 dark:text-gray-400">
                           Previous Article
                         </h2>
-                        <div className="text-primary-500 hover:text-primary-600 dark:hover:text-primary-400">
+                        <div className="link">
                           <Link href={`${prev.slug}`}>{prev.title}</Link>
                         </div>
                       </div>
@@ -184,7 +181,7 @@ export default function PostLayout({ data, next, prev, children }: Props) {
                         <h2 className="text-xs uppercase tracking-wide text-gray-500 dark:text-gray-400">
                           Next Article
                         </h2>
-                        <div className="text-primary-500 hover:text-primary-600 dark:hover:text-primary-400">
+                        <div className="link">
                           <Link href={`${next.slug}`}>{next.title}</Link>
                         </div>
                       </div>
@@ -193,10 +190,7 @@ export default function PostLayout({ data, next, prev, children }: Props) {
                 )}
               </div>
               <div className="pt-4 xl:pt-8">
-                <Link
-                  href="/"
-                  className="text-primary-500 hover:text-primary-600 dark:hover:text-primary-400"
-                >
+                <Link href="/" className="link">
                   &larr; Back to home
                 </Link>
               </div>
