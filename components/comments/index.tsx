@@ -25,7 +25,8 @@ const DisqusComponent = dynamic(
 );
 
 const Comments = ({ provider }: Props) => {
-  const term = typeof window !== 'undefined' ? window.location?.href : '';
+  const term =
+    typeof window !== 'undefined' ? window.location?.origin + window.location.pathname : '';
 
   return (
     <div id="comment">
