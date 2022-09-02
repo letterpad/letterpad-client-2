@@ -27,7 +27,19 @@ export default function Footer({ author, settings }) {
           className="w-full text-sm text-gray-500 dark:text-gray-500"
         ></div>
       </div>
-      <div className="mt-4 flex w-full flex-row items-center justify-between border-t border-gray-200 border-opacity-60 py-6  dark:border-gray-700 md:mt-4">
+      <div className="mt-4 flex w-full flex-col items-center justify-between border-t border-gray-200 border-opacity-60 py-6 dark:border-gray-700  md:mt-4 md:flex-row">
+        <div className="flex flex-col items-center  sm:mt-0 sm:items-end">
+          <div className="mb-3 flex space-x-4">
+            {settings.site_email && (
+              <SocialIcon kind="mail" href={`mailto:${settings.site_email}`} size={6} />
+            )}
+            {social.github && <SocialIcon kind="github" href={social.github} size={6} />}
+            {social.facebook && <SocialIcon kind="facebook" href={social.facebook} size={6} />}
+            {social.youtube && <SocialIcon kind="youtube" href={social.youtube} size={6} />}
+            {social.linkedin && <SocialIcon kind="linkedin" href={social.linkedin} size={6} />}
+            {social.twitter && <SocialIcon kind="twitter" href={social.twitter} size={6} />}
+          </div>
+        </div>
         <div className="mb-2 flex space-x-2 text-sm text-gray-500 dark:text-gray-300">
           <div>{`© ${new Date().getFullYear()}`}</div>
           <div>{` • `}</div>
@@ -41,18 +53,6 @@ export default function Footer({ author, settings }) {
             <Link href="https://github.com/letterpad/letterpad" className="link">
               Open Source
             </Link>
-          </div>
-        </div>
-        <div className="flex flex-col items-center  sm:mt-0 sm:items-end">
-          <div className="mb-3 flex space-x-4">
-            {settings.site_email && (
-              <SocialIcon kind="mail" href={`mailto:${settings.site_email}`} size={6} />
-            )}
-            {social.github && <SocialIcon kind="github" href={social.github} size={6} />}
-            {social.facebook && <SocialIcon kind="facebook" href={social.facebook} size={6} />}
-            {social.youtube && <SocialIcon kind="youtube" href={social.youtube} size={6} />}
-            {social.linkedin && <SocialIcon kind="linkedin" href={social.linkedin} size={6} />}
-            {social.twitter && <SocialIcon kind="twitter" href={social.twitter} size={6} />}
           </div>
         </div>
       </div>
