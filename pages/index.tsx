@@ -105,7 +105,13 @@ export async function getServerSideProps(context) {
   }
 
   if (data.props.data.me.__typename !== 'Author') {
-    throw new Error('Could not load author');
+    return {
+      redirect: {
+        permanent: false,
+        destination: '/not-found',
+        status: 404,
+      },
+    };
   }
 
   const { menu } = data.props.data.settings;

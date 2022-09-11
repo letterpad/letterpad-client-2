@@ -29,7 +29,13 @@ module.exports = {
         14: '3.5rem',
       },
       fontFamily: {
-        sans: ['Inter', ...defaultTheme.fontFamily.sans],
+        sans: ['Tiro Devanagari Hindi', ...defaultTheme.fontFamily.sans],
+      },
+      fontSize: {
+        xs: '.75rem',
+        sm: '0.95rem',
+        tiny: '.95rem',
+        base: '1.2rem',
       },
       colors: {
         primary: colors.green,
@@ -39,6 +45,7 @@ module.exports = {
       typography: (theme) => ({
         DEFAULT: {
           css: {
+            fontSize: theme('fontSize.base'),
             color: theme('colors.gray.700'),
             a: {
               color: theme('colors.primary.500'),

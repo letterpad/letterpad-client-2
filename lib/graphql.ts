@@ -22,11 +22,14 @@ export type Author = {
   bio?: Maybe<Scalars['String']>;
   company_name?: Maybe<Scalars['String']>;
   email: Scalars['String'];
+  first_post_published?: Maybe<Scalars['Boolean']>;
   id: Scalars['Int'];
   name: Scalars['String'];
   occupation?: Maybe<Scalars['String']>;
   permissions?: Maybe<Array<Permissions>>;
+  profile_updated?: Maybe<Scalars['Boolean']>;
   role?: Maybe<Role>;
+  settings_updated?: Maybe<Scalars['Boolean']>;
   social?: Maybe<Social>;
   username: Scalars['String'];
   verified?: Maybe<Scalars['Boolean']>;
@@ -37,6 +40,12 @@ export type AuthorResponse = Author | Exception | Failed | NotFound | UnAuthoriz
 export type CreateDomainResponse = Domain | DomainError;
 
 export type CreatePostResponse = Post | PostError;
+
+export type DeleteAuthorResponse = {
+  __typename?: 'DeleteAuthorResponse';
+  message?: Maybe<Scalars['String']>;
+  ok: Scalars['Boolean'];
+};
 
 export type DeleteTagsResponse = DeleteTagsResult | TagsError;
 
@@ -124,11 +133,14 @@ export type InputAuthor = {
   bio?: InputMaybe<Scalars['String']>;
   company_name?: InputMaybe<Scalars['String']>;
   email?: InputMaybe<Scalars['String']>;
+  first_post_published?: InputMaybe<Scalars['Boolean']>;
   id: Scalars['Int'];
   name?: InputMaybe<Scalars['String']>;
   occupation?: InputMaybe<Scalars['String']>;
   password?: InputMaybe<Scalars['String']>;
+  profile_updated?: InputMaybe<Scalars['Boolean']>;
   roleId?: InputMaybe<Scalars['Int']>;
+  settings_updated?: InputMaybe<Scalars['Boolean']>;
   social?: InputMaybe<InputSocial>;
   username?: InputMaybe<Scalars['String']>;
 };
@@ -224,6 +236,11 @@ export type LetterpadError = {
   message: Scalars['String'];
 };
 
+export type LetterpadPostFilters = {
+  slug: Scalars['String'];
+  username: Scalars['String'];
+};
+
 export type LoginData = {
   email: Scalars['String'];
   password: Scalars['String'];
@@ -287,6 +304,7 @@ export type Mutation = {
   createAuthor?: Maybe<AuthorResponse>;
   createOrUpdateDomain: UpdateDomainResponse;
   createPost: CreatePostResponse;
+  deleteAuthor?: Maybe<DeleteAuthorResponse>;
   deleteMedia?: Maybe<MediaDeleteResponse>;
   deleteTags: DeleteTagsResponse;
   forgotPassword: ForgotPasswordResponse;
@@ -473,6 +491,8 @@ export type Query = {
   domain: DomainResponse;
   email: EmailResponse;
   emails: Array<Maybe<Email>>;
+  letterpadLatestPost: PostResponse;
+  letterpadLatestPosts: PostsResponse;
   me?: Maybe<AuthorResponse>;
   media: MediaNode;
   post: PostResponse;
@@ -488,6 +508,10 @@ export type Query = {
 
 export type QueryEmailArgs = {
   template_id?: InputMaybe<Scalars['String']>;
+};
+
+export type QueryLetterpadLatestPostArgs = {
+  filters?: InputMaybe<LetterpadPostFilters>;
 };
 
 export type QueryMediaArgs = {

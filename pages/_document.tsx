@@ -90,6 +90,12 @@ class MyDocument extends Document {
             async
           />
           <script src="/static/prism.js" async />
+          <link rel="preconnect" href="https://fonts.googleapis.com" />
+          <link rel="preconnect" href="https://fonts.gstatic.com" />
+          <link
+            href="https://fonts.googleapis.com/css2?family=Tiro+Devanagari+Hindi:ital@0;1&display=swap"
+            rel="stylesheet"
+          />
         </Head>
         <body className="line-numbers bg-white text-black antialiased dark:bg-black dark:bg-opacity-20 dark:text-white">
           <Main />
