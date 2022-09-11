@@ -62,7 +62,7 @@ module.exports = withBundleAnalyzer({
     dirs: ['pages', 'components', 'lib', 'layouts', 'scripts'],
   },
   images: {
-    domains: ['res.cloudinary.com', 'images.unsplash.com', 'localhost'],
+    domains: ['res.cloudinary.com', 'images.unsplash.com', 'localhost', 'letterpad.app'],
   },
   async headers() {
     return [

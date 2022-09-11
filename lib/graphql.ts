@@ -802,7 +802,12 @@ export type AboutQueryQuery = {
         site_url: string;
         site_favicon?: { __typename?: 'Image'; src?: string | null } | null;
         banner?: { __typename?: 'Image'; src?: string | null } | null;
-        site_logo?: { __typename?: 'Image'; src?: string | null } | null;
+        site_logo?: {
+          __typename?: 'Image';
+          src?: string | null;
+          width?: number | null;
+          height?: number | null;
+        } | null;
         menu: Array<{
           __typename?: 'Navigation';
           type: NavigationType;
@@ -834,7 +839,12 @@ export type HomeQueryQuery = {
         site_url: string;
         site_favicon?: { __typename?: 'Image'; src?: string | null } | null;
         banner?: { __typename?: 'Image'; src?: string | null } | null;
-        site_logo?: { __typename?: 'Image'; src?: string | null } | null;
+        site_logo?: {
+          __typename?: 'Image';
+          src?: string | null;
+          width?: number | null;
+          height?: number | null;
+        } | null;
         menu: Array<{
           __typename?: 'Navigation';
           type: NavigationType;
@@ -952,7 +962,12 @@ export type PageQueryWithHtmlQuery = {
         site_url: string;
         site_favicon?: { __typename?: 'Image'; src?: string | null } | null;
         banner?: { __typename?: 'Image'; src?: string | null } | null;
-        site_logo?: { __typename?: 'Image'; src?: string | null } | null;
+        site_logo?: {
+          __typename?: 'Image';
+          src?: string | null;
+          width?: number | null;
+          height?: number | null;
+        } | null;
         menu: Array<{
           __typename?: 'Navigation';
           type: NavigationType;
@@ -1047,7 +1062,12 @@ export type PreviewQueryQuery = {
         site_url: string;
         site_favicon?: { __typename?: 'Image'; src?: string | null } | null;
         banner?: { __typename?: 'Image'; src?: string | null } | null;
-        site_logo?: { __typename?: 'Image'; src?: string | null } | null;
+        site_logo?: {
+          __typename?: 'Image';
+          src?: string | null;
+          width?: number | null;
+          height?: number | null;
+        } | null;
         menu: Array<{
           __typename?: 'Navigation';
           type: NavigationType;
@@ -1156,7 +1176,12 @@ export type TagPostsQueryQuery = {
         site_url: string;
         site_favicon?: { __typename?: 'Image'; src?: string | null } | null;
         banner?: { __typename?: 'Image'; src?: string | null } | null;
-        site_logo?: { __typename?: 'Image'; src?: string | null } | null;
+        site_logo?: {
+          __typename?: 'Image';
+          src?: string | null;
+          width?: number | null;
+          height?: number | null;
+        } | null;
         menu: Array<{
           __typename?: 'Navigation';
           type: NavigationType;
@@ -1203,7 +1228,12 @@ export type TagsQueryQuery = {
         site_url: string;
         site_favicon?: { __typename?: 'Image'; src?: string | null } | null;
         banner?: { __typename?: 'Image'; src?: string | null } | null;
-        site_logo?: { __typename?: 'Image'; src?: string | null } | null;
+        site_logo?: {
+          __typename?: 'Image';
+          src?: string | null;
+          width?: number | null;
+          height?: number | null;
+        } | null;
         menu: Array<{
           __typename?: 'Navigation';
           type: NavigationType;
@@ -1256,7 +1286,12 @@ export type SettingsFragment = {
         site_url: string;
         site_favicon?: { __typename?: 'Image'; src?: string | null } | null;
         banner?: { __typename?: 'Image'; src?: string | null } | null;
-        site_logo?: { __typename?: 'Image'; src?: string | null } | null;
+        site_logo?: {
+          __typename?: 'Image';
+          src?: string | null;
+          width?: number | null;
+          height?: number | null;
+        } | null;
         menu: Array<{
           __typename?: 'Navigation';
           type: NavigationType;

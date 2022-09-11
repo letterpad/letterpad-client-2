@@ -29,13 +29,13 @@ module.exports = {
         14: '3.5rem',
       },
       fontFamily: {
-        sans: ['Tiro Devanagari Hindi', ...defaultTheme.fontFamily.sans],
+        sans: ['PT Serif', ...defaultTheme.fontFamily.sans],
       },
       fontSize: {
         xs: '.75rem',
-        sm: '0.95rem',
-        tiny: '.95rem',
-        base: '1.2rem',
+        sm: '0.9rem',
+        tiny: '.9rem',
+        base: '1.08rem',
       },
       colors: {
         primary: colors.green,

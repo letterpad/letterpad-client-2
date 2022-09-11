@@ -5,6 +5,8 @@ import MobileNav from './MobileNav';
 import ThemeSwitch from './ThemeSwitch';
 import { ReactNode } from 'react';
 import { MeFragment, Navigation, NavigationType, SettingsFragment } from '@/lib/graphql';
+import Image from 'next/image';
+import { LogoWithTitle } from './Logo';
 
 interface Props {
   children: ReactNode;
@@ -32,29 +34,10 @@ const LayoutWrapper = ({ children, props }: Props) => {
   return (
     <SectionContainer>
       <div className="flex h-screen flex-col justify-between">
-        <header className="flex items-center justify-between py-10">
+        <header className="flex items-center justify-between py-10 ">
           <div>
             <Link href="/" aria-label={props.settings.site_title}>
-              <div className="flex items-center justify-between">
-                <span className="mr-2 flex">
-                  {props.settings.site_logo.src && (
-                    // eslint-disable-next-line @next/next/no-img-element
-                    <img
-                      src={props.settings.site_logo.src}
-                      width="36"
-                      height="36"
-                      alt={props.settings.site_title}
-                    />
-                  )}
-                </span>
-                {typeof props.settings.site_title === 'string' ? (
-                  <div className="hidden text-xl font-semibold sm:block">
-                    {props.settings.site_title}
-                  </div>
-                ) : (
-                  props.settings.site_title
-                )}
-              </div>
+              <LogoWithTitle logo={props.settings.site_logo} title={props.settings.site_title} />
             </Link>
           </div>
           <div className="flex items-center text-base leading-5">

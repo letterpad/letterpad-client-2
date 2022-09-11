@@ -1,23 +1,14 @@
 import Link from './Link';
 import SocialIcon from '@/components/social-icons';
 import Subscribe from './Subscribe';
+import { LogoWithTitle } from './Logo';
 
 export default function Footer({ author, settings }) {
   const { social } = author;
   return (
     <footer className="border-t border-gray-200 border-opacity-60 dark:border-gray-700">
-      <div className="mt-8 flex flex-col gap-4 sm:flex-row sm:justify-between">
-        <div className="flex items-center justify-center sm:justify-start">
-          <span className="mr-2 flex">
-            {settings.site_logo.src && (
-              // eslint-disable-next-line @next/next/no-img-element
-              <img src={settings.site_logo.src} width="26" height="26" alt={settings.site_title} />
-            )}
-          </span>
-          <div className="hidden text-xl font-bold text-gray-700 dark:text-gray-200 sm:block">
-            <Link href={settings.site_url}>{settings.site_title}</Link>
-          </div>
-        </div>
+      <div className="mt-8 flex flex-col items-start gap-4 sm:flex-row sm:justify-between">
+        <LogoWithTitle logo={settings.site_logo} title={settings.site_title} />
 
         <Subscribe />
       </div>

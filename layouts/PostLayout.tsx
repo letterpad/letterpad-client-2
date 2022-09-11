@@ -9,7 +9,6 @@ import { ReactNode, useEffect } from 'react';
 import { PageQueryWithHtmlQuery } from '@/lib/graphql';
 import { Share } from '@/components/share';
 import ScrollTop from '@/components/ScrollTop';
-import siteMetadata from '@/data/siteMetadata';
 
 const postDateTemplate: Intl.DateTimeFormatOptions = {
   weekday: 'long',

@@ -24,6 +24,8 @@ export const settingsFragment = gql`
         }
         site_logo {
           src
+          width
+          height
         }
         menu {
           type
