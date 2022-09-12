@@ -8,7 +8,6 @@ interface Logo {
 
 export const LogoWithTitle = ({ logo, title }: { logo: Logo; title: string }) => {
   const logoProps = getLogoWidthAndHeight({ ...logo, title });
-
   const { className, ...props } = logoProps;
   return (
     <div className={'flex justify-between ' + className}>

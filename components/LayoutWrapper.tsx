@@ -5,7 +5,6 @@ import MobileNav from './MobileNav';
 import ThemeSwitch from './ThemeSwitch';
 import { ReactNode } from 'react';
 import { MeFragment, Navigation, NavigationType, SettingsFragment } from '@/lib/graphql';
-import Image from 'next/image';
 import { LogoWithTitle } from './Logo';
 
 interface Props {

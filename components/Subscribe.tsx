@@ -1,5 +1,3 @@
-import gql from 'graphql-tag';
-
 import { useState } from 'react';
 
 const Subscribe = () => {
