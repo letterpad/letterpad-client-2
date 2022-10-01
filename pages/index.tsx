@@ -113,8 +113,17 @@ export async function getServerSideProps(context) {
       },
     };
   }
-
   const { menu } = data.props.data.settings;
+
+  if (menu?.length === 0) {
+    return {
+      redirect: {
+        permanent: false,
+        destination: '/not-found',
+        status: 404,
+      },
+    };
+  }
   const firstItemOfMenu = menu[0];
   const isHomePageACollectionOfPosts = firstItemOfMenu.type === NavigationType.Tag;
   const isHomePageASinglePage = firstItemOfMenu.type === NavigationType.Page;
