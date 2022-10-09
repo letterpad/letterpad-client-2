@@ -5,6 +5,7 @@ import { fetchProps } from '@/lib/client';
 
 import PostLayout from '@/layouts/PostLayout';
 import { PreviewQueryQuery, PreviewQueryQueryVariables } from '@/lib/graphql';
+import Creative from '@/layouts/Creative';
 
 export const previewQuery = gql`
   query PreviewQuery($previewHash: String) {
@@ -39,6 +40,9 @@ export default function Blog({
     return null;
   }
   if (post.author.__typename !== 'Author') return null;
+  if (post.page_type === 'zigzag') {
+    return <Creative data={post} site_name={settings.site_title} settings={settings} me={me} />;
+  }
   return (
     <PostLayout data={{ post, settings, me }}>
       <div dangerouslySetInnerHTML={{ __html: post.html }}></div>

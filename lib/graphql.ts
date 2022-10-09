@@ -107,6 +107,7 @@ export type Exception = LetterpadError & {
 export type Failed = LetterpadError & {
   __typename?: 'Failed';
   message: Scalars['String'];
+  type?: Maybe<Failed>;
 };
 
 export type Forbidden = LetterpadError & {
@@ -159,6 +160,8 @@ export type InputCreatePost = {
   excerpt?: InputMaybe<Scalars['String']>;
   featured?: InputMaybe<Scalars['Boolean']>;
   html?: InputMaybe<Scalars['String']>;
+  page_data?: InputMaybe<Scalars['String']>;
+  page_type?: InputMaybe<Scalars['String']>;
   slug?: InputMaybe<Scalars['String']>;
   status?: InputMaybe<PostStatusOptions>;
   tags?: InputMaybe<Array<InputMaybe<TagsInputType>>>;
@@ -212,6 +215,8 @@ export type InputUpdatePost = {
   html?: InputMaybe<Scalars['String']>;
   html_draft?: InputMaybe<Scalars['String']>;
   id: Scalars['Int'];
+  page_data?: InputMaybe<Scalars['String']>;
+  page_type?: InputMaybe<Scalars['String']>;
   publishedAt?: InputMaybe<Scalars['Date']>;
   scheduledAt?: InputMaybe<Scalars['Date']>;
   slug?: InputMaybe<Scalars['String']>;
@@ -417,6 +422,8 @@ export type Post = {
   html?: Maybe<Scalars['String']>;
   html_draft?: Maybe<Scalars['String']>;
   id: Scalars['Int'];
+  page_data?: Maybe<Scalars['String']>;
+  page_type?: Maybe<Scalars['String']>;
   publishedAt?: Maybe<Scalars['Date']>;
   reading_time?: Maybe<Scalars['String']>;
   scheduledAt?: Maybe<Scalars['Date']>;
@@ -469,6 +476,7 @@ export type PostsFilters = {
   limit?: InputMaybe<Scalars['Int']>;
   offset?: InputMaybe<Scalars['Int']>;
   page?: InputMaybe<Scalars['Int']>;
+  page_type?: InputMaybe<Scalars['String']>;
   previewHash?: InputMaybe<Scalars['String']>;
   slug?: InputMaybe<Scalars['String']>;
   sortBy?: InputMaybe<SortBy>;
@@ -895,6 +903,8 @@ export type PageQueryWithHtmlQuery = {
         slug?: string | null;
         title: string;
         reading_time?: string | null;
+        page_type?: string | null;
+        page_data?: string | null;
         publishedAt?: any | null;
         updatedAt: any;
         excerpt?: string | null;
@@ -995,6 +1005,8 @@ export type PreviewQueryQuery = {
         slug?: string | null;
         title: string;
         reading_time?: string | null;
+        page_type?: string | null;
+        page_data?: string | null;
         publishedAt?: any | null;
         updatedAt: any;
         excerpt?: string | null;
@@ -1116,7 +1128,7 @@ export type TagPostsQueryQuery = {
           excerpt?: string | null;
           cover_image: { __typename?: 'Image'; src?: string | null };
           author?:
-            | { __typename?: 'Author'; name: string; avatar?: string | null }
+            | { __typename: 'Author'; name: string; avatar?: string | null }
             | { __typename?: 'Exception' }
             | { __typename?: 'Failed' }
             | { __typename?: 'NotFound' }
@@ -1335,6 +1347,8 @@ export type PageFragmentFragment = {
   slug?: string | null;
   title: string;
   reading_time?: string | null;
+  page_type?: string | null;
+  page_data?: string | null;
   html?: string | null;
   publishedAt?: any | null;
   updatedAt: any;
@@ -1346,7 +1360,7 @@ export type PageFragmentFragment = {
     | null;
   author?:
     | {
-        __typename?: 'Author';
+        __typename: 'Author';
         id: number;
         name: string;
         avatar?: string | null;
@@ -1373,7 +1387,7 @@ export type PostsFragmentFragment = {
     excerpt?: string | null;
     cover_image: { __typename?: 'Image'; src?: string | null };
     author?:
-      | { __typename?: 'Author'; name: string; avatar?: string | null }
+      | { __typename: 'Author'; name: string; avatar?: string | null }
       | { __typename?: 'Exception' }
       | { __typename?: 'Failed' }
       | { __typename?: 'NotFound' }
@@ -1403,6 +1417,8 @@ export type PageQueryQuery = {
         slug?: string | null;
         title: string;
         reading_time?: string | null;
+        page_type?: string | null;
+        page_data?: string | null;
         html?: string | null;
         publishedAt?: any | null;
         updatedAt: any;
@@ -1417,7 +1433,7 @@ export type PageQueryQuery = {
           | null;
         author?:
           | {
-              __typename?: 'Author';
+              __typename: 'Author';
               id: number;
               name: string;
               avatar?: string | null;
@@ -1454,7 +1470,7 @@ export type PostsQueryQuery = {
           excerpt?: string | null;
           cover_image: { __typename?: 'Image'; src?: string | null };
           author?:
-            | { __typename?: 'Author'; name: string; avatar?: string | null }
+            | { __typename: 'Author'; name: string; avatar?: string | null }
             | { __typename?: 'Exception' }
             | { __typename?: 'Failed' }
             | { __typename?: 'NotFound' }

@@ -16,6 +16,7 @@ import PostGrid from '@/components/PostGrid';
 import PostList from '@/components/PostList';
 import Head from 'next/head';
 import PostSimple from '@/layouts/PostSimple';
+import Creative from '@/layouts/Creative';
 
 // const MAX_DISPLAY = 5;
 
@@ -38,7 +39,7 @@ export default function Home({
 }: InferGetServerSidePropsType<typeof getServerSideProps>) {
   const { theme = 'minimal' } = settings;
   const Component = theme === 'minimal' ? PostList : PostGrid;
-
+  console.log(page);
   return (
     <>
       <Head>
@@ -63,15 +64,17 @@ export default function Home({
             {settings.site_description}
           </p>
         </div>
-
         {posts?.__typename === 'Exception' ? 'No posts found.' : ''}
         {posts?.__typename === 'PostsNode' && posts.rows.length === 0 && 'No posts found.'}
 
         {!isPage && posts.__typename === 'PostsNode' && <Component posts={posts} />}
-        {isPage && page.__typename === 'Post' && (
+        {isPage && page.__typename === 'Post' && page.page_type === 'default' && (
           <PostSimple data={page} site_name={settings.site_title} settings={settings} me={me}>
             <div dangerouslySetInnerHTML={{ __html: page.html }}></div>
           </PostSimple>
+        )}
+        {isPage && page.__typename === 'Post' && page.page_type !== 'default' && (
+          <Creative data={page} site_name={settings.site_title} settings={settings} me={me} />
         )}
       </div>
     </>
