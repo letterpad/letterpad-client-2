@@ -1,4 +1,5 @@
 import Link from '@/components/Link';
+import SectionContainer from '@/components/SectionContainer';
 import { PageSEO } from '@/components/SEO';
 import Tag from '@/components/Tag';
 import { fetchProps } from '@/lib/client';
@@ -63,23 +64,25 @@ export default function Tags({
             Tags
           </h1>
         </div>
-        <div className="flex max-w-lg flex-wrap">
-          {Object.keys(tags).length === 0 && 'No tags found.'}
-          {tags.rows.map((t) => {
-            const count = t.posts.__typename === 'PostsNode' ? t.posts.count : 0;
-            return (
-              <div key={t.name} className="mt-2 mb-2 mr-5">
-                <Tag text={t.name} />
-                <Link
-                  href={`/tags/${kebabCase(t.name)}`}
-                  className="-ml-2 text-sm font-semibold uppercase text-gray-600 dark:text-gray-300"
-                >
-                  {`(${count})`}
-                </Link>
-              </div>
-            );
-          })}
-        </div>
+        <SectionContainer>
+          <div className="flex max-w-lg flex-wrap">
+            {Object.keys(tags).length === 0 && 'No tags found.'}
+            {tags.rows.map((t) => {
+              const count = t.posts.__typename === 'PostsNode' ? t.posts.count : 0;
+              return (
+                <div key={t.name} className="mt-2 mb-2 mr-5">
+                  <Tag text={t.name} />
+                  <Link
+                    href={`/tags/${kebabCase(t.name)}`}
+                    className="-ml-2 text-sm font-semibold uppercase text-gray-600 dark:text-gray-300"
+                  >
+                    {`(${count})`}
+                  </Link>
+                </div>
+              );
+            })}
+          </div>
+        </SectionContainer>
       </div>
     </>
   );

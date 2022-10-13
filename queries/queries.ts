@@ -66,7 +66,10 @@ export const pageFragment = gql`
       slug
       title
       reading_time
+      page_type
+      page_data
       html
+      type
       publishedAt
       updatedAt
       excerpt
@@ -84,6 +87,7 @@ export const pageFragment = gql`
           name
           avatar
           occupation
+          __typename
         }
       }
       cover_image {
@@ -110,6 +114,7 @@ export const postsFragment = gql`
           ... on Author {
             name
             avatar
+            __typename
           }
         }
         publishedAt

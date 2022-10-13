@@ -4,6 +4,7 @@ import { InferGetServerSidePropsType } from 'next';
 import { fetchProps } from '@/lib/client';
 import { PageQueryWithHtmlQuery, PageQueryWithHtmlQueryVariables } from '@/lib/graphql';
 import PostLayout from '@/layouts/PostLayout';
+import Creative from '@/layouts/Creative';
 
 const pageQueryWithHtml = gql`
   query PageQueryWithHtml($slug: String) {
@@ -35,6 +36,13 @@ export default function Blog({
   settings,
   me,
 }: InferGetServerSidePropsType<typeof getServerSideProps>) {
+  if (
+    post.__typename === 'Post' &&
+    post.page_type === 'story-builder' &&
+    settings.__typename === 'Setting'
+  ) {
+    return <Creative data={post} site_name={settings.site_title} settings={settings} me={me} />;
+  }
   if (post.__typename === 'Post' && settings.__typename === 'Setting') {
     return (
       <PostLayout data={{ post, settings, me }}>

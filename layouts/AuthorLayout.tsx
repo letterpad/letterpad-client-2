@@ -2,6 +2,7 @@ import SocialIcon from '@/components/social-icons';
 import { PageSEO } from '@/components/SEO';
 import { ReactNode } from 'react';
 import { AuthorFrontMatter } from 'types/AuthorFrontMatter';
+import SectionContainer from '@/components/SectionContainer';
 
 interface Props {
   children: ReactNode;
@@ -14,7 +15,7 @@ export default function AuthorLayout({ children, data, site_title, site_url }: P
   const { name, avatar, occupation, company, email, twitter, linkedin, github, banner } = data;
 
   return (
-    <>
+    <SectionContainer>
       <PageSEO
         title={`About - ${name}`}
         description={`About me - ${name}`}
@@ -54,6 +55,6 @@ export default function AuthorLayout({ children, data, site_title, site_url }: P
           <div className="prose max-w-none pt-8 pb-8 dark:prose-dark xl:col-span-2">{children}</div>
         </div>
       </div>
-    </>
+    </SectionContainer>
   );
 }
