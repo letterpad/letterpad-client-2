@@ -39,7 +39,7 @@ export default function Home({
 }: InferGetServerSidePropsType<typeof getServerSideProps>) {
   const { theme = 'minimal' } = settings;
   const Component = theme === 'minimal' ? PostList : PostGrid;
-  console.log(page);
+
   return (
     <>
       <Head>
