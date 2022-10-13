@@ -29,7 +29,7 @@ export default function Creative({ site_name, data, settings, me }: Props) {
     },
   ];
   return (
-    <SectionContainer>
+    <>
       <BlogSEO
         url={`${settings.site_url}${slug}`}
         date={publishedAt}
@@ -49,6 +49,6 @@ export default function Creative({ site_name, data, settings, me }: Props) {
           <PhotoStory data={data} />
         </div>
       </article>
-    </SectionContainer>
+    </>
   );
 }

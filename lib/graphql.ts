@@ -905,6 +905,7 @@ export type PageQueryWithHtmlQuery = {
         reading_time?: string | null;
         page_type?: string | null;
         page_data?: string | null;
+        type: PostTypes;
         publishedAt?: any | null;
         updatedAt: any;
         excerpt?: string | null;
@@ -1007,6 +1008,7 @@ export type PreviewQueryQuery = {
         reading_time?: string | null;
         page_type?: string | null;
         page_data?: string | null;
+        type: PostTypes;
         publishedAt?: any | null;
         updatedAt: any;
         excerpt?: string | null;
@@ -1350,6 +1352,7 @@ export type PageFragmentFragment = {
   page_type?: string | null;
   page_data?: string | null;
   html?: string | null;
+  type: PostTypes;
   publishedAt?: any | null;
   updatedAt: any;
   excerpt?: string | null;
@@ -1420,6 +1423,7 @@ export type PageQueryQuery = {
         page_type?: string | null;
         page_data?: string | null;
         html?: string | null;
+        type: PostTypes;
         publishedAt?: any | null;
         updatedAt: any;
         excerpt?: string | null;

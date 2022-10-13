@@ -69,6 +69,7 @@ export const pageFragment = gql`
       page_type
       page_data
       html
+      type
       publishedAt
       updatedAt
       excerpt

@@ -31,8 +31,8 @@ const LayoutWrapper = ({ children, props }: Props) => {
 
   const menu = getMenu(routes);
   return (
-    <SectionContainer>
-      <div className="flex h-screen flex-col justify-between">
+    <>
+      <SectionContainer>
         <header className="flex items-center justify-between py-10 ">
           <div>
             <Link href="/" aria-label={props.settings.site_title}>
@@ -45,14 +45,15 @@ const LayoutWrapper = ({ children, props }: Props) => {
             <MobileNav routes={routes} />
           </div>
         </header>
-        <main className="mb-auto">{children}</main>
-        <br />
-        <br />
-        <br />
-
+      </SectionContainer>
+      <main className="mb-auto">{children}</main>
+      <br />
+      <br />
+      <br />
+      <SectionContainer>
         <Footer author={props.me} settings={props.settings} />
-      </div>
-    </SectionContainer>
+      </SectionContainer>
+    </>
   );
 };
 
